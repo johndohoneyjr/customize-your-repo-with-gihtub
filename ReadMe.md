@@ -4,7 +4,7 @@
 
 GitHub Copilot is more than autocomplete. When properly configured, it becomes a context-aware development partner that understands your architecture, follows your conventions, and produces code that passes review on the first try.
 
-This guide is the complete reference for GitHub Copilot's six customization primitives—the configuration files and patterns that transform Copilot from a generic AI assistant into a team member who knows your codebase.
+This guide is the complete reference for GitHub Copilot's customization primitives—the configuration files and patterns that transform Copilot from a generic AI assistant into a team member who knows your codebase.
 
 ---
 
@@ -21,7 +21,7 @@ This guide is written for developers and engineering leads who want to maximize 
 By the end of this guide, you will understand:
 
 - **Why customization matters** — The difference between fighting Copilot and working with it
-- **The six primitives** — What each configuration type does, when it activates, and when to use it
+- **The customization primitives** — What each configuration type does, when it activates, and when to use it
 - **How primitives layer** — The mental model for how instructions, prompts, skills, agents, and MCP combine
 - **Practical patterns** — Ready-to-use templates and real-world examples
 - **Iteration strategies** — How to refine your configuration based on feedback
@@ -54,7 +54,7 @@ Understanding when and how to use each primitive is the core of this guide.
 
 Start here. This section establishes the mental model for thinking about Copilot customization: why it matters, how the primitives layer together, strategies for iteration, and approaches for measuring success. The foundations section provides the conceptual framework that makes the rest of the guide actionable.
 
-### [Part II: The Six Primitives](docs/part-2-primitives.md)
+### [Part II: The Primitives](docs/part-2-primitives.md)
 
 The heart of the guide. Each primitive receives comprehensive coverage including syntax, configuration options, practical examples, common patterns, and guidance on when to use it versus alternatives.
 
@@ -64,6 +64,7 @@ The heart of the guide. Each primitive receives comprehensive coverage including
 - [2.4 Skills](docs/part-2-4-skills.md) — Discoverable procedural knowledge
 - [2.5 Custom Agents](docs/part-2-5-custom-agents.md) — Specialized AI personas
 - [2.6 MCP](docs/part-2-6-mcp.md) — External tool integration
+- [2.7 Hooks](docs/part-2-7-hooks.md) — Runtime enforcement and audit logging
 
 ### [Part III: Reference](docs/part-3-reference.md)
 

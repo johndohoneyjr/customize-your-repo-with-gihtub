@@ -156,4 +156,4 @@ For a detailed exploration with practical examples (Git, Jira, file operations),
 
 ---
 
-[? Custom Agents](part-2-5-custom-agents.md) | [Next: Part III - Reference ?](part-3-reference.md)
+[← Custom Agents](part-2-5-custom-agents.md) | [Next: Hooks →](part-2-7-hooks.md)

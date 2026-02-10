@@ -1,10 +1,10 @@
-# Part II: The Six Primitives
+# Part II: The Primitives
 
 [← Back to Guide](../ReadMe.md) | [← Part I: Foundations](part-1-foundations.md)
 
 ---
 
-GitHub Copilot provides six customization primitives. Each serves a specific purpose and loads at different points in the interaction lifecycle.
+GitHub Copilot provides six customization primitives that shape what Copilot knows and how it thinks. A seventh mechanism — hooks — provides runtime enforcement and observability for the coding agent.
 
 | Primitive | Location | When Loaded | Scope |
 |-----------|----------|-------------|-------|
@@ -14,6 +14,7 @@ GitHub Copilot provides six customization primitives. Each serves a specific pur
 | [**Skills**](part-2-4-skills.md) | `.github/skills/*/SKILL.md` | Description matches intent | Single task |
 | [**Custom Agents**](part-2-5-custom-agents.md) | `.github/agents/*.md` | User invokes `@name` | Until switched |
 | [**MCP**](part-2-6-mcp.md) | `.vscode/mcp.json` | Session start | Entire session |
+| [**Hooks**](part-2-7-hooks.md) | `.github/hooks/*.json` | Agent session events | Coding agent only |
 
 ---
 
@@ -37,6 +38,11 @@ User's Message
 +-----------------------------------------+
      ↓
 Response
+     ↓
++-----------------------------------------+
+|    Hooks (coding agent only)            |  ← Runtime enforcement
+|    preToolUse / postToolUse / etc.      |  ← Audit, deny, log
++-----------------------------------------+
 ```
 
 Each layer adds specificity. The foundation (always-on instructions) applies everywhere; other primitives activate based on context.
@@ -93,6 +99,10 @@ Specialized AI personas with defined behaviors and tool access. Build code revie
 ## 6. [MCP (Model Context Protocol)](part-2-6-mcp.md)
 
 External service integrations. Connect Copilot to databases, APIs, ticketing systems, and any external tool your workflow requires.
+
+## 7. [Hooks](part-2-7-hooks.md)
+
+Runtime enforcement and observability for the coding agent. Execute custom shell commands at key points during agent sessions to enforce security policies, produce audit trails, block dangerous operations, and send notifications. Hooks operate outside the model's context — they don't influence how Copilot thinks, but they govern what the agent is allowed to do.
 
 ---
 

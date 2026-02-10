@@ -14,6 +14,7 @@
 | Skills | `.github/skills/*/` | `SKILL.md` |
 | Custom Agents | `.github/agents/` OR anywhere | `.agent.md` or any `.md` in agents/ |
 | MCP Servers | `.vscode/mcp.json` | `.json` |
+| Hooks | `.github/hooks/` | `.json` |
 
 ---
 
@@ -232,6 +233,53 @@ handoffs:
 
 ---
 
+## Hooks Configuration
+
+### Hook File Format
+
+Hook configuration files live in `.github/hooks/` and require `version: 1`:
+
+```json
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [...],
+    "sessionEnd": [...],
+    "userPromptSubmitted": [...],
+    "preToolUse": [...],
+    "postToolUse": [...],
+    "errorOccurred": [...]
+  }
+}
+```
+
+### Hook Object Fields
+
+| Field | Required | Type | Description |
+|-------|----------|------|-------------|
+| `type` | Yes | string | Must be `"command"` |
+| `bash` | Yes (Unix) | string | Shell command or path to script |
+| `powershell` | Yes (Windows) | string | PowerShell command or path to script |
+| `cwd` | No | string | Working directory (relative to repo root) |
+| `env` | No | object | Environment variables |
+| `timeoutSec` | No | number | Max execution time in seconds (default: 30) |
+| `comment` | No | string | Human-readable description |
+
+### Hook Types Quick Reference
+
+| Hook | Input Fields | Output | Can Block? |
+|------|-------------|--------|------------|
+| `sessionStart` | `timestamp`, `cwd`, `source`, `initialPrompt` | Ignored | No |
+| `sessionEnd` | `timestamp`, `cwd`, `reason` | Ignored | No |
+| `userPromptSubmitted` | `timestamp`, `cwd`, `prompt` | Ignored | No |
+| `preToolUse` | `timestamp`, `cwd`, `toolName`, `toolArgs` | `permissionDecision` + `permissionDecisionReason` | **Yes** |
+| `postToolUse` | `timestamp`, `cwd`, `toolName`, `toolArgs`, `toolResult` | Ignored | No |
+| `errorOccurred` | `timestamp`, `cwd`, `error` | Ignored | No |
+
+For comprehensive documentation with practical examples, see [Part 2.7: Hooks](part-2-7-hooks.md).
+
+---
+
 ## Context Window Guidelines
 
 | Content Type | Recommended Size |
@@ -256,6 +304,7 @@ handoffs:
 | Skills | Description matches user request |
 | Custom Agents | User selects or handoff triggers |
 | MCP Servers | Session start (if configured) |
+| Hooks | During coding agent/CLI sessions (on lifecycle events) |
 
 ---
 
@@ -270,6 +319,9 @@ handoffs:
 | Specialized AI persona | Custom Agent |
 | External API/database access | MCP Server |
 | Rules + external access | Skill + MCP together |
+| Block dangerous agent commands | Hook (`preToolUse`) |
+| Audit all agent actions | Hooks (all types) |
+| Runtime security enforcement | Hook (`preToolUse`) + Instructions |
 
 ---
 
@@ -291,6 +343,7 @@ Verify file location:
 - Skills: `.github/skills/*/SKILL.md`
 - Agents: `.github/agents/*.md` or `**/*.agent.md`
 - MCP: `.vscode/mcp.json`
+- Hooks: `.github/hooks/*.json`
 
 ---
 
@@ -326,6 +379,16 @@ Verify file location:
 | 100+ tools | Slow, inaccurate | Under 70 tools |
 | All servers always on | Wasted context | Disable unused servers |
 | Hardcoded secrets | Security risk | Use `${env:VAR}` |
+
+### Hooks
+| Don't | Why | Do Instead |
+|-------|-----|------------|
+| Use hooks *instead* of instructions | Hooks can only deny; they can't guide code generation | Use instructions for guidance, hooks for enforcement |
+| Slow synchronous network calls | Blocks agent execution for every tool call | Fire-and-forget (`curl ... &`) or batch at session end |
+| Log secrets in audit trails | Logs may be persisted or shared | Filter sensitive fields before writing |
+| Overly broad deny rules | Agent becomes ineffective | Be precise in pattern matching; test against real workflows |
+| Only provide `bash` scripts | Hooks fail silently on Windows | Always include both `bash` and `powershell` variants |
+| Skip `timeoutSec` | Default 30s may be too long or too short | Set timeout appropriate to each hook's operation |
 
 ---
 
@@ -468,19 +531,51 @@ You are [persona description].
 }
 ```
 
+### Hooks Configuration
+
+```json
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "./scripts/hooks/security-check.sh",
+        "powershell": "./scripts/hooks/security-check.ps1",
+        "cwd": ".",
+        "timeoutSec": 10,
+        "comment": "[Describe what this hook enforces]"
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "bash": "./scripts/hooks/audit-log.sh",
+        "powershell": "./scripts/hooks/audit-log.ps1",
+        "comment": "[Describe what this hook logs]"
+      }
+    ]
+  }
+}
+```
+
 ---
 
 ## Primitive Comparison
 
-| | Instructions | File-Based | Prompts | Skills | Agents | MCP |
-|-|--------------|------------|---------|--------|--------|-----|
-| **Always loaded** | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **User invokes** | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ |
-| **Auto-activates** | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ |
-| **Has frontmatter** | ❌ | ✅ | ✅ | ✅ | ✅ | N/A |
-| **Can include files** | ❌ | ❌ | ❌ | ✅ | ❌ | N/A |
-| **External access** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Portable** | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
+| | Instructions | File-Based | Prompts | Skills | Agents | MCP | Hooks |
+|-|--------------|------------|---------|--------|--------|-----|-------|
+| **Always loaded** | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌¹ |
+| **User invokes** | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ |
+| **Auto-activates** | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ | ✅¹ |
+| **Has frontmatter** | ❌ | ✅ | ✅ | ✅ | ✅ | N/A | N/A |
+| **Can include files** | ❌ | ❌ | ❌ | ✅ | ❌ | N/A | N/A |
+| **External access** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| **Portable** | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
+| **Can block actions** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Visible to LLM** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+
+¹ Hooks are only active during coding agent and Copilot CLI sessions, not in Chat/Completions/Inline.
 
 ---
 
@@ -546,8 +641,8 @@ Reference environment variables with `${env:VAR_NAME}`:
 | Day 1 | Create `copilot-instructions.md` with 5 key rules | Immediate convention enforcement |
 | Week 1 | Add 2-3 prompt files for repeated tasks | Consistent task automation |
 | Month 1 | Implement custom agents for specialized workflows | Role-based AI assistance |
-| Quarter 1 | Evaluate MCP servers and Skills | External integrations, portable capabilities |
+| Quarter 1 | Evaluate MCP servers, Skills, and Hooks | External integrations, portable capabilities, runtime enforcement |
 
 ---
 
-[← Part II: The Six Primitives](part-2-primitives.md) | [Back to Guide →](../ReadMe.md)
+[← Part II: The Primitives](part-2-primitives.md) | [Back to Guide →](../ReadMe.md)

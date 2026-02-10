@@ -32,6 +32,9 @@ Custom Agent files use the `.agent.md` extension and support these frontmatter f
 | `model` | AI model to use (e.g., `Claude Opus 4.6`, `GPT-5.2`) |
 | `handoffs` | Define transitions to other agents |
 | `argument-hint` | Hint text for user interaction |
+| `user-invokable` | Whether the agent appears in the agents dropdown (default: `true`). Set to `false` to create subagent-only agents |
+| `disable-model-invocation` | Prevents the agent from being invoked as a subagent by other agents (default: `false`). Set to `true` for user-only agents |
+| `agents` | Restrict which custom agents this agent can invoke as subagents. Accepts agent names, `*` (all), or `[]` (none) |
 
 ```markdown
 ---
@@ -205,29 +208,193 @@ You are a meticulous code reviewer focused on code quality and team standards.
 
 ### Sub-Agents: Context Isolation for Complex Workflows
 
-Custom agents can be invoked as **sub-agents** by other workflows. This pattern solves a critical problem: long-running, context-heavy tasks can cause the main conversation to lose focus or "forget" important details.
+Sub-agents run tasks in a **dedicated, isolated context window** separate from the main chat session. The main agent delegates work to a sub-agent, which executes autonomously and returns only its final result — keeping the primary context clean and focused.
+
+By default, sub-agents inherit the agent and model from the main chat session. By running a custom agent as a sub-agent, specialized behavior, tools, and models can be applied to specific sub-tasks.
 
 **Why Sub-Agents Matter:**
-- Each sub-agent runs in isolated context
-- Prevents context bleed between unrelated tasks
-- Allows heavy workflows without overwhelming the main conversation
-- Sub-agent returns a summary, not the full context
+
+| Benefit | Description |
+|---------|-------------|
+| **Keep main context focused** | The main agent's context window accumulates information from every prompt and response. Offloading research, analysis, or implementation to sub-agents prevents context bloat. |
+| **Parallel execution** | VS Code can run multiple sub-agents simultaneously — research authentication patterns, analyze code structure, and review documentation all at once. |
+| **Isolate experimental work** | Sub-agents are ideal for exploration. If a sub-agent's research leads to a dead end, only the final summary affects the main context — not all the intermediate steps. |
+| **Specialized behavior** | Combine sub-agents with custom agents to apply different tools, instructions, and models per sub-task. A security agent reviews for vulnerabilities while a docs agent generates user guides. |
+| **Reduce token usage** | Sub-agents have their own context windows and don't add full conversation history to the main agent. Only the final result returns, significantly reducing token consumption for complex tasks. |
 
 **The Pattern:**
 ```
 Main conversation: "Implement this feature and create a PR"
-+-- Sub-agent 1: Makes code changes (isolated context)
-+-- Sub-agent 2: Runs tests (isolated context)  
-+-- Sub-agent 3: Creates PR (isolated context)
+├── Sub-agent 1: Researches existing patterns (isolated context)
+├── Sub-agent 2: Makes code changes (isolated context)
+├── Sub-agent 3: Runs tests (isolated context)  
+└── Sub-agent 4: Creates PR (isolated context)
 ```
 
 Each sub-agent focuses on its specific task without inheriting irrelevant context from sibling tasks. The main agent orchestrates and receives summarized results.
 
-**When to Use Sub-Agents:**
-- Tasks that require deep, specialized context
-- Workflows where different steps shouldn't influence each other
-- Long-running operations that might otherwise cause context drift
-- Batch operations (e.g., processing many files independently)
+#### When to Use Sub-Agents
+
+The following scenarios illustrate when sub-agents improve AI-assisted development workflows:
+
+**Research Before Implementation:**
+Before writing code, delegate research to a sub-agent. The sub-agent explores documentation, examines existing patterns, and returns a focused summary — without polluting the main context with all the intermediate exploration.
+
+> **💬 Try this prompt:**
+>
+> *Use a sub-agent to research how authentication is implemented in this codebase. Return only the patterns and conventions I should follow. Then implement the new auth endpoint using those patterns.*
+
+**Parallel Code Analysis:**
+When implementing a feature that touches multiple systems, spawn sub-agents to analyze each area concurrently:
+
+> **💬 Try this prompt:**
+>
+> *I need to add a caching layer. Run sub-agents in parallel to: (1) analyze our current database query patterns, (2) review the existing Redis configuration, and (3) check how other services in this repo handle caching. Then synthesize the findings and implement the cache.*
+
+**Explore Multiple Solutions:**
+Use sub-agents to explore different implementation approaches without committing to one direction:
+
+> **💬 Try this prompt:**
+>
+> *Run three sub-agents to prototype different approaches for the notification system: (1) WebSocket-based, (2) Server-Sent Events, (3) polling. Each should outline the approach, estimate complexity, and note trade-offs. Then compare the results and recommend the best fit.*
+
+**Code Review with Specialized Focus:**
+Different review concerns benefit from isolated, focused analysis:
+
+> **💬 Try this prompt:**
+>
+> *Review the changes in `src/api/` using sub-agents for: (1) security vulnerabilities, (2) performance impact, (3) API contract changes. Compile the findings into a single review summary.*
+
+#### Invoking Sub-Agents
+
+To invoke a sub-agent, the `runSubagent` (also called `agent`) tool must be available. Hint in the chat prompt that a sub-agent should be used — the main agent starts the sub-agent, passes the task, and receives only the final result.
+
+To optimize sub-agent performance, clearly define the task and expected output. This helps the sub-agent focus without passing unnecessary context back to the main agent.
+
+**In Chat:**
+Hint that the task should run in a sub-agent:
+
+> **💬 Try this prompt:**
+>
+> *Run a sub-agent to analyze the test coverage gaps in `src/services/` and return a prioritized list of missing test cases.*
+
+**In a Prompt File:**
+Include the `agent` tool in the prompt's `tools` frontmatter:
+
+```markdown
+---
+name: document-feature
+tools: ['agent', 'read', 'search', 'edit']
+---
+Run a sub-agent to research the new feature implementation details and return
+only information relevant for user documentation.
+
+Then update the docs/ folder with the new documentation.
+```
+
+#### Running Custom Agents as Sub-Agents
+
+By default, a sub-agent inherits the agent from the main chat session. To apply specialized behavior, instruct the main agent to use a specific custom agent for the sub-agent:
+
+> **💬 Try this prompt:**
+>
+> *Run the Security Reviewer agent as a sub-agent to review the authentication changes. Then run the Test Writer agent as a sub-agent to generate tests for the new endpoints.*
+
+#### Controlling Sub-Agent Invocation
+
+Two frontmatter properties control how custom agents interact with the sub-agent system:
+
+| Property | Default | Purpose |
+|----------|---------|--------|
+| `user-invokable` | `true` | Controls whether the agent appears in the agents dropdown in chat. Set to `false` to create agents that are only accessible as sub-agents. |
+| `disable-model-invocation` | `false` | Prevents the agent from being invoked as a sub-agent by other agents. Set to `true` when agents should only be triggered explicitly by users. |
+
+**Sub-agent-only agent** (hidden from dropdown, only invocable by other agents):
+```markdown
+---
+name: internal-security-scanner
+user-invokable: false
+---
+
+You are an internal security scanning agent. Analyze code for OWASP Top 10
+vulnerabilities and return a structured report.
+
+## Output Format
+- Risk level (Critical/High/Medium/Low)
+- Vulnerability type and CWE reference
+- Affected code location
+- Recommended fix
+```
+
+**User-only agent** (visible in dropdown, cannot be invoked as sub-agent):
+```markdown
+---
+name: Personal Coach
+disable-model-invocation: true
+---
+
+You are a personal development coach. This agent should only be
+triggered directly by the user, never delegated to by other agents.
+```
+
+#### Restricting Which Sub-Agents Can Be Used
+
+By default, all custom agents that don't have `disable-model-invocation: true` are available as sub-agents. If two or more agents have similar names or descriptions, the AI might select an unintended one.
+
+The `agents` property restricts which custom agents a given agent can invoke as sub-agents:
+
+| Value | Behavior |
+|-------|----------|
+| `*` | Allow all available agents (default) |
+| `['Agent1', 'Agent2']` | Allow only the named agents |
+| `[]` | Prevent any sub-agent use |
+
+**Example: TDD Orchestrator with restricted sub-agents:**
+
+```markdown
+---
+name: TDD
+tools: ['agent']
+agents: ['Red', 'Green', 'Refactor']
+---
+
+Implement features using test-driven development. Use sub-agents to guide
+each step of the cycle:
+
+1. Use the **Red** agent to write failing tests that define the expected behavior
+2. Use the **Green** agent to implement the minimum code to pass the tests
+3. Use the **Refactor** agent to improve code quality while keeping tests green
+
+Repeat the cycle until the feature is complete.
+```
+
+Without the `agents` restriction, the TDD orchestrator might select a generic coding agent instead of the specialized Red/Green/Refactor agents.
+
+**Example: Research Coordinator that prevents unintended delegation:**
+
+```markdown
+---
+name: Research Coordinator
+tools: ['agent', 'search', 'readFile', 'fetch']
+agents: ['API Researcher', 'Docs Analyzer', 'Codebase Scout']
+---
+
+You coordinate research tasks by delegating to specialized research agents.
+Synthesize their findings into a cohesive summary.
+
+## Your Process
+1. Break the research question into focused sub-questions
+2. Delegate each to the most appropriate research agent
+3. Collect and cross-reference findings
+4. Produce a unified research brief with citations
+```
+
+#### Combining Handoffs and Sub-Agents
+
+Handoffs and sub-agents work together but serve different roles:
+
+- **Handoffs** create explicit, user-visible workflow transitions ("Start Implementation" button)
+- **Sub-agents** are autonomous delegations the agent decides to make during execution
 
 **Defining Handoffs:**
 ```markdown
