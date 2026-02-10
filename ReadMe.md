@@ -1,6 +1,8 @@
 ﻿# The Definitive Guide to Customizing GitHub Copilot
 
-*Published: February 5, 2026. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
+**Short link:** [aka.ms/GitHubCopilotGuideForHumans](https://aka.ms/GithHubCopilotGuideForHumans)
+
+*Published: February 10, 2026. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
 
 GitHub Copilot is more than autocomplete. When properly configured, it becomes a context-aware development partner that understands your architecture, follows your conventions, and produces code that passes review on the first try.
 
