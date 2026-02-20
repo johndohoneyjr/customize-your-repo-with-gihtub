@@ -37,7 +37,7 @@ You can start anywhere using the table of contents below, but if you're new to C
 
 ## The Primitives
 
-GitHub Copilot provides seven customization primitives. Each serves a distinct purpose and loads at different points in your workflow:
+GitHub Copilot provides eight customization primitives. Each serves a distinct purpose and loads at different points in your workflow:
 
 | Primitive | Location | Purpose |
 |-----------|----------|---------|
@@ -48,7 +48,7 @@ GitHub Copilot provides seven customization primitives. Each serves a distinct p
 | [**Custom Agents**](docs/part-2-5-custom-agents.md) | `.github/agents/*.md` | Specialized AI personas with defined behaviors |
 | [**MCP (Model Context Protocol)**](docs/part-2-6-mcp.md) | `.vscode/mcp.json` | Connections to external tools, APIs, and data sources |
 | [**Hooks (Preview)**](docs/part-2-7-hooks.md) | `.github/hooks/*.json` | Runtime enforcement and audit logging for agent sessions |
-| [**Memory (Preview)**](docs/part-3-reference.md#copilot-memory-preview) | GitHub account (cloud) | Persistent personal preferences across sessions |
+| [**Memory (Preview)**](docs/part-2-8-memory.md) | GitHub cloud (repository-scoped) | Learned codebase knowledge that persists across sessions |
 
 Understanding when and how to use each primitive is the core of this guide.
 
@@ -73,10 +73,11 @@ The heart of the guide. Each primitive receives comprehensive coverage including
 - [2.5 Custom Agents](docs/part-2-5-custom-agents.md) — Specialized AI personas
 - [2.6 MCP](docs/part-2-6-mcp.md) — External tool integration
 - [2.7 Hooks (Preview)](docs/part-2-7-hooks.md) — Runtime enforcement and audit logging
+- [2.8 Memory (Preview)](docs/part-2-8-memory.md) — Learned codebase knowledge across sessions
 
 ### [Part III: Reference](docs/part-3-reference.md)
 
-Quick reference tables, starter templates, configuration reference for all primitives, and [Copilot Memory (Preview)](docs/part-3-reference.md#copilot-memory-preview).
+Quick reference tables, starter templates, and configuration reference for all primitives.
 
 ---
 

@@ -15,6 +15,7 @@
 | Custom Agents | `.github/agents/` OR anywhere | `.agent.md` or any `.md` in agents/ |
 | MCP Servers | `.vscode/mcp.json` | `.json` |
 | Hooks | `.github/hooks/` | `.json` |
+| Memory | GitHub cloud (repository-scoped) | N/A |
 
 ---
 
@@ -321,41 +322,7 @@ VS Code 1.109.3+ supports hooks in Chat agent sessions via file-based configurat
 
 ## Copilot Memory (Preview)
 
-Copilot Memory stores and recalls important information across chat sessions, eliminating the need to re-state preferences every time a new conversation starts. Think of it as a personal notebook that the agent reads before responding — except the notebook updates itself.
-
-**Setting:** `github.copilot.chat.copilotMemory.enabled` — set to `true` to enable the memory tool.
-
-When enabled, the agent gains access to a memory tool that recognizes when to store information and when to retrieve it. Telling the agent "always ask clarifying questions before refactoring" saves that preference as a memory. In future sessions — even in different workspaces — the agent recalls that preference automatically.
-
-| Aspect | Details |
-|--------|--------|
-| **What it stores** | User preferences, project conventions, decisions, workflow patterns |
-| **Scope** | Tied to the user's GitHub account — persists across workspaces and sessions |
-| **Storage & retrieval** | The agent reads and writes memories during chat; no manual file editing required |
-| **Management** | View and delete memories from [GitHub's Copilot settings](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/copilot-memory) |
-| **Official docs** | [VS Code 1.109 release notes](https://code.visualstudio.com/updates/v1_109#_copilot-memory-preview) |
-
-### Good vs. Bad Memory Usage
-
-| | Example | Why |
-|-|---------|-----|
-| ✅ | "I prefer named exports over default exports" | Clear personal preference the agent can act on consistently |
-| ✅ | "When I ask for tests, use Vitest with `describe`/`it` blocks" | Specific, actionable convention |
-| ✅ | "My team's API base path is `/api/v2`" | Factual context that reduces repeated corrections |
-| ❌ | Storing an entire style guide in memory | Too large — use always-on instructions or file-based instructions instead |
-| ❌ | "Write good code" | Too vague to influence behavior |
-| ❌ | Project-specific architecture decisions the whole team needs | Team knowledge belongs in customization files, not personal memory |
-
-### Memory vs. Customization Primitives
-
-Copilot Memory is **complementary** to repository customization — not a replacement for any primitive.
-
-| Layer | Scope | Audience | Lives In |
-|-------|-------|----------|----------|
-| Customization files (instructions, skills, agents) | Repository | Everyone on the team | `.github/` |
-| Copilot Memory | GitHub account | Individual developer | GitHub's cloud storage |
-
-The rule of thumb: if a convention applies to the whole team, encode it in customization files. If it applies to one developer's workflow preferences, let Memory handle it.
+For comprehensive coverage of Copilot Memory — including architecture, enablement, memory lifecycle, and practical guidance — see [Part 2.8: Memory](part-2-8-memory.md).
 
 ---
 
@@ -388,6 +355,7 @@ Configure allowed file system paths and network domains via `chat.tools.terminal
 | Custom Agents | User selects or handoff triggers |
 | MCP Servers | Session start (if configured) |
 | Hooks | During coding agent, CLI, and VS Code Chat sessions (on lifecycle events) |
+| Memory | Automatically retrieved and validated at session start and during reasoning |
 
 ---
 
@@ -405,6 +373,7 @@ Configure allowed file system paths and network domains via `chat.tools.terminal
 | Block dangerous agent commands | Hook (`preToolUse`) |
 | Audit all agent actions | Hooks (all types) |
 | Runtime security enforcement | Hook (`preToolUse`) + Instructions |
+| Codebase knowledge that persists across sessions | Memory |
 
 ---
 
@@ -662,19 +631,20 @@ You are [persona description].
 
 ## Primitive Comparison
 
-| | Instructions | File-Based | Prompts | Skills | Agents | MCP | Hooks |
-|-|--------------|------------|---------|--------|--------|-----|-------|
-| **Always loaded** | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌¹ |
-| **User invokes** | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ |
-| **Auto-activates** | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ | ✅¹ |
-| **Has frontmatter** | ❌ | ✅ | ✅ | ✅ | ✅ | N/A | N/A |
-| **Can include files** | ❌ | ❌ | ❌ | ✅ | ❌ | N/A | N/A |
-| **External access** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| **Portable** | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
-| **Can block actions** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Visible to LLM** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| | Instructions | File-Based | Prompts | Skills | Agents | MCP | Hooks | Memory |
+|-|--------------|------------|---------|--------|--------|-----|-------|--------|
+| **Always loaded** | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌¹ | ❌² |
+| **User invokes** | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ |
+| **Auto-activates** | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ | ✅¹ | ✅² |
+| **Has frontmatter** | ❌ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | N/A |
+| **Can include files** | ❌ | ❌ | ❌ | ✅ | ❌ | N/A | N/A | N/A |
+| **External access** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ |
+| **Portable** | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ |
+| **Can block actions** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
+| **Visible to LLM** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
 
 ¹ Hooks are active during coding agent, Copilot CLI, and VS Code Chat agent sessions (1.109.3+), not in inline completions.
+² Memory is retrieved and validated on-demand; it auto-activates when relevant context is found but may not surface in every session.
 
 ---
 

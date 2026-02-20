@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This repository contains "The Definitive Guide to Customizing Your Repo for GitHub Copilot" — a comprehensive documentation guide covering GitHub Copilot's seven customization primitives. This is a documentation project, not a code project.
+This repository contains "The Definitive Guide to Customizing Your Repo for GitHub Copilot" — a comprehensive documentation guide covering GitHub Copilot's eight customization primitives. This is a documentation project, not a code project.
 
 ## Content Guidelines
 
@@ -21,7 +21,7 @@ This repository contains "The Definitive Guide to Customizing Your Repo for GitH
 - Use the fetch_webpage tool for docs.github.com/en/copilot pages
 - Never invent frontmatter fields, tool names, or configuration options
 
-### The Seven Primitives
+### The Eight Primitives
 
 When discussing customization options, reference the correct primitive:
 
@@ -34,6 +34,7 @@ When discussing customization options, reference the correct primitive:
 | Custom Agents | `.github/agents/*.md` | Specialized personas |
 | MCP | `.vscode/mcp.json` | External integrations |
 | Hooks | `.github/hooks/*.json` | Runtime enforcement |
+| Memory | GitHub cloud (repository-scoped) | Learned codebase knowledge |
 
 ### Detailed Topic References
 

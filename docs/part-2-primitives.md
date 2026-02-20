@@ -4,9 +4,11 @@
 
 ---
 
-GitHub Copilot provides seven customization primitives. Six shape what Copilot knows and how it thinks; the seventh — hooks — provides runtime enforcement and observability.
+GitHub Copilot provides eight customization primitives. Six shape what Copilot knows and how it thinks; the seventh — hooks — provides runtime enforcement and observability; and the eighth — memory — lets Copilot learn from its own activity.
 
-**See it in action:** [Agent Sessions Day](https://www.youtube.com/watch?v=tAezuMSJuFs) is a full-day event covering all seven primitives. Key segments: [Keynote](https://www.youtube.com/watch?v=tAezuMSJuFs&t=1152s) by Harald Kirschner, [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q) by Courtney Webster (instructions, prompts, skills, agents), and [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI) by Connor Peet.
+**See it in action:** [Agent Sessions Day](https://www.youtube.com/watch?v=tAezuMSJuFs) is a full-day event covering the first seven primitives. Key segments: [Keynote](https://www.youtube.com/watch?v=tAezuMSJuFs&t=1152s) by Harald Kirschner, [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q) by Courtney Webster (instructions, prompts, skills, agents), and [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI) by Connor Peet.
+
+**Official docs:** [Copilot customization overview](https://code.visualstudio.com/docs/copilot/copilot-customization)
 
 | Primitive | Location | When Loaded | Scope |
 |-----------|----------|-------------|-------|
@@ -17,6 +19,7 @@ GitHub Copilot provides seven customization primitives. Six shape what Copilot k
 | [**Custom Agents**](part-2-5-custom-agents.md) | `.github/agents/*.md` | User invokes `@name` | Until switched |
 | [**MCP**](part-2-6-mcp.md) | `.vscode/mcp.json` | Session start | Entire session |
 | [**Hooks (Preview)**](part-2-7-hooks.md) | `.github/hooks/*.json` | Agent session events | Coding agent, CLI, and VS Code Chat (1.109.3+) |
+| [**Memory (Preview)**](part-2-8-memory.md) | GitHub cloud (per-repo) | Automatically, from Copilot activity | Coding agent, code review, CLI |
 
 ---
 
@@ -118,8 +121,9 @@ Each primitive answers a different question:
 | Who is the AI acting as? | Custom agents |
 | What external systems can it reach? | MCP |
 | What is it *not allowed* to do? | Hooks |
+| What has Copilot learned from working here? | Memory |
 
-When designing a workflow, start from the task and ask each question. If the answer is "not applicable," skip that primitive. Most tasks need two or three; complex workflows use four or five. If a setup requires all seven, it's probably doing too much — consider splitting it into separate agent-driven workflows that hand off to each other.
+When designing a workflow, start from the task and ask each question. If the answer is "not applicable," skip that primitive. Most tasks need two or three; complex workflows use four or five. If a setup requires all eight, it's probably doing too much — consider splitting it into separate agent-driven workflows that hand off to each other.
 
 ---
 
@@ -137,7 +141,7 @@ Every primitive consumes tokens. Keep them focused:
 
 If Copilot seems to "forget" rules, your instructions may be too long. Move specialized content to file-based instructions or skills.
 
-For **individual** preferences that should persist across sessions and workspaces (e.g., preferred test style, naming conventions), consider enabling [Copilot Memory (Preview)](part-3-reference.md#copilot-memory-preview) instead of encoding personal preferences in shared customization files.
+For codebase conventions that Copilot discovers through usage — patterns, constraints, and preferences that are hard to author manually — consider enabling [Copilot Memory (Preview)](part-2-8-memory.md). Memory is repository-scoped: anything stored is shared with all users who have Memory enabled in that repo.
 
 ---
 
@@ -178,6 +182,10 @@ External service integrations. Connect Copilot to databases, APIs, ticketing sys
 ## 7. [Hooks (Preview)](part-2-7-hooks.md)
 
 Runtime enforcement and observability for agent sessions. Execute custom shell commands at key points during agent sessions to enforce security policies, produce audit trails, block dangerous operations, and send notifications. Hooks operate outside the model's context — they don't influence how Copilot thinks, but they govern what the agent is allowed to do.
+
+## 8. [Memory (Preview)](part-2-8-memory.md)
+
+Learned codebase knowledge that persists across sessions. Unlike the authored primitives above, Memory is discovered automatically as Copilot works on a repository — through coding agent sessions, code review, and CLI interactions. Memories are repository-scoped, validated against the current codebase before use, and auto-expire after 28 days. Memory complements customization files; it doesn't replace them.
 
 ---
 

@@ -8,7 +8,7 @@
 
 **\* Items marked with an asterisk (\*) reflect current behavior that may change as the hooks system evolves. Verify against [official documentation](https://docs.github.com/en/copilot/reference/hooks-configuration) when making architectural decisions.**
 
-The first six customization primitives — instructions, file-based instructions, prompts, skills, custom agents, and MCP — all operate inside Copilot's reasoning. They shape context, influence code generation, and extend capabilities. But none of them can *enforce* anything. A rule in `copilot-instructions.md` is a strong suggestion, not a guarantee.
+Seven of the eight customization primitives — instructions, file-based instructions, prompts, skills, custom agents, MCP, and Memory — operate inside Copilot's reasoning. They shape context, influence code generation, and extend capabilities. But none of them can *enforce* anything. A rule in `copilot-instructions.md` is a strong suggestion, not a guarantee.
 
 Hooks fill that gap. They execute custom shell commands at key points during Copilot coding agent sessions, operating *outside* the model entirely. The LLM never sees hook logic, can't override it, and can't reason around it. This gives teams an enforcement layer that's independent of prompt engineering.
 
@@ -42,7 +42,7 @@ Hooks also apply to VS Code Chat agent sessions as of version 1.109.3 — see [V
 
 ### Hooks vs. Primitives: Different Layers, Complementary Purposes
 
-| Aspect | The Other Six Primitives | Hooks |
+| Aspect | The Other Seven Primitives | Hooks |
 |--------|-------------------------|-------|
 | **When they act** | Before and during LLM reasoning | At runtime, during agent execution |
 | **What they influence** | What Copilot knows and how it thinks | What Copilot is allowed to do |
@@ -1350,4 +1350,4 @@ VS Code hooks also support additional output fields beyond the coding agent's `p
 
 ---
 
-[← MCP](part-2-6-mcp.md) | [Next: Part III - Reference →](part-3-reference.md)
+[← MCP](part-2-6-mcp.md) | [Next: Memory →](part-2-8-memory.md)

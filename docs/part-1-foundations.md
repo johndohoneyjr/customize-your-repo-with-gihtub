@@ -26,7 +26,7 @@ These terms appear throughout the guide:
 
 | Term | Meaning |
 |------|---------|
-| **Primitive** | A configuration file type that customizes Copilot (always-on instructions, file-based instructions, prompts, skills, custom agents, MCP, hooks) |
+| **Primitive** | A configuration file type that customizes Copilot (always-on instructions, file-based instructions, prompts, skills, custom agents, MCP, hooks, memory) |
 | **Agent** (agentic mode) | Copilot operating autonomously — planning steps, calling tools, iterating on results |
 | **Custom agent** | A `.agent.md` file that defines a specialized persona with constrained tools and behavior |
 | **Context window** | The total amount of text the model can consider at once — instructions, code, and conversation all compete for this space |
@@ -79,7 +79,7 @@ Copilot's output quality depends on three factors:
 |--------|--------|------------------|
 | **Model Selection** | Raw reasoning power and behavior | Choose frontier models for complex work; accept that different models work differently |
 | **Codebase Quality** | How well Copilot can understand your code | Write clean, well-documented, modular code |
-| **Repository Configuration** | The context and rules Copilot operates with | **This guide** — the seven customization primitives |
+| **Repository Configuration** | The context and rules Copilot operates with | **This guide** — the eight customization primitives |
 
 Your **model selection** matters more than most people realize. A frontier model with extended thinking will dramatically outperform a model from two years ago—it's not even close. Claude Opus 4.6, Codex 5.3, Gemini 3.1 Pro with thinking enabled will reason through multi-file refactors, catch edge cases, and produce code that actually works on the first try. Older or faster models may produce syntax-correct code that misses the point entirely.
 
