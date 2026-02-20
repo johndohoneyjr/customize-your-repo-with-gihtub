@@ -2,6 +2,8 @@
 
 [← MCP](part-2-6-mcp.md) | [Part II Overview](part-2-primitives.md)
 
+*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
+
 ---
 
 ## Overview
@@ -19,7 +21,7 @@ Hooks fill that gap. They execute custom shell commands at key points during Cop
 
 **Official docs:** [Copilot hooks](https://code.visualstudio.com/docs/copilot/customization/hooks)
 
-**See it in action:** Pierce Boggan and James Montemagno cover hooks alongside agent steering, queueing, and CLI integration in [Let it Cook: Agent Steering, Queueing, Hooks, CLI Integration, & more!](https://www.youtube.com/watch?v=FjvtWeG6EEo)
+**See it in action:** For a live demo, watch Pierce Boggan and James Montemagno in [Let it Cook: Agent Steering, Queueing, Hooks, CLI Integration, & more!](https://www.youtube.com/watch?v=FjvtWeG6EEo).
 
 Think of the relationship this way:
 

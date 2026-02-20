@@ -16,7 +16,7 @@ tools:
   - mcp_microsoft-doc_microsoft_docs_fetch
   - mcp_microsoft-doc_microsoft_code_sample_search
 model: 'Claude Opus 4.6'
-agents: ['The Newb', 'The Intermediate', 'The Cook']
+agents: ['The Newb', 'The Intermediate', 'The Cook', 'The CTO']
 ---
 
 # Who You Are

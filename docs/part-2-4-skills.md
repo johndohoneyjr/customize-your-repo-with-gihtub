@@ -2,6 +2,8 @@
 
 [← Prompt Files](part-2-3-prompts.md) | [Part II Overview](part-2-primitives.md)
 
+*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
+
 ---
 
 ## Overview
@@ -16,7 +18,7 @@ Unlike prompts (which users invoke explicitly via `/`), skills activate automati
 
 **Official docs:** [Agent skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills)
 
-**See it in action:** [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q) — Courtney Webster demos agent skills as portable capabilities, including how skills surface as `/` slash commands in chat. Also in the [Agent Sessions Day livestream](https://www.youtube.com/watch?v=tAezuMSJuFs&t=10598s) at 02:56:38.
+**See it in action:** For a live demo, watch Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q).
 
 ### Agent Skills
 

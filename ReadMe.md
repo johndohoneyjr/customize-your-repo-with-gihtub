@@ -2,7 +2,7 @@
 
 **Short link:** [aka.ms/GitHubCopilotGuideForHumans](https://aka.ms/GitHubCopilotGuideForHumans)
 
-*Published: February 20, 2026. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
+*Published: February 20, 2026. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot/overview).*
 
 GitHub Copilot is more than autocomplete. When properly configured, it becomes a context-aware development partner that understands your architecture, follows your conventions, and produces code that passes review on the first try.
 
@@ -92,7 +92,7 @@ For teams adopting Copilot customization, consider reading through the guide ind
 ## Resources
 
 - [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
-- [VS Code Copilot Extension](https://code.visualstudio.com/docs/copilot)
+- [GitHub Copilot in VS Code](https://code.visualstudio.com/docs/copilot/overview)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
 - [VS Code Source Code](https://github.com/microsoft/vscode) — The authoritative reference when documentation is unclear
 - [Copilot Spaces](https://docs.github.com/en/copilot/how-tos/provide-context/use-copilot-spaces) — Organize relevant context into Spaces that ground Copilot's responses for specific tasks

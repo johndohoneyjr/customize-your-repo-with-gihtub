@@ -2,6 +2,8 @@
 
 [← Skills](part-2-4-skills.md) | [Part II Overview](part-2-primitives.md)
 
+*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
+
 ---
 
 ## Overview
@@ -13,7 +15,7 @@ Custom Agents provide specialized AI personas with constrained tool access and d
 
 **Official docs:** [Custom agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
 
-**See it in action:** [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q) — Courtney Webster demos building custom agents, agent skills, and MCP integrations, showing how to create agents for specific roles and wire them together with handoffs. Also available in the [Agent Sessions Day livestream](https://www.youtube.com/watch?v=tAezuMSJuFs&t=10598s) at 02:56:38.
+**See it in action:** For a live demo, watch Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q).
 
 **Location:** `.github/agents/*.md` (any `.md` file except `README.md`) or `**/*.agent.md` anywhere in the workspace. Configure additional search paths with the `chat.agentFilesLocations` setting to share agents across projects or keep them in a central location.
 
@@ -751,7 +753,7 @@ Background agents also support slash commands — including prompt files, hooks,
 
 This means agent definitions are portable: the same `.agent.md` file that drives an interactive chat session can also power automated coding tasks running in the background or in the cloud.
 
-**See it in action:** [A Unified Agent Experience](https://www.youtube.com/watch?v=YmpjvZ3xkx8) — Josh Spicer demos managing local, background, and cloud agent sessions from a single view, including delegating tasks to remote infrastructure and collaborating through PRs. Also in the [livestream](https://www.youtube.com/watch?v=tAezuMSJuFs&t=4350s) at 01:12:30.
+**See it in action:** For a live demo, watch Josh Spicer in [A Unified Agent Experience](https://www.youtube.com/watch?v=YmpjvZ3xkx8).
 
 ### Organization-Level Custom Agents
 

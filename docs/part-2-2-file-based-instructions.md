@@ -2,6 +2,8 @@
 
 [← Always-On Instructions](part-2-1-always-on-instructions.md) | [Part II Overview](part-2-primitives.md) | [Next: Prompt Files →](part-2-3-prompts.md)
 
+*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
+
 ---
 
 ## Overview
@@ -14,7 +16,7 @@ Configure additional search paths with the `chat.instructionsFilesLocations` set
 
 **Official docs:** [Custom instructions](https://code.visualstudio.com/docs/copilot/customization/custom-instructions)
 
-**See it in action:** [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q) — Courtney Webster demonstrates how file-based instructions with `applyTo` patterns provide targeted context for different parts of a codebase. Also in the [Agent Sessions Day livestream](https://www.youtube.com/watch?v=tAezuMSJuFs&t=10598s) at 02:56:38.
+**See it in action:** For a live demo, watch Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q).
 
 **Use Cases:**
 - Different conventions for frontend vs. backend code

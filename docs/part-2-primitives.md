@@ -2,11 +2,13 @@
 
 [← Back to Guide](../ReadMe.md) | [← Part I: Foundations](part-1-foundations.md)
 
+*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
+
 ---
 
 GitHub Copilot provides eight customization primitives. Six shape what Copilot knows and how it thinks; the seventh — hooks — provides runtime enforcement and observability; and the eighth — memory — lets Copilot learn from its own activity.
 
-**See it in action:** [Agent Sessions Day](https://www.youtube.com/watch?v=tAezuMSJuFs) is a full-day event covering the first seven primitives. Key segments: [Keynote](https://www.youtube.com/watch?v=tAezuMSJuFs&t=1152s) by Harald Kirschner, [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q) by Courtney Webster (instructions, prompts, skills, agents), and [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI) by Connor Peet.
+**See it in action:** For a live demo, watch Harald Kirschner in the [Agent Sessions Day Keynote](https://www.youtube.com/watch?v=2-Q_sdJ5H2c), Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q), and Connor Peet in [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI).
 
 **Official docs:** [Copilot customization overview](https://code.visualstudio.com/docs/copilot/copilot-customization)
 
@@ -62,6 +64,8 @@ Each layer adds specificity. The foundation (always-on instructions) applies eve
 
 Individual primitives are table stakes. The real power is in how they combine. Most production setups use three or more primitives working together — each handling a different layer of the problem.
 
+**See it in action:** For a live demo, watch Burke Holland, Pierce Boggan, and Olivia Guzzardo in [Live Coding with GitHub Copilot Agent Mode](https://www.youtube.com/watch?v=j3jBOV0aaRQ).
+
 ### Pattern 1: The Review Pipeline
 
 A code review workflow that combines four primitives:
@@ -106,6 +110,8 @@ MCP (PagerDuty + AWS)     → Checks incident status, manages infrastructure
      +
 Hooks (preToolUse)        → Blocks destructive commands, requires approval for production changes
 ```
+
+**See it in action:** For a live demo, watch Pierce Boggan and James Montemagno in [Let it Cook: Agent Steering, Custom Instructions, and MCP](https://www.youtube.com/watch?v=LqEk35xR_GA).
 
 The agent provides intent and tool access. The skill packages tribal knowledge. MCP connects to infrastructure. Hooks enforce guardrails *outside* the model's control — even if the model decides to do something dangerous, the hook blocks it before execution.
 

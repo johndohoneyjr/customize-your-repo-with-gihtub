@@ -2,6 +2,8 @@
 
 [← Back to Guide](../ReadMe.md)
 
+*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
+
 ---
 
 ## Introduction
@@ -85,6 +87,8 @@ Your **model selection** matters more than most people realize. A frontier model
 
 Different models also *behave* differently, and that's okay. Some are more verbose. Some ask more clarifying questions. Some jump straight to implementation. Learn your model's personality and work with it, not against it. The best model for your workflow might not be the newest or the fastest—it's the one whose behavior matches how you like to work.
 
+**See it in action:** For a live demo, watch Sandeep Somavarapu in [Bring Your Own Model (BYOM)](https://www.youtube.com/watch?v=W_WnyS_cXCk) and Julia Kasper in [How We Ship Models in VS Code](https://www.youtube.com/watch?v=eVxIwpGbHEk).
+
 Your **codebase quality** matters — a well-structured codebase with clear naming, small functions, and comprehensive tests gives Copilot better context to work with. Messy, tangled code confuses AI just as much as it confuses human developers.
 
 But even with the best model and cleanest codebase, **repository configuration** is what transforms Copilot from a generic assistant into a team-aware partner. This guide is the complete reference for setting up your repository for the best possible outcomes with GitHub Copilot.
@@ -130,7 +134,9 @@ When properly configured, Copilot can:
 
 This guide provides a comprehensive walkthrough of every customization primitive available in GitHub Copilot. By the end, development teams will have the knowledge to transform Copilot from a generic assistant into a context-aware team member that understands the nuances of their specific codebase.
 
-**See it in action:** The VS Code team hosted [Agent Sessions Day](https://www.youtube.com/watch?v=tAezuMSJuFs) — a full-day event showcasing how VS Code enables agentic development. Key segments include the [keynote by Harald Kirschner](https://www.youtube.com/watch?v=tAezuMSJuFs&t=1152s), [How VS Code Builds with AI](https://www.youtube.com/watch?v=ee-obY-4rqk) by Pierce Boggan and Peng Lyu, and deep dives on [custom agents](https://www.youtube.com/watch?v=flpKLkZla2Q), [MCP](https://www.youtube.com/watch?v=_g29UQjIAeI), [unified agent sessions](https://www.youtube.com/watch?v=YmpjvZ3xkx8), and [Copilot CLI](https://www.youtube.com/watch?v=_l3UO1oUoec).
+**Official docs:** [Copilot customization overview](https://code.visualstudio.com/docs/copilot/copilot-customization)
+
+**See it in action:** For a live demo, watch Harald Kirschner in the [Agent Sessions Day Keynote](https://www.youtube.com/watch?v=2-Q_sdJ5H2c), Pierce Boggan and Peng Lyu in [How VS Code Builds with AI](https://www.youtube.com/watch?v=ee-obY-4rqk), Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q), Connor Peet in [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI), Josh Spicer in [A Unified Agent Experience](https://www.youtube.com/watch?v=YmpjvZ3xkx8), and Alex Weininger in [Copilot CLI in VS Code](https://www.youtube.com/watch?v=_l3UO1oUoec).
 
 ---
 

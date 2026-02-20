@@ -151,8 +151,10 @@ Map transcript content to guide sections:
 Demo links in the guide use this format:
 
 ```markdown
-**See it in action:** [Video Title](https://www.youtube.com/watch?v={id}&t={seconds}s)  Speaker demos {what is demoed}.
+**See it in action:** For a live demo, watch {Speaker Name} in [{Video Title}](https://www.youtube.com/watch?v={id}).
 ```
+
+Do not include timestamps (`&t=` parameters) in the URL. Prefer standalone segment videos over timestamped livestream links when both exist.
 
 Place the link after the section's opening paragraph or after the **Loading/Best For** metadata.
 

@@ -2,7 +2,7 @@
 
 [← Part I: Foundations](part-1-foundations.md) | [Part II Overview](part-2-primitives.md)
 
-*Published: February 20, 2026. This guide serves as a primer for GitHub Copilot customization. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
+*Published: February 20, 2026. This guide serves as a primer for GitHub Copilot customization. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot/overview).*
 
 ---
 
@@ -26,7 +26,7 @@ Custom instructions are **not** applied to inline suggestions (ghost text) as yo
 
 If Copilot's inline suggestions ignore your conventions, that's expected behavior. Use Chat-based interactions (ask mode, agent mode, prompts) for convention-aware code generation.
 
-**See it in action:** [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q) — Courtney Webster demos creating and iterating on `copilot-instructions.md`, including using `/init` to bootstrap instructions from an existing codebase. Also in the [Agent Sessions Day livestream](https://www.youtube.com/watch?v=tAezuMSJuFs&t=10598s) at 02:56:38.
+**See it in action:** For a live demo, watch Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q).
 
 ## When to Use Always-On Instructions
 
@@ -326,6 +326,8 @@ The `/init` command follows a structured workflow:
 
 **New in VS Code 1.109:** The `/init` command is implemented as a contributed prompt file, meaning you can customize its behavior by modifying the underlying prompt in your workspace.
 
+**See it in action:** For a live demo, watch Courtney Webster in [Customize Your Agents with Reusable Prompts, Instructions, and Tools](https://www.youtube.com/watch?v=LNftRSF37WI).
+
 ### Creating via the Configure Menu
 
 1. In the Chat view, click the **gear icon** (Configure Chat)
@@ -478,6 +480,8 @@ If instructions are not being applied, verify:
 - The `github.copilot.chat.codeGeneration.useInstructionFiles` setting is enabled
 - File is named exactly `copilot-instructions.md`, `AGENTS.md`, or `CLAUDE.md`
 - File is in the correct location: `copilot-instructions.md` in `.github/`, `AGENTS.md` at workspace root, or `CLAUDE.md` at workspace root or `.claude/` folder
+- For local-only overrides, check `CLAUDE.local.md` at workspace root (not committed to version control)
+- For monorepos with nested `AGENTS.md` files, verify `chat.useNestedAgentsMdFiles` is enabled
 - VS Code window has been reloaded after creating the file
 
 **Using Diagnostics:** Right-click in the Chat view and select **Diagnostics** to see all loaded instruction files, custom agents, prompt files, and skills—along with any errors.

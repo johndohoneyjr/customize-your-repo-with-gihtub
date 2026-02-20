@@ -2,6 +2,8 @@
 
 [← Custom Agents](part-2-5-custom-agents.md) | [Part II Overview](part-2-primitives.md)
 
+*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
+
 ---
 
 ## Overview
@@ -13,7 +15,7 @@ MCP (Model Context Protocol) provides external gateway capabilities for Copilot.
 
 **Official docs:** [MCP servers](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
 
-**See it in action:** [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI) — Connor Peet demos the latest MCP updates in VS Code, including MCP Apps that render interactive UI components directly in chat. Also in the [Agent Sessions Day livestream](https://www.youtube.com/watch?v=tAezuMSJuFs&t=6325s) at 01:45:25. For a real-world MCP integration, see [AI-Powered Kafka Development with Confluent + MCP](https://www.youtube.com/watch?v=KRBqLjRjX70).
+**See it in action:** For a live demo, watch Connor Peet in [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI). For a real-world MCP integration, watch Reynald Adolphe and Viktor Gamov in [AI-Powered Kafka Development with Confluent + MCP](https://www.youtube.com/watch?v=KRBqLjRjX70).
 
 **Scope:** This section covers how GitHub Copilot *consumes* MCP servers — configuration, tool discovery, and invocation. It does not cover MCP server security, authentication implementation, or building custom MCP servers. For those topics, see the [MCP specification](https://modelcontextprotocol.io).
 
@@ -228,7 +230,7 @@ MCP Apps enable tools to return **interactive UI components** that render direct
 
 When an MCP server supports apps, the UI appears inline in the chat conversation, enabling direct interaction to complete tasks more efficiently. This is particularly useful for tools that benefit from visual manipulation — reordering items, configuring settings, or reviewing structured data.
 
-**See it in action:** Connor Peet demos MCP Apps — dashboards, forms, visualizations, and multi-step workflows rendered directly in chat — in [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI).
+**See it in action:** For a live demo, watch Connor Peet in [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI).
 
 ### Tool Sets
 

@@ -2,6 +2,8 @@
 
 [← Hooks](part-2-7-hooks.md) | [Part II Overview](part-2-primitives.md)
 
+*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
+
 ---
 
 ## Overview

@@ -2,6 +2,8 @@
 
 [← File-Based Instructions](part-2-2-file-based-instructions.md) | [Part II Overview](part-2-primitives.md) | [Next: Skills →](part-2-4-skills.md)
 
+*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
+
 ---
 
 ## Overview
@@ -12,7 +14,7 @@ Prompt files enable reusable task templates that can be invoked on demand. They 
 
 **Official docs:** [Prompt files](https://code.visualstudio.com/docs/copilot/customization/prompt-files)
 
-**See it in action:** [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q) — Courtney Webster shows how prompt files work as reusable slash commands, including combining them with custom agents and skills. Also in the [Agent Sessions Day livestream](https://www.youtube.com/watch?v=tAezuMSJuFs&t=10598s) at 02:56:38.
+**See it in action:** For a live demo, watch Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q).
 
 Users invoke prompts by typing `/` in Copilot Chat and selecting from available options.
 

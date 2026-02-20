@@ -2,6 +2,8 @@
 
 [← Back to Guide](../ReadMe.md) | [← Part II: The Primitives](part-2-primitives.md)
 
+*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
+
 ---
 
 ## Quick Reference: File Locations
@@ -39,7 +41,7 @@ No frontmatter required. Plain markdown file.
 | `applyTo` | **Yes** | string | Glob pattern for automatic activation |
 | `name` | No | string | Display name (defaults to filename) |
 | `description` | No | string | Description shown on hover |
-| `excludeAgent` | No | string[] | Agents to exclude from these instructions |
+| `excludeAgent` | No | string | Agent to exclude from these instructions (`"code-review"` or `"coding-agent"`, GitHub.com only) |
 
 ```yaml
 ---
@@ -76,7 +78,7 @@ tools: ['editFiles', 'createFile', 'runInTerminal']
 | `description` | **Yes** | string | 1-1024 chars, WHAT + WHEN to use |
 | `metadata` | No | object | Key-value pairs (author, version) |
 | `license` | No | string | License name or reference |
-| `compatibility` | No | object | Environment requirements |
+| `compatibility` | No | string | Environment requirements |
 | `user-invokable` | No | boolean | Whether the skill appears as a `/` slash command (default: `true`) |
 | `disable-model-invocation` | No | boolean | Prevents automatic activation by the agent (default: `false`). Requires manual `/` invocation |
 | `argument-hint` | No | string | Hint text shown to users when invoking the skill as a `/` slash command |
@@ -429,7 +431,7 @@ This is the fastest way to determine why a customization file isn't being applie
 | Don't | Why | Do Instead |
 |-------|-----|------------|
 | Vague instructions | Inconsistent results | Be specific |
-| No variables | Not reusable | Use `${variableName}` |
+| No variables | Not reusable | Use `${input:variableName}` |
 | Use `plan` mode | Less reliable | Use `agent` mode |
 | No model specified | Inconsistent | Specify model |
 
@@ -523,7 +525,7 @@ model: 'Claude Opus 4.6'
 
 [Clear instruction]
 
-**Input:** ${variable1}
+**Input:** ${input:variable1}
 
 ## Requirements
 1. [Requirement 1]
@@ -650,15 +652,21 @@ You are [persona description].
 
 ## Variable Syntax
 
-Prompts support variables with `${variableName}`:
+Prompts support both built-in variables (`${file}`, `${selection}`, etc.) and input variables that prompt the user for a value:
+
+| Syntax | Description |
+|--------|-------------|
+| `${file}`, `${selection}`, `${workspaceFolder}` | Built-in VS Code context variables |
+| `${input:variableName}` | Prompts the user for a value when invoked |
+| `${input:variableName:placeholder}` | Prompts the user, showing placeholder hint text |
 
 ```markdown
-Create a component called `${componentName}` that:
-- Handles ${primaryResponsibility}
-- Returns ${returnShape}
+Create a component called `${input:componentName}` that:
+- Handles ${input:primaryResponsibility}
+- Returns ${input:returnShape}
 ```
 
-Users are prompted for values when invoking.
+Users are prompted for input variable values when invoking the prompt.
 
 ---
 
