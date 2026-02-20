@@ -48,6 +48,7 @@ GitHub Copilot provides seven customization primitives. Each serves a distinct p
 | [**Custom Agents**](docs/part-2-5-custom-agents.md) | `.github/agents/*.md` | Specialized AI personas with defined behaviors |
 | [**MCP (Model Context Protocol)**](docs/part-2-6-mcp.md) | `.vscode/mcp.json` | Connections to external tools, APIs, and data sources |
 | [**Hooks (Preview)**](docs/part-2-7-hooks.md) | `.github/hooks/*.json` | Runtime enforcement and audit logging for agent sessions |
+| [**Memory (Preview)**](docs/part-3-reference.md#copilot-memory-preview) | GitHub account (cloud) | Persistent personal preferences across sessions |
 
 Understanding when and how to use each primitive is the core of this guide.
 
@@ -75,7 +76,7 @@ The heart of the guide. Each primitive receives comprehensive coverage including
 
 ### [Part III: Reference](docs/part-3-reference.md)
 
-Quick reference tables, starter templates, and configuration reference for all primitives.
+Quick reference tables, starter templates, configuration reference for all primitives, and [Copilot Memory (Preview)](docs/part-3-reference.md#copilot-memory-preview).
 
 ---
 
