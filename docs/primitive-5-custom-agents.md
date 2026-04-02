@@ -1,6 +1,6 @@
 # Custom Agents
 
-[← Skills](part-2-4-skills.md) | [Part II Overview](part-2-primitives.md)
+[← Skills](primitive-4-skills.md) | [Part II Overview](part-2-primitives.md)
 
 ---
 
@@ -717,7 +717,7 @@ End with "If you can address these, you've got a solid plan."
 
 **SRE Agent** — Incident response and production reliability:
 
-This agent is a specialized persona that handles production operations, not just code. It pairs well with an [incident response skill](part-2-4-skills.md#skills-vs-mcp-servers-when-to-use-which) for runbook knowledge and monitoring MCP servers for infrastructure access.
+This agent is a specialized persona that handles production operations, not just code. It pairs well with an [incident response skill](primitive-4-skills.md#skills-vs-mcp-servers-when-to-use-which) for runbook knowledge and monitoring MCP servers for infrastructure access.
 
 ```markdown
 ---
@@ -762,7 +762,7 @@ You think in terms of blast radius, rollback plans, and service dependencies.
 
 ---
 
-[← Skills](part-2-4-skills.md) | [Next: MCP →](part-2-6-mcp.md)
+[← Skills](primitive-4-skills.md) | [Next: MCP →](primitive-6-mcp.md)
 
 ## Appendix: Custom Agents in GitHub Copilot CLI
 
@@ -803,4 +803,4 @@ The same agent definitions work in both VS Code and the CLI, so teams that inves
 
 ---
 
-[← Skills](part-2-4-skills.md) | [Next: MCP →](part-2-6-mcp.md)
+[← Skills](primitive-4-skills.md) | [Next: MCP →](primitive-6-mcp.md)

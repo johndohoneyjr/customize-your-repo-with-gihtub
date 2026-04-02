@@ -1,4 +1,4 @@
-﻿# The Definitive Guide to Customizing GitHub Copilot
+# The Definitive Guide to Customizing GitHub Copilot
 
 *Published: February 10, 2026. Updated: April 2, 2026. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
 
@@ -39,14 +39,14 @@ GitHub Copilot provides eight customization primitives. Each serves a distinct p
 
 | Primitive | Location | Purpose |
 |-----------|----------|---------|
-| [**Always-on Instructions**](docs/part-2-1-always-on-instructions.md) | `.github/copilot-instructions.md`, `AGENTS.md`, or `CLAUDE.md` | Global rules applied to every Copilot request |
-| [**File-based Instructions**](docs/part-2-2-file-based-instructions.md) | `.github/instructions/*.instructions.md` | Rules that activate when working with specific file patterns |
-| [**Prompts**](docs/part-2-3-prompts.md) | `.github/prompts/*.prompt.md` | Reusable task templates invoked as slash commands |
-| [**Skills**](docs/part-2-4-skills.md) | `.github/skills/*/SKILL.md` | Procedural knowledge Copilot can discover and apply |
-| [**Custom Agents**](docs/part-2-5-custom-agents.md) | `.github/agents/*.md` | Specialized AI personas with defined behaviors |
-| [**MCP (Model Context Protocol)**](docs/part-2-6-mcp.md) | `.vscode/mcp.json` | Connections to external tools, APIs, and data sources |
-| [**Hooks (Preview)**](docs/part-2-7-hooks.md) | `.github/hooks/*.json` | Runtime enforcement and audit logging for agent sessions |
-| [**Memory (Preview)**](docs/part-2-8-memory.md) | GitHub cloud (repository-scoped) | Learned codebase knowledge that persists across sessions |
+| [**Always-on Instructions**](docs/primitive-1-always-on-instructions.md) | `.github/copilot-instructions.md`, `AGENTS.md`, or `CLAUDE.md` | Global rules applied to every Copilot request |
+| [**File-based Instructions**](docs/primitive-2-file-based-instructions.md) | `.github/instructions/*.instructions.md` | Rules that activate when working with specific file patterns |
+| [**Prompts**](docs/primitive-3-prompts.md) | `.github/prompts/*.prompt.md` | Reusable task templates invoked as slash commands |
+| [**Skills**](docs/primitive-4-skills.md) | `.github/skills/*/SKILL.md` | Procedural knowledge Copilot can discover and apply |
+| [**Custom Agents**](docs/primitive-5-custom-agents.md) | `.github/agents/*.md` | Specialized AI personas with defined behaviors |
+| [**MCP (Model Context Protocol)**](docs/primitive-6-mcp.md) | `.vscode/mcp.json` | Connections to external tools, APIs, and data sources |
+| [**Hooks (Preview)**](docs/primitive-7-hooks.md) | `.github/hooks/*.json` | Runtime enforcement and audit logging for agent sessions |
+| [**Memory (Preview)**](docs/primitive-8-memory.md) | GitHub cloud (repository-scoped) | Learned codebase knowledge that persists across sessions |
 
 Understanding when and how to use each primitive is the core of this guide.
 
@@ -64,15 +64,15 @@ Start here. This section establishes the mental model for thinking about Copilot
 
 The heart of the guide. Each primitive receives comprehensive coverage including syntax, configuration options, practical examples, common patterns, and guidance on when to use it versus alternatives.
 
-- [2.1 Always-on Instructions](docs/part-2-1-always-on-instructions.md) — Your codebase's global rules
-- [2.2 File-based Instructions](docs/part-2-2-file-based-instructions.md) — Context-specific guidance
-- [2.3 Prompts](docs/part-2-3-prompts.md) — Reusable slash commands
-- [2.4 Skills](docs/part-2-4-skills.md) — Discoverable procedural knowledge
-- [2.5 Custom Agents](docs/part-2-5-custom-agents.md) — Specialized AI personas
-- [2.6 MCP](docs/part-2-6-mcp.md) — External tool integration
-- [2.7 Hooks](docs/part-2-7-hooks.md) — Runtime enforcement and audit logging
-- [2.8 Copilot Memory](docs/part-2-8-memory.md) — Automatic repository-level learning
-- [2.9 Agentic Workflows](docs/part-2-9-agentic-workflows.md) — Continuous AI via coding agents in GitHub Actions
+- [Primitive 1: Always-on Instructions](docs/primitive-1-always-on-instructions.md) — Your codebase's global rules
+- [Primitive 2: File-based Instructions](docs/primitive-2-file-based-instructions.md) — Context-specific guidance
+- [Primitive 3: Prompts](docs/primitive-3-prompts.md) — Reusable slash commands
+- [Primitive 4: Skills](docs/primitive-4-skills.md) — Discoverable procedural knowledge
+- [Primitive 5: Custom Agents](docs/primitive-5-custom-agents.md) — Specialized AI personas
+- [Primitive 6: MCP](docs/primitive-6-mcp.md) — External tool integration
+- [Primitive 7: Hooks](docs/primitive-7-hooks.md) — Runtime enforcement and audit logging
+- [Primitive 8: Copilot Memory](docs/primitive-8-memory.md) — Automatic repository-level learning
+- [Primitive 9: Agentic Workflows](docs/primitive-9-agentic-workflows.md) — Continuous AI via coding agents in GitHub Actions
 
 ### [Part III: Reference](docs/part-3-reference.md)
 

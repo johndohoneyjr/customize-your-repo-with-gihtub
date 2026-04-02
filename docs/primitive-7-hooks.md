@@ -1,6 +1,6 @@
 # Hooks
 
-[← MCP](part-2-6-mcp.md) | [Part II Overview](part-2-primitives.md)
+[← MCP](primitive-6-mcp.md) | [Part II Overview](part-2-primitives.md)
 
 *Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
 
@@ -1230,7 +1230,7 @@ if [ "$TOOL_NAME" = "bash" ]; then
 fi
 ```
 
-This hook pattern-matches deployment commands regardless of method (Kubernetes, Terraform, direct pushes). Replace `npm test` and `npm audit` with your project's test runner and security scanner. Pair it with an [SRE custom agent](part-2-5-custom-agents.md#additional-agent-examples) that knows your deployment procedures.
+This hook pattern-matches deployment commands regardless of method (Kubernetes, Terraform, direct pushes). Replace `npm test` and `npm audit` with your project's test runner and security scanner. Pair it with an [SRE custom agent](primitive-5-custom-agents.md#additional-agent-examples) that knows your deployment procedures.
 
 ### Pattern: Keyword Alerting on Prompts
 
@@ -1389,4 +1389,4 @@ VS Code hooks also support additional output fields beyond the coding agent's `p
 
 ---
 
-[← MCP](part-2-6-mcp.md) | [Next: Copilot Memory →](part-2-8-memory.md)
+[← MCP](primitive-6-mcp.md) | [Next: Copilot Memory →](primitive-8-memory.md)

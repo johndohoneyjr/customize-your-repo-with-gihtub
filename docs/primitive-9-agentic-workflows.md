@@ -1,6 +1,6 @@
 # GitHub Agentic Workflows
 
-[← Copilot Memory](part-2-8-memory.md) | [Part II Overview](part-2-primitives.md)
+[← Copilot Memory](primitive-8-memory.md) | [Part II Overview](part-2-primitives.md)
 
 ---
 
@@ -266,7 +266,7 @@ Agentic Workflows and the customization primitives covered in this guide operate
 
 When a coding agent runs autonomously — whether via an Agentic Workflow, an assigned issue, or direct invocation — it can't ask clarifying questions. The quality of your repo configuration directly determines the quality of its output. Three primitives matter most:
 
-**Custom instructions** tell the agent what conventions to follow. Build commands, test expectations, PR format, and guardrails all belong here. The [Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent) reads custom instructions on every task. See [Part 2.1](part-2-1-always-on-instructions.md).
+**Custom instructions** tell the agent what conventions to follow. Build commands, test expectations, PR format, and guardrails all belong here. The [Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent) reads custom instructions on every task. See [Primitive 1](primitive-1-always-on-instructions.md).
 
 ✅ Clear instruction for async work:
 ```markdown
@@ -281,9 +281,9 @@ When a coding agent runs autonomously — whether via an Agentic Workflow, an as
 - Be careful with infrastructure files
 ```
 
-**Skills** load automatically by description match. A skill with description "Use when creating new React components" loads when the agent works on component-related tasks — whether in an IDE session or an autonomous run. See [Part 2.4](part-2-4-skills.md).
+**Skills** load automatically by description match. A skill with description "Use when creating new React components" loads when the agent works on component-related tasks — whether in an IDE session or an autonomous run. See [Primitive 4](primitive-4-skills.md).
 
-**Hooks** enforce policies regardless of who triggered the agent. A deployment gate hook that blocks `git push` without passing tests applies the same way to a human developer, a cloud agent session, and an Agentic Workflow run. See [Part 2.7](part-2-7-hooks.md).
+**Hooks** enforce policies regardless of who triggered the agent. A deployment gate hook that blocks `git push` without passing tests applies the same way to a human developer, a cloud agent session, and an Agentic Workflow run. See [Primitive 7](primitive-7-hooks.md).
 
 ### Primitives reference
 
@@ -325,10 +325,10 @@ Alternatively, use a coding agent to generate workflows interactively — provid
 - [GitHub Agentic Workflows documentation](https://github.github.com/gh-aw/) — Quick start, patterns, and reference
 - [Security architecture of GitHub Agentic Workflows](https://github.blog/ai-and-ml/generative-ai/under-the-hood-security-architecture-of-github-agentic-workflows/) — Threat model and defense-in-depth details
 - [About Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent) — Cloud agent documentation
-- [Custom Agents](part-2-5-custom-agents.md) — Specialized agent personas
-- [Skills](part-2-4-skills.md) — Skills specification and patterns
-- [Copilot Memory](part-2-8-memory.md) — How Memory complements explicit customization
+- [Custom Agents](primitive-5-custom-agents.md) — Specialized agent personas
+- [Skills](primitive-4-skills.md) — Skills specification and patterns
+- [Copilot Memory](primitive-8-memory.md) — How Memory complements explicit customization
 
 ---
 
-[← Copilot Memory](part-2-8-memory.md) | [Next: Part III - Reference →](part-3-reference.md)
+[← Copilot Memory](primitive-8-memory.md) | [Next: Part III - Reference →](part-3-reference.md)

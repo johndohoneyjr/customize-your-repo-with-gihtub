@@ -308,11 +308,11 @@ Hook configuration files live in `.github/hooks/` and require `version: 1`:
 | `postToolUse` | `timestamp`, `cwd`, `toolName`, `toolArgs`, `toolResult` | Ignored | No |
 | `errorOccurred` | `timestamp`, `cwd`, `error` | Ignored | No |
 
-For comprehensive documentation with practical examples, see [Part 2.7: Hooks](part-2-7-hooks.md).
+For comprehensive documentation with practical examples, see [Primitive 7: Hooks](primitive-7-hooks.md).
 
 ### VS Code Hooks (Chat Agent Sessions)
 
-VS Code 1.109.3+ supports hooks in Chat agent sessions via file-based configuration in `.github/hooks/*.json`. Eight PascalCase events are available: `SessionStart`, `UserPromptSubmit`, `PreToolUse`, `PostToolUse`, `PreCompact`, `SubagentStart`, `SubagentStop`, and `Stop`. See [Part 2.7: VS Code Hooks](part-2-7-hooks.md#vs-code-hooks-chat-agent-sessions) for configuration details.
+VS Code 1.109.3+ supports hooks in Chat agent sessions via file-based configuration in `.github/hooks/*.json`. Eight PascalCase events are available: `SessionStart`, `UserPromptSubmit`, `PreToolUse`, `PostToolUse`, `PreCompact`, `SubagentStart`, `SubagentStop`, and `Stop`. See [Primitive 7: VS Code Hooks](primitive-7-hooks.md#vs-code-hooks-chat-agent-sessions) for configuration details.
 
 ---
 
@@ -332,7 +332,7 @@ VS Code 1.109.3+ supports hooks in Chat agent sessions via file-based configurat
 
 ## Copilot Memory (Preview)
 
-For comprehensive coverage of Copilot Memory — including architecture, enablement, memory lifecycle, and practical guidance — see [Part 2.8: Memory](part-2-8-memory.md).
+For comprehensive coverage of Copilot Memory — including architecture, enablement, memory lifecycle, and practical guidance — see [Primitive 8: Memory](primitive-8-memory.md).
 
 ---
 

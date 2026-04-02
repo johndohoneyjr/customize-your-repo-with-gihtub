@@ -1,6 +1,6 @@
 # Copilot Memory
 
-[← Hooks](part-2-7-hooks.md) | [Part II Overview](part-2-primitives.md)
+[← Hooks](primitive-7-hooks.md) | [Part II Overview](part-2-primitives.md)
 
 ---
 
@@ -195,4 +195,4 @@ Copilot Memory is in public preview. Current limitations:
 
 ---
 
-[← Hooks](part-2-7-hooks.md) | [Next: Agentic Workflows →](part-2-9-agentic-workflows.md)
+[← Hooks](primitive-7-hooks.md) | [Next: Agentic Workflows →](primitive-9-agentic-workflows.md)

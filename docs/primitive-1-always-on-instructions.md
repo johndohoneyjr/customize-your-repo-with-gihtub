@@ -569,4 +569,4 @@ For folder-specific instructions without the experimental setting, file-based in
 
 ---
 
-[← Part I: Foundations](part-1-foundations.md) | [Next: File-Based Instructions →](part-2-2-file-based-instructions.md)
+[← Part I: Foundations](part-1-foundations.md) | [Next: File-Based Instructions →](primitive-2-file-based-instructions.md)

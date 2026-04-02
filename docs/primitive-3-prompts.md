@@ -1,6 +1,6 @@
 # Prompt Files (Slash Commands)
 
-[← File-Based Instructions](part-2-2-file-based-instructions.md) | [Part II Overview](part-2-primitives.md)
+[← File-Based Instructions](primitive-2-file-based-instructions.md) | [Part II Overview](part-2-primitives.md)
 
 ---
 
@@ -569,4 +569,4 @@ Specificity produces consistent, high-quality outputs.
 
 ---
 
-[← File-Based Instructions](part-2-2-file-based-instructions.md) | [Next: Skills →](part-2-4-skills.md)
+[← File-Based Instructions](primitive-2-file-based-instructions.md) | [Next: Skills →](primitive-4-skills.md)

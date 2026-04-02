@@ -1,6 +1,6 @@
 # Skills
 
-[← Prompt Files](part-2-3-prompts.md) | [Part II Overview](part-2-primitives.md)
+[← Prompt Files](primitive-3-prompts.md) | [Part II Overview](part-2-primitives.md)
 
 ---
 
@@ -965,4 +965,4 @@ For more on building skills, visit [agentskills.io/home](https://agentskills.io/
 
 ---
 
-[← Prompt Files](part-2-3-prompts.md) | [Next: Custom Agents →](part-2-5-custom-agents.md)
+[← Prompt Files](primitive-3-prompts.md) | [Next: Custom Agents →](primitive-5-custom-agents.md)

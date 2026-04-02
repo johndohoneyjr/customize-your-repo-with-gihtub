@@ -125,7 +125,7 @@ This guide focuses on the customization primitives that help Copilot understand 
 
 **Multiple Surfaces:** GitHub Copilot operates across multiple environments — VS Code, Visual Studio, GitHub.com, and [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) (a terminal-based AI agent). Most customization primitives covered in this guide work across all these surfaces, meaning the configuration you create for VS Code also benefits developers working from the command line or on GitHub.com. Surface-specific differences are noted in each primitive's documentation.
 
-**Copilot Memory:** Beyond explicit customization, [Copilot Memory](part-2-8-memory.md) (public preview) lets Copilot automatically learn and retain repository-level context across sessions. Memory complements the primitives covered here — see the [dedicated section](part-2-8-memory.md) for how the two approaches work together.
+**Copilot Memory:** Beyond explicit customization, [Copilot Memory](primitive-8-memory.md) (public preview) lets Copilot automatically learn and retain repository-level context across sessions. Memory complements the primitives covered here — see the [dedicated section](primitive-8-memory.md) for how the two approaches work together.
 
 **Open Source Reference:** VS Code and the GitHub Copilot extension are open source. When documentation is unclear or you want to understand exactly how a feature works, the source code at https://github.com/microsoft/vscode is the authoritative reference. Search the codebase for instruction parsing, prompt handling, or MCP integration to see implementation details firsthand.
 
@@ -347,7 +347,7 @@ The customization primitives covered in this guide shape how the coding agent pe
 - **MCP servers** connect agents to external APIs and tools
 - **Hooks** enforce runtime policies and audit trails
 
-For complete details — including workflow examples, coding agent configuration, and how each primitive feeds into autonomous work — see [Part 2.9: Agentic Workflows](part-2-9-agentic-workflows.md).
+For complete details — including workflow examples, coding agent configuration, and how each primitive feeds into autonomous work — see [Primitive 9: Agentic Workflows](primitive-9-agentic-workflows.md).
 
 ### Practical Measurement Approach
 

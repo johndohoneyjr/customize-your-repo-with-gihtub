@@ -1,6 +1,6 @@
 # MCP (Model Context Protocol)
 
-[← Custom Agents](part-2-5-custom-agents.md) | [Part II Overview](part-2-primitives.md)
+[← Custom Agents](primitive-5-custom-agents.md) | [Part II Overview](part-2-primitives.md)
 
 ---
 
@@ -213,7 +213,7 @@ The best setups combine them: an MCP server handles "how to connect to Jira" whi
 
 The same principle applies: the MCP server provides *access* to infrastructure APIs, while skills and instructions encode *how your team uses them*.
 
-For a detailed exploration with practical examples (Git, Jira, file operations, incident response), see [Skills vs. MCP Servers: When to Use Which](part-2-4-skills.md#skills-vs-mcp-servers-when-to-use-which).
+For a detailed exploration with practical examples (Git, Jira, file operations, incident response), see [Skills vs. MCP Servers: When to Use Which](primitive-4-skills.md#skills-vs-mcp-servers-when-to-use-which).
 
 ### MCP in GitHub Copilot CLI
 
@@ -338,8 +338,8 @@ Copilot discovers the GitHub MCP tools, calls the appropriate one, and returns l
 
 ### Step 5: Combine with a Skill
 
-For team-consistent workflows, pair the MCP server with a skill that encodes your conventions. See [Skills vs. MCP Servers](part-2-4-skills.md#skills-vs-mcp-servers-when-to-use-which) for the hybrid pattern.
+For team-consistent workflows, pair the MCP server with a skill that encodes your conventions. See [Skills vs. MCP Servers](primitive-4-skills.md#skills-vs-mcp-servers-when-to-use-which) for the hybrid pattern.
 
 ---
 
-[← Custom Agents](part-2-5-custom-agents.md) | [Next: Hooks →](part-2-7-hooks.md)
+[← Custom Agents](primitive-5-custom-agents.md) | [Next: Hooks →](primitive-7-hooks.md)
