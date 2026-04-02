@@ -6,22 +6,20 @@
 
 ---
 
-GitHub Copilot provides eight customization primitives. Six shape what Copilot knows and how it thinks; the seventh — hooks — provides runtime enforcement and observability; and the eighth — memory — lets Copilot learn from its own activity.
+GitHub Copilot provides six customization primitives that shape what Copilot knows and how it thinks. Beyond the primitives, hooks provide runtime enforcement, and [Copilot Memory](part-2-8-memory.md) provides automatic repository-level learning.
 
-**See it in action:** For a live demo, watch Harald Kirschner in the [Agent Sessions Day Keynote](https://www.youtube.com/watch?v=2-Q_sdJ5H2c), Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q), and Connor Peet in [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI).
+These mechanisms work across multiple Copilot surfaces — VS Code, Visual Studio, GitHub.com, and [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) (a terminal-based AI agent). The table below notes where each one applies:
 
-**Official docs:** [Copilot customization overview](https://code.visualstudio.com/docs/copilot/copilot-customization)
-
-| Primitive | Location | When Loaded | Scope |
-|-----------|----------|-------------|-------|
-| [**Always-on Instructions**](part-2-1-always-on-instructions.md) | `.github/copilot-instructions.md` | Every request | Entire session |
-| [**File-based Instructions**](part-2-2-file-based-instructions.md) | `.github/instructions/*.instructions.md` | File pattern match | While file in context |
-| [**Prompts**](part-2-3-prompts.md) | `.github/prompts/*.prompt.md` | User invokes `/name` | Single task |
-| [**Skills**](part-2-4-skills.md) | `.github/skills/*/SKILL.md` | Description matches intent | Single task |
-| [**Custom Agents**](part-2-5-custom-agents.md) | `.github/agents/*.md` | User invokes `@name` | Until switched |
-| [**MCP**](part-2-6-mcp.md) | `.vscode/mcp.json` | Session start | Entire session |
-| [**Hooks (Preview)**](part-2-7-hooks.md) | `.github/hooks/*.json` | Agent session events | Coding agent, CLI, and VS Code Chat (1.109.3+) |
-| [**Memory (Preview)**](part-2-8-memory.md) | GitHub cloud (per-repo) | Automatically, from Copilot activity | Coding agent, code review, CLI |
+| Mechanism | Location | When Loaded | Scope | CLI Support |
+|-----------|----------|-------------|-------|-------------|
+| [**Always-on Instructions**](part-2-1-always-on-instructions.md) | `.github/copilot-instructions.md` | Every request | Entire session | ✅ |
+| [**File-based Instructions**](part-2-2-file-based-instructions.md) | `.github/instructions/*.instructions.md` | File pattern match | While file in context | ✅ |
+| [**Prompts**](part-2-3-prompts.md) | `.github/prompts/*.prompt.md` | User invokes `/name` | Single task | VS Code only |
+| [**Skills**](part-2-4-skills.md) | `.github/skills/*/SKILL.md` | Description matches intent | Single task | ✅ |
+| [**Custom Agents**](part-2-5-custom-agents.md) | `.github/agents/*.md` | User invokes `@name` | Until switched | ✅ |
+| [**MCP**](part-2-6-mcp.md) | `.vscode/mcp.json` | Session start | Entire session | ✅ |
+| [**Hooks**](part-2-7-hooks.md) | `.github/hooks/*.json` | Agent session events | Coding agent only | ✅ |
+| [**Copilot Memory**](part-2-8-memory.md) | Managed by GitHub | Automatic | Repository-wide | ✅ |
 
 ---
 
@@ -192,6 +190,14 @@ Runtime enforcement and observability for agent sessions. Execute custom shell c
 ## 8. [Memory (Preview)](part-2-8-memory.md)
 
 Learned codebase knowledge that persists across sessions. Unlike the authored primitives above, Memory is discovered automatically as Copilot works on a repository — through coding agent sessions, code review, and CLI interactions. Memories are repository-scoped, validated against the current codebase before use, and auto-expire after 28 days. Memory complements customization files; it doesn't replace them.
+
+## 8. [Copilot Memory](part-2-8-memory.md)
+
+Automatic repository-level learning that builds context over time. Unlike the explicit primitives above, Memory works passively — Copilot observes patterns in your codebase and conversations, then applies what it learned in future sessions. Memory complements explicit customization rather than replacing it.
+
+## 9. [Agentic Workflows](part-2-9-agentic-workflows.md)
+
+GitHub Agentic Workflows run coding agents inside GitHub Actions — on a schedule, on events, or on demand. This section covers how they work, how to configure the coding agent for autonomous tasks, and how the customization primitives from this guide feed into continuous AI automation.
 
 ---
 

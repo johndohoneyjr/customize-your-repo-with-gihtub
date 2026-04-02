@@ -2,8 +2,6 @@
 
 [← Skills](part-2-4-skills.md) | [Part II Overview](part-2-primitives.md)
 
-*Published: February 20, 2026 · Validated against VS Code 1.109 and GitHub Copilot docs as of this date.*
-
 ---
 
 ## Overview
@@ -41,8 +39,9 @@ Custom Agent files use the `.agent.md` extension and support these frontmatter f
 | `user-invokable` | Whether the agent appears in the agents dropdown (default: `true`). Set to `false` to create subagent-only agents |
 | `disable-model-invocation` | Prevents the agent from being invoked as a subagent by other agents (default: `false`). Set to `true` for user-only agents |
 | `agents` | Restrict which custom agents this agent can invoke as subagents. Accepts agent names, `*` (all), or `[]` (none) |
-| `target` | Execution target: `vscode` (default) or `github-copilot` for use with Copilot coding agent on GitHub |
-| `mcp-servers` | MCP server config JSON for agents targeting `github-copilot` |
+| `target` | Target environment: `vscode` or `github-copilot` |
+| `mcp-servers` | MCP server configurations for agents targeting `github-copilot` |
+| `hooks` | Hook commands scoped to this agent (Preview). Only run when this agent is active. Requires `chat.useCustomAgentHooks` enabled |
 
 ```markdown
 ---
@@ -93,6 +92,7 @@ handoffs:
   - label: 'Start Implementation'
     agent: 'agent'
     prompt: 'Implement the architecture outlined above.'
+    send: false
 ---
 
 You are a principal software architect with 20 years of experience in 
@@ -417,17 +417,7 @@ handoffs:
 ---
 ```
 
-Each handoff supports these fields:
-
-| Field | Description |
-|-------|-------------|
-| `label` | Display text on the handoff button |
-| `agent` | Target agent to switch to |
-| `prompt` | Prompt text to send to the target agent |
-| `send` | Auto-submit the prompt when the handoff is selected (default: `false`). Set to `true` to start the next step automatically. |
-| `model` | Language model for the handoff. Use qualified format like `GPT-5.2 (copilot)` or `Claude Opus 4.6 (copilot)`. |
-
-The `handoffs` field creates natural workflow transitions, where one agent can spawn another for specialized work.
+Each handoff supports these fields: `label` (button text), `agent` (target agent), `prompt` (instructions for the target), `send` (boolean — auto-submit the prompt when `true`, default: `false`), and `model` (optional model override for the handoff execution).
 
 #### 5. Feature Builder (Orchestrator with Sub-Agents)
 **File:** `.github/agents/feature-builder.agent.md`
@@ -725,48 +715,91 @@ After challenging, acknowledge good points.
 End with "If you can address these, you've got a solid plan."
 ```
 
-### Claude Agent Format
+**SRE Agent** — Incident response and production reliability:
 
-VS Code also detects `.md` files in the `.claude/agents` folder, following the Claude sub-agents format. This enables teams to use the same agent definitions across VS Code and Claude Code.
+This agent is a specialized persona that handles production operations, not just code. It pairs well with an [incident response skill](part-2-4-skills.md#skills-vs-mcp-servers-when-to-use-which) for runbook knowledge and monitoring MCP servers for infrastructure access.
 
-Claude agent files use plain `.md` files (not `.agent.md`) with slightly different frontmatter:
+```markdown
+---
+name: 'SRE'
+description: 'Site reliability engineering — incident response, root cause analysis, and production health'
+tools: ['search', 'readFile', 'editFiles', 'terminalCommand', 'fetch']
+model: 'Opus 4.6'
+---
 
-| Field | Description |
-|-------|-------------|
-| `name` | Agent name (required) |
-| `description` | What the agent does |
-| `tools` | Comma-separated string of allowed tools (e.g., `"Read, Grep, Glob, Bash"`) |
-| `disallowedTools` | Comma-separated string of tools to block |
+You are a Site Reliability Engineer. Your priority is production stability.
+You think in terms of blast radius, rollback plans, and service dependencies.
 
-VS Code maps Claude-specific tool names to the corresponding VS Code tools. Both the VS Code `.agent.md` format (with YAML arrays for tools) and the Claude format (with comma-separated strings) are supported.
+## Your Approach
+- Triage first: severity, impact, affected services
+- Check recent deployments and config changes before investigating code
+- Prefer rollback over forward-fix when production is down
+- Always consider blast radius before making changes
+- Log every action taken during incident response
 
-To create a Claude-compatible agent, select **Workspace (Claude format)** when creating a new custom agent via the Configure menu.
+## When Paged for an Incident
+1. Acknowledge and assess severity (P1/P2/P3)
+2. Check deployment history: `git log --oneline --since='6 hours ago'`
+3. Check service health and error rates
+4. Identify blast radius — which users/services are affected?
+5. Decide: rollback, hotfix, or mitigation
+6. Communicate status to stakeholders
+7. After resolution, draft a postmortem
 
-### Background and Cloud Agents
+## When Reviewing for Reliability
+- Flag missing error handling, retries, and circuit breakers
+- Check for proper timeouts on external calls
+- Verify health check endpoints exist
+- Ensure graceful degradation under partial failures
+- Look for missing metrics, logs, or alerts
 
-Custom agents can be reused in **background agents** and **cloud agents**, enabling autonomous tasks with the same specialized configurations defined in `.agent.md` files.
+## What You Never Do
+- Deploy to production without a rollback plan
+- Dismiss alerts without investigation
+- Skip postmortems after incidents
+- Blame individuals — focus on systemic improvements
+```
 
-- **Background agents** run tasks asynchronously in VS Code while the developer continues working
-- **Cloud agents** execute remotely on GitHub's infrastructure
+---
 
-Background agents also support slash commands — including prompt files, hooks, and skills. All customization primitives now work across local, background, and cloud agent environments.
+[← Skills](part-2-4-skills.md) | [Next: MCP →](part-2-6-mcp.md)
 
-This means agent definitions are portable: the same `.agent.md` file that drives an interactive chat session can also power automated coding tasks running in the background or in the cloud.
+## Appendix: Custom Agents in GitHub Copilot CLI
 
-**See it in action:** For a live demo, watch Josh Spicer in [A Unified Agent Experience](https://www.youtube.com/watch?v=YmpjvZ3xkx8).
+[GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) fully supports custom agents. The same `.github/agents/*.md` files used in VS Code also work at the command line, giving terminal-based workflows the same persona-driven capabilities.
 
-### Organization-Level Custom Agents
+### Built-in CLI Agents
 
-Custom agents can be shared across an entire GitHub organization, providing consistent specialized personas across all repositories.
+Copilot CLI ships with specialized agents for common tasks:
 
-**Setting:** `github.copilot.chat.organizationCustomAgents.enabled` — set to `true` to discover organization-level agents.
+| Agent | Purpose |
+|-------|---------|
+| **Explore** | Quick codebase analysis — ask questions about code without adding to main context |
+| **Task** | Execute commands (tests, builds) with brief summaries on success, full output on failure |
+| **Plan** | Analyze dependencies and structure to create implementation plans before making changes |
+| **Code-review** | Review changes with a focus on surfacing genuine issues, minimizing noise |
 
-Organization-level agents appear in the agents dropdown alongside built-in agents, personal agents, and workspace agents. This is useful for:
-- Standardizing review workflows across teams
-- Providing org-wide security or compliance agents
-- Sharing domain-specific expertise agents across repositories
+### Agent Loading Locations
 
-Learn more about [creating custom agents for your organization](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/create-custom-agents) in the GitHub documentation.
+The CLI loads custom agents from multiple sources, with this priority order:
+
+| Level | Location | Scope |
+|-------|----------|-------|
+| User-level | `~/.copilot/agents/` | All projects |
+| Repository-level | `.github/agents/` (local and remote) | Current project |
+| Organization/Enterprise | `/agents/` in `.github-private` repository | All org projects |
+
+In naming conflicts, user-level agents override repository-level, and repository-level agents override organization-level.
+
+### Invoking Agents in the CLI
+
+Custom agents can be invoked three ways:
+
+1. **Slash command** — Type `/agent` in interactive mode and select from the list
+2. **Natural language** — Reference the agent in a prompt: `Use the refactoring agent to refactor this code block`
+3. **Command-line flag** — `copilot --agent=security-reviewer --prompt "Review this code"`
+
+The same agent definitions work in both VS Code and the CLI, so teams that invest in custom agents get value across both surfaces.
 
 ---
 

@@ -1,8 +1,6 @@
 ﻿# The Definitive Guide to Customizing GitHub Copilot
 
-**Short link:** [aka.ms/GitHubCopilotGuideForHumans](https://aka.ms/GitHubCopilotGuideForHumans)
-
-*Published: February 20, 2026. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot/overview).*
+*Published: February 10, 2026. Updated: April 2, 2026. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
 
 GitHub Copilot is more than autocomplete. When properly configured, it becomes a context-aware development partner that understands your architecture, follows your conventions, and produces code that passes review on the first try.
 
@@ -72,8 +70,9 @@ The heart of the guide. Each primitive receives comprehensive coverage including
 - [2.4 Skills](docs/part-2-4-skills.md) — Discoverable procedural knowledge
 - [2.5 Custom Agents](docs/part-2-5-custom-agents.md) — Specialized AI personas
 - [2.6 MCP](docs/part-2-6-mcp.md) — External tool integration
-- [2.7 Hooks (Preview)](docs/part-2-7-hooks.md) — Runtime enforcement and audit logging
-- [2.8 Memory (Preview)](docs/part-2-8-memory.md) — Learned codebase knowledge across sessions
+- [2.7 Hooks](docs/part-2-7-hooks.md) — Runtime enforcement and audit logging
+- [2.8 Copilot Memory](docs/part-2-8-memory.md) — Automatic repository-level learning
+- [2.9 Agentic Workflows](docs/part-2-9-agentic-workflows.md) — Continuous AI via coding agents in GitHub Actions
 
 ### [Part III: Reference](docs/part-3-reference.md)
 
@@ -92,8 +91,12 @@ For teams adopting Copilot customization, consider reading through the guide ind
 ## Resources
 
 - [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
-- [GitHub Copilot in VS Code](https://code.visualstudio.com/docs/copilot/overview)
+- [VS Code Copilot Extension](https://code.visualstudio.com/docs/copilot)
+- [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) — Use Copilot as an AI agent directly from your terminal
 - [Model Context Protocol](https://modelcontextprotocol.io/)
+- [Agent Skills Specification](https://agentskills.io) — Open standard for portable agent capabilities
+- [Copilot Memory](https://docs.github.com/en/copilot/concepts/agents/copilot-memory) — Automatic repository-level learning that complements explicit customization
+- [GitHub Agentic Workflows](https://github.blog/ai-and-ml/automate-repository-tasks-with-github-agentic-workflows/) — Continuous AI via coding agents in GitHub Actions
 - [VS Code Source Code](https://github.com/microsoft/vscode) — The authoritative reference when documentation is unclear
 - [Copilot Spaces](https://docs.github.com/en/copilot/how-tos/provide-context/use-copilot-spaces) — Organize relevant context into Spaces that ground Copilot's responses for specific tasks
 - [product-brain](https://github.com/digitarald/product-brain) — A product management approach to workspace instructions
