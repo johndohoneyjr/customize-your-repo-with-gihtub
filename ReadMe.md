@@ -35,7 +35,7 @@ You can start anywhere using the table of contents below, but if you're new to C
 
 ## The Primitives
 
-GitHub Copilot provides eight customization primitives. Each serves a distinct purpose and loads at different points in your workflow:
+GitHub Copilot provides nine customization primitives. Each serves a distinct purpose and loads at different points in your workflow:
 
 | Primitive | Location | Purpose |
 |-----------|----------|---------|
@@ -47,10 +47,11 @@ GitHub Copilot provides eight customization primitives. Each serves a distinct p
 | [**MCP (Model Context Protocol)**](docs/primitive-6-mcp.md) | `.vscode/mcp.json` | Connections to external tools, APIs, and data sources |
 | [**Hooks (Preview)**](docs/primitive-7-hooks.md) | `.github/hooks/*.json` | Runtime enforcement and audit logging for agent sessions |
 | [**Memory (Preview)**](docs/primitive-8-memory.md) | GitHub cloud (repository-scoped) | Learned codebase knowledge that persists across sessions |
+| [**Agentic Workflows (Preview)**](docs/primitive-9-agentic-workflows.md) | `.github/workflows/*.md` | Continuous AI via coding agents in GitHub Actions |
 
 Understanding when and how to use each primitive is the core of this guide.
 
-**Not sure which primitive to use?** Jump to the [Quick Decision Guide](docs/part-3-reference.md#quick-decision-guide) for a lookup table that maps common scenarios to the right primitive.
+**Not sure which primitive to use?** Jump to the [Quick Decision Guide](docs/part-3-reference.md#quick-decision-guide).
 
 ---
 
@@ -58,11 +59,11 @@ Understanding when and how to use each primitive is the core of this guide.
 
 ### [Part I: Foundations](docs/part-1-foundations.md)
 
-Start here. This section establishes the mental model for thinking about Copilot customization: why it matters, how the primitives layer together, strategies for iteration, and approaches for measuring success. The foundations section provides the conceptual framework that makes the rest of the guide actionable.
+Start here. Why customization matters, how the primitives layer together, strategies for iteration, and approaches for measuring success.
 
 ### [Part II: The Primitives](docs/part-2-primitives.md)
 
-The heart of the guide. Each primitive receives comprehensive coverage including syntax, configuration options, practical examples, common patterns, and guidance on when to use it versus alternatives.
+The heart of the guide. Each primitive gets comprehensive coverage — syntax, configuration, examples, patterns, and guidance on when to use it versus alternatives.
 
 - [Primitive 1: Always-on Instructions](docs/primitive-1-always-on-instructions.md) — Your codebase's global rules
 - [Primitive 2: File-based Instructions](docs/primitive-2-file-based-instructions.md) — Context-specific guidance
@@ -76,15 +77,15 @@ The heart of the guide. Each primitive receives comprehensive coverage including
 
 ### [Part III: Reference](docs/part-3-reference.md)
 
-Quick reference tables, starter templates, and configuration reference for all primitives.
+Quick reference tables, starter templates, and configuration reference for all nine primitives.
 
 ---
 
 ## Getting Started
 
-Begin with [Part I: Foundations](docs/part-1-foundations.md) to understand the mental model, then work through the primitives in order. Each section builds on the previous, and the examples become more sophisticated as you progress.
+New to Copilot customization? Start with [Part I: Foundations](docs/part-1-foundations.md), then work through the primitives in order — each builds on the previous.
 
-For teams adopting Copilot customization, consider reading through the guide individually first, then convening to discuss which primitives and patterns fit your specific workflows.
+For teams, consider reading individually first, then convening to discuss which primitives fit your workflows.
 
 ---
 
