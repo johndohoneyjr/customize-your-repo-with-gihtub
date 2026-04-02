@@ -2,7 +2,7 @@
 
 [← Part I: Foundations](part-1-foundations.md) | [Part II Overview](part-2-primitives.md)
 
-*Published: February 10, 2026. This guide serves as a primer for GitHub Copilot customization. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
+*Published: February 10, 2026. Updated: April 2, 2026. This guide serves as a primer for GitHub Copilot customization. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
 
 ---
 
@@ -12,9 +12,9 @@ Always-on instructions (also known as the **Copilot Instructions File**) represe
 
 **Location:** `.github/copilot-instructions.md` or `.github/AGENTS.md` [*](https://code.visualstudio.com/docs/copilot)
 
-> **New in VS Code 1.109:** Both `copilot-instructions.md` and `AGENTS.md` are now recognized as workspace instruction files. The `/init` command can discover and update either format.
+Both `copilot-instructions.md` and `AGENTS.md` are recognized as workspace instruction files. The `/init` command can discover and update either format.
 
-**Required Setting:** `github.copilot.chat.codeGeneration.useInstructionFiles` must be enabled in VS Code settings for the instructions file to be applied. [*](https://code.visualstudio.com/docs/copilot/customization/custom-instructions)
+**Relevant Settings:** Instruction file detection is controlled by `chat.includeApplyingInstructions` (pattern-matched instructions), `chat.includeReferencedInstructions` (Markdown-linked instructions), and `chat.useAgentsMdFile` (`AGENTS.md` support). All are enabled by default. [*](https://code.visualstudio.com/docs/copilot/customization/custom-instructions)
 
 When this file exists in a repository and the setting is enabled, Copilot reads and applies its contents as persistent context. Chat responses and code generation will respect these guidelines without requiring explicit invocation.
 
@@ -139,7 +139,7 @@ src/
 
 ### React Patterns
 ```typescript
-// ? Good: Custom hook for data fetching
+// ✅ Good: Custom hook for data fetching
 function useInventoryItems(warehouseId: string) {
   return useQuery({
     queryKey: ['inventory', warehouseId],
@@ -147,7 +147,7 @@ function useInventoryItems(warehouseId: string) {
   });
 }
 
-// ? Bad: Fetching in useEffect
+// ❌ Bad: Fetching in useEffect
 useEffect(() => {
   fetch('/api/inventory').then(/* ... */);
 }, []);
@@ -155,7 +155,7 @@ useEffect(() => {
 
 ### Server Actions
 ```typescript
-// ? Good: Validated, authorized, audited
+// ✅ Good: Validated, authorized, audited
 export async function updateInventory(input: UpdateInventoryInput) {
   const validated = updateInventorySchema.parse(input);
   const session = await auth();
@@ -165,7 +165,7 @@ export async function updateInventory(input: UpdateInventoryInput) {
   return db.inventory.update({ where: { id: validated.id }, data: validated });
 }
 
-// ? Bad: No validation, no auth check
+// ❌ Bad: No validation, no auth check
 export async function updateInventory(data: any) {
   return db.inventory.update({ data });
 }
@@ -185,7 +185,7 @@ export async function updateInventory(data: any) {
 
 ### Testing Patterns
 ```typescript
-// ? Good: Descriptive test with clear arrange/act/assert
+// ✅ Good: Descriptive test with clear arrange/act/assert
 describe('updateInventory', () => {
   it('should update quantity and log audit event', async () => {
     // Arrange
@@ -201,7 +201,7 @@ describe('updateInventory', () => {
   });
 });
 
-// ? Bad: Vague test name, no clear structure
+// ❌ Bad: Vague test name, no clear structure
 test('inventory works', async () => {
   const result = await updateInventory({ id: '1', quantity: 5 });
   expect(result).toBeTruthy();
@@ -225,12 +225,12 @@ Use our custom error hierarchy:
 
 ### Error Pattern
 ```typescript
-// ? Good: Specific error with context
+// ✅ Good: Specific error with context
 if (!warehouse) {
   throw new NotFoundError('Warehouse', warehouseId);
 }
 
-// ? Bad: Generic error
+// ❌ Bad: Generic error
 if (!warehouse) {
   throw new Error('Not found');
 }
@@ -402,14 +402,14 @@ Copilot responds more effectively to examples than to abstract rules. Instead of
 ```markdown
 ## Data Transformation
 
-? **Preferred:**
+✅ **Preferred:**
 ```typescript
 const activeUsers = users
   .filter(user => user.isActive)
   .map(user => user.name);
 ```
 
-? **Avoid:**
+❌ **Avoid:**
 ```typescript
 let activeUsers = [];
 for (let i = 0; i < users.length; i++) {
@@ -467,7 +467,7 @@ To verify the instructions file is working correctly:
 4. Generate sample code and verify it follows the defined rules
 
 If instructions are not being applied, verify:
-- The `github.copilot.chat.codeGeneration.useInstructionFiles` setting is enabled
+- The `chat.includeApplyingInstructions` setting is enabled (default: `true`)
 - File is named exactly `copilot-instructions.md` or `AGENTS.md`
 - File is located in the `.github/` folder [*](https://code.visualstudio.com/docs/copilot)
 - VS Code window has been reloaded after creating the file
@@ -480,8 +480,9 @@ The `.github/copilot-instructions.md` file is recognized by GitHub Copilot acros
 - VS Code
 - Visual Studio
 - GitHub.com (Copilot Chat, coding agent, code review)
+- [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) (terminal-based AI agent)
 
-This means the same instructions file works whether your team uses different editors or interacts with Copilot on the web.
+This means the same instructions file works whether your team uses different editors, interacts with Copilot on the web, or works from the command line. Copilot CLI also recognizes `AGENTS.md` as a workspace instruction file.
 
 ## Instruction Priority
 

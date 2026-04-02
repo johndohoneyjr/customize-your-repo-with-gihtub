@@ -6,15 +6,17 @@
 
 GitHub Copilot provides six customization primitives that shape what Copilot knows and how it thinks. A seventh mechanism — hooks — provides runtime enforcement and observability for the coding agent.
 
-| Primitive | Location | When Loaded | Scope |
-|-----------|----------|-------------|-------|
-| [**Always-on Instructions**](part-2-1-always-on-instructions.md) | `.github/copilot-instructions.md` | Every request | Entire session |
-| [**File-based Instructions**](part-2-2-file-based-instructions.md) | `.github/instructions/*.instructions.md` | File pattern match | While file in context |
-| [**Prompts**](part-2-3-prompts.md) | `.github/prompts/*.prompt.md` | User invokes `/name` | Single task |
-| [**Skills**](part-2-4-skills.md) | `.github/skills/*/SKILL.md` | Description matches intent | Single task |
-| [**Custom Agents**](part-2-5-custom-agents.md) | `.github/agents/*.md` | User invokes `@name` | Until switched |
-| [**MCP**](part-2-6-mcp.md) | `.vscode/mcp.json` | Session start | Entire session |
-| [**Hooks**](part-2-7-hooks.md) | `.github/hooks/*.json` | Agent session events | Coding agent only |
+These primitives work across multiple Copilot surfaces — VS Code, Visual Studio, GitHub.com, and [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) (a terminal-based AI agent). The table below notes where each primitive applies:
+
+| Primitive | Location | When Loaded | Scope | CLI Support |
+|-----------|----------|-------------|-------|-------------|
+| [**Always-on Instructions**](part-2-1-always-on-instructions.md) | `.github/copilot-instructions.md` | Every request | Entire session | ✅ |
+| [**File-based Instructions**](part-2-2-file-based-instructions.md) | `.github/instructions/*.instructions.md` | File pattern match | While file in context | ✅ |
+| [**Prompts**](part-2-3-prompts.md) | `.github/prompts/*.prompt.md` | User invokes `/name` | Single task | VS Code only |
+| [**Skills**](part-2-4-skills.md) | `.github/skills/*/SKILL.md` | Description matches intent | Single task | ✅ |
+| [**Custom Agents**](part-2-5-custom-agents.md) | `.github/agents/*.md` | User invokes `@name` | Until switched | ✅ |
+| [**MCP**](part-2-6-mcp.md) | `.vscode/mcp.json` | Session start | Entire session | ✅ |
+| [**Hooks**](part-2-7-hooks.md) | `.github/hooks/*.json` | Agent session events | Coding agent only | ✅ |
 
 ---
 

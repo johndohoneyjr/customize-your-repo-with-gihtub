@@ -1,8 +1,8 @@
 ﻿# The Definitive Guide to Customizing GitHub Copilot
 
-**Short link:** [aka.ms/GitHubCopilotGuideForHumans](https://aka.ms/GithHubCopilotGuideForHumans)
+**Short link:** [aka.ms/GitHubCopilotGuideForHumans](https://aka.ms/GitHubCopilotGuideForHumans)
 
-*Published: February 10, 2026. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
+*Published: February 10, 2026. Updated: April 2, 2026. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
 
 GitHub Copilot is more than autocomplete. When properly configured, it becomes a context-aware development partner that understands your architecture, follows your conventions, and produces code that passes review on the first try.
 
@@ -86,6 +86,9 @@ For teams adopting Copilot customization, consider reading through the guide ind
 
 - [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
 - [VS Code Copilot Extension](https://code.visualstudio.com/docs/copilot)
+- [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) — Use Copilot as an AI agent directly from your terminal
 - [Model Context Protocol](https://modelcontextprotocol.io/)
+- [Agent Skills Specification](https://agentskills.io) — Open standard for portable agent capabilities
+- [Agentic DevOps](https://azure.microsoft.com/en-us/blog/agentic-devops-evolving-software-development-with-github-copilot-and-microsoft-azure/) — Microsoft's vision for agents across the software lifecycle
 - [VS Code Source Code](https://github.com/microsoft/vscode) — The authoritative reference when documentation is unclear
 - [product-brain](https://github.com/digitarald/product-brain) — A product management approach to workspace instructions

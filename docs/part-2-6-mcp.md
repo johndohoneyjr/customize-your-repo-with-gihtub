@@ -1,6 +1,6 @@
 # MCP (Model Context Protocol)
 
-[? Custom Agents](part-2-5-custom-agents.md) | [Part II Overview](part-2-primitives.md)
+[← Custom Agents](part-2-5-custom-agents.md) | [Part II Overview](part-2-primitives.md)
 
 ---
 
@@ -84,12 +84,12 @@ MCP servers are configured in dedicated `mcp.json` files:
 
 **Additional fields for stdio servers:** `cwd` (working directory), `envFile` (path to .env file).
 
-**For HTTP/SSE servers:**
+**For HTTP servers:**
 ```json
 {
   "servers": {
     "remote-server": {
-      "type": "sse",
+      "type": "http",
       "url": "https://example.com/mcp",
       "headers": { "Authorization": "Bearer ${env:TOKEN}" }
     }
@@ -148,11 +148,38 @@ MCP servers and skills serve different purposes, but teams sometimes wonder whic
 The best setups combine them: an MCP server handles "how to connect to Jira" while a skill handles "how our team formats Jira tickets."
 
 **Quick guidance:**
-- Need to authenticate or call external APIs? ? MCP server
-- Need to encode team conventions or workflows? ? Skill
-- Need both access AND conventions? ? Use both
+- Need to authenticate or call external APIs? → MCP server
+- Need to encode team conventions or workflows? → Skill
+- Need both access AND conventions? → Use both
 
-For a detailed exploration with practical examples (Git, Jira, file operations), see [Skills vs. MCP Servers: When to Use Which](part-2-4-skills.md#skills-vs-mcp-servers-when-to-use-which).
+**Infrastructure and DevOps MCP servers** demonstrate how this pattern extends to operations workflows. If your team uses (or builds) MCP servers for infrastructure tools, the same skill-plus-MCP architecture applies:
+
+| Use Case | MCP Server Would Provide | Pair With |
+|----------|------------------------|-----------| 
+| **Kubernetes** | Cluster state, pod logs, scaling, rollouts | Deployment skill for team conventions |
+| **Terraform / IaC** | Plan, apply, state queries | Infrastructure review agent |
+| **Cloud Provider** (Azure, AWS, GCP) | Resource management, metrics, cost data | SRE agent for incident response |
+| **Monitoring** (Datadog, Grafana, Prometheus) | Alerts, dashboards, metric queries | Incident response skill for triage runbooks |
+
+The same principle applies: the MCP server provides *access* to infrastructure APIs, while skills and instructions encode *how your team uses them*.
+
+For a detailed exploration with practical examples (Git, Jira, file operations, incident response), see [Skills vs. MCP Servers: When to Use Which](part-2-4-skills.md#skills-vs-mcp-servers-when-to-use-which).
+
+### MCP in GitHub Copilot CLI
+
+[GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) comes with the GitHub MCP server pre-configured, enabling interaction with GitHub.com resources — merging pull requests, creating issues, and managing repositories — directly from the terminal.
+
+**Adding MCP servers in the CLI:**
+
+1. Type `/mcp add` in an interactive session
+2. Fill in the server details using Tab to navigate between fields
+3. Press Ctrl+S to save
+
+Server configurations are stored in `~/.copilot/mcp-config.json` (or the location specified by `XDG_CONFIG_HOME`). The CLI uses the same JSON structure as VS Code's `mcp.json` for server definitions.
+
+**Checking available MCP tools:** Type `/mcp` in interactive mode to see configured servers and their available tools.
+
+This means MCP configurations benefit developers across both VS Code and the CLI. While the configuration files are stored in different locations (`.vscode/mcp.json` for VS Code, `~/.copilot/mcp-config.json` for CLI), teams can standardize on the same MCP servers across both surfaces.
 
 ---
 

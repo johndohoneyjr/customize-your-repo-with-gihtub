@@ -1,6 +1,6 @@
 # Custom Agents
 
-[? Skills](part-2-4-skills.md) | [Part II Overview](part-2-primitives.md)
+[← Skills](part-2-4-skills.md) | [Part II Overview](part-2-primitives.md)
 
 ---
 
@@ -35,6 +35,9 @@ Custom Agent files use the `.agent.md` extension and support these frontmatter f
 | `user-invokable` | Whether the agent appears in the agents dropdown (default: `true`). Set to `false` to create subagent-only agents |
 | `disable-model-invocation` | Prevents the agent from being invoked as a subagent by other agents (default: `false`). Set to `true` for user-only agents |
 | `agents` | Restrict which custom agents this agent can invoke as subagents. Accepts agent names, `*` (all), or `[]` (none) |
+| `target` | Target environment: `vscode` or `github-copilot` |
+| `mcp-servers` | MCP server configurations for agents targeting `github-copilot` |
+| `hooks` | Hook commands scoped to this agent (Preview). Only run when this agent is active. Requires `chat.useCustomAgentHooks` enabled |
 
 ```markdown
 ---
@@ -85,6 +88,7 @@ handoffs:
   - label: 'Start Implementation'
     agent: 'agent'
     prompt: 'Implement the architecture outlined above.'
+    send: false
 ---
 
 You are a principal software architect with 20 years of experience in 
@@ -404,10 +408,12 @@ handoffs:
   - label: 'Implement Fixes'
     agent: 'agent'
     prompt: 'Implement the fixes identified in the review above.'
+    send: false
+    model: 'GPT-5.2 (copilot)'
 ---
 ```
 
-The `handoffs` field creates natural workflow transitions, where one agent can spawn another for specialized work.
+Each handoff supports these fields: `label` (button text), `agent` (target agent), `prompt` (instructions for the target), `send` (boolean — auto-submit the prompt when `true`, default: `false`), and `model` (optional model override for the handoff execution).
 
 #### 5. Feature Builder (Orchestrator with Sub-Agents)
 **File:** `.github/agents/feature-builder.agent.md`
@@ -502,7 +508,7 @@ The recommended approach for creating custom agents is through VS Code's built-i
 
 Rather than manually editing agent files, use Copilot to generate and refine them:
 
-> **?? Try this prompt:**
+> **💬 Try this prompt:**
 >
 > *Create a custom agent for security code review. It should:*
 > *- Focus on OWASP Top 10 vulnerabilities*
@@ -607,7 +613,7 @@ Guardrails prevent the persona from producing off-target responses:
 
 The following prompt generates new custom agent configurations through the agent:
 
-> **?? Try this prompt:**
+> **💬 Try this prompt:**
 >
 > *Create a new custom agent at `.github/agents/{{modeName}}.agent.md`.*
 >
@@ -705,6 +711,92 @@ After challenging, acknowledge good points.
 End with "If you can address these, you've got a solid plan."
 ```
 
+**SRE Agent** — Incident response and production reliability:
+
+This agent demonstrates Agentic DevOps in practice — a specialized persona that handles production operations, not just code. It pairs well with an [incident response skill](part-2-4-skills.md#skills-vs-mcp-servers-when-to-use-which) for runbook knowledge and monitoring MCP servers for infrastructure access.
+
+```markdown
+---
+name: 'SRE'
+description: 'Site reliability engineering — incident response, root cause analysis, and production health'
+tools: ['search', 'readFile', 'editFiles', 'terminalCommand', 'fetch']
+model: 'Opus 4.6'
 ---
 
-[? Skills](part-2-4-skills.md) | [Next: MCP ?](part-2-6-mcp.md)
+You are a Site Reliability Engineer. Your priority is production stability.
+You think in terms of blast radius, rollback plans, and service dependencies.
+
+## Your Approach
+- Triage first: severity, impact, affected services
+- Check recent deployments and config changes before investigating code
+- Prefer rollback over forward-fix when production is down
+- Always consider blast radius before making changes
+- Log every action taken during incident response
+
+## When Paged for an Incident
+1. Acknowledge and assess severity (P1/P2/P3)
+2. Check deployment history: `git log --oneline --since='6 hours ago'`
+3. Check service health and error rates
+4. Identify blast radius — which users/services are affected?
+5. Decide: rollback, hotfix, or mitigation
+6. Communicate status to stakeholders
+7. After resolution, draft a postmortem
+
+## When Reviewing for Reliability
+- Flag missing error handling, retries, and circuit breakers
+- Check for proper timeouts on external calls
+- Verify health check endpoints exist
+- Ensure graceful degradation under partial failures
+- Look for missing metrics, logs, or alerts
+
+## What You Never Do
+- Deploy to production without a rollback plan
+- Dismiss alerts without investigation
+- Skip postmortems after incidents
+- Blame individuals — focus on systemic improvements
+```
+
+---
+
+[← Skills](part-2-4-skills.md) | [Next: MCP →](part-2-6-mcp.md)
+
+## Appendix: Custom Agents in GitHub Copilot CLI
+
+[GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) fully supports custom agents. The same `.github/agents/*.md` files used in VS Code also work at the command line, giving terminal-based workflows the same persona-driven capabilities.
+
+### Built-in CLI Agents
+
+Copilot CLI ships with specialized agents for common tasks:
+
+| Agent | Purpose |
+|-------|---------|
+| **Explore** | Quick codebase analysis — ask questions about code without adding to main context |
+| **Task** | Execute commands (tests, builds) with brief summaries on success, full output on failure |
+| **Plan** | Analyze dependencies and structure to create implementation plans before making changes |
+| **Code-review** | Review changes with a focus on surfacing genuine issues, minimizing noise |
+
+### Agent Loading Locations
+
+The CLI loads custom agents from multiple sources, with this priority order:
+
+| Level | Location | Scope |
+|-------|----------|-------|
+| User-level | `~/.copilot/agents/` | All projects |
+| Repository-level | `.github/agents/` (local and remote) | Current project |
+| Organization/Enterprise | `/agents/` in `.github-private` repository | All org projects |
+
+In naming conflicts, user-level agents override repository-level, and repository-level agents override organization-level.
+
+### Invoking Agents in the CLI
+
+Custom agents can be invoked three ways:
+
+1. **Slash command** — Type `/agent` in interactive mode and select from the list
+2. **Natural language** — Reference the agent in a prompt: `Use the refactoring agent to refactor this code block`
+3. **Command-line flag** — `copilot --agent=security-reviewer --prompt "Review this code"`
+
+The same agent definitions work in both VS Code and the CLI, so teams that invest in custom agents get value across both surfaces.
+
+---
+
+[← Skills](part-2-4-skills.md) | [Next: MCP →](part-2-6-mcp.md)

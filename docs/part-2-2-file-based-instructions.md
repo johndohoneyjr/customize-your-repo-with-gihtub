@@ -1,10 +1,10 @@
 # File-Based Instructions
 
-[? Always-On Instructions](part-2-1-always-on-instructions.md) | [Part II Overview](part-2-primitives.md)
+[← Always-On Instructions](part-2-1-always-on-instructions.md) | [Part II Overview](part-2-primitives.md)
 
 ---
 
-### Overview
+## Overview
 
 File-based instructions activate through pattern matching using glob patterns in the `applyTo` frontmatter field. This allows teams to define area-specific rules that only apply when working in relevant contexts.
 
@@ -25,7 +25,6 @@ File-based instructions use the `.instructions.md` extension with YAML frontmatt
 | `description` | Description shown on hover in Chat view |
 | `name` | Display name (defaults to filename) |
 | `applyTo` | Glob pattern for automatic application |
-| `excludeAgent` | Optional array of agents to exclude from these instructions |
 
 ### Example
 
@@ -58,13 +57,13 @@ interface ApiResponse<T> {
 
 ## Error Handling
 ```typescript
-// ? Good: Standardized error response
+// ✅ Good: Standardized error response
 return NextResponse.json({ 
   success: false, 
   error: { code: 'NOT_FOUND', message: 'Resource not found' }
 }, { status: 404 });
 
-// ? Bad: Inconsistent error format
+// ❌ Bad: Inconsistent error format
 return NextResponse.json({ error: 'Not found' }, { status: 404 });
 ```
 ``````
@@ -79,7 +78,7 @@ return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
 Alternatively, ask the agent directly:
 
-> **?? Try this prompt:**
+> **💬 Try this prompt:**
 >
 > *Create a file-based instruction at .github/instructions/react-components.instructions.md that applies to src/components/\*\*/\* and includes our React component conventions. Analyze existing components for patterns to document.*
 
@@ -94,6 +93,10 @@ Alternatively, ask the agent directly:
 
 File-based instructions complement always-on instructions by providing contextual specialization.
 
+### CLI Support
+
+[GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) supports path-specific instruction files (`.github/instructions/**/*.instructions.md`). When working in a repository from the terminal, the CLI loads matching instructions the same way VS Code does, ensuring consistent context across surfaces.
+
 ### File-Based Instructions vs. Skills
 
 File-based instructions and skills have overlapping use cases. Both can provide context-specific knowledge to Copilot — file-based instructions activate by file pattern, skills activate by description matching.
@@ -106,4 +109,4 @@ There's no definitively "right" choice — this space is still evolving. For a d
 
 ---
 
-[? Always-On Instructions](part-2-1-always-on-instructions.md) | [Next: Prompt Files ?](part-2-3-prompts.md)
+[← Always-On Instructions](part-2-1-always-on-instructions.md) | [Next: Prompt Files →](part-2-3-prompts.md)

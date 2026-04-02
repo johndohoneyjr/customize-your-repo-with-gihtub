@@ -1,6 +1,6 @@
 # Prompt Files (Slash Commands)
 
-[? File-Based Instructions](part-2-2-file-based-instructions.md) | [Part II Overview](part-2-primitives.md)
+[← File-Based Instructions](part-2-2-file-based-instructions.md) | [Part II Overview](part-2-primitives.md)
 
 ---
 
@@ -20,7 +20,7 @@ Prompt files use the `.prompt.md` extension and support these frontmatter fields
 |-------|-------------|
 | `name` | Display name shown when typing `/` in chat |
 | `description` | Brief description of what the prompt does |
-| `agent` | Execution mode: `ask`, `edit`, `agent`, or a custom agent name |
+| `agent` | Execution mode: `ask`, `agent`, `plan`, or the name of a custom agent |
 | `model` | AI model to use (e.g., `Claude Opus 4.6`, `GPT-5.2`) |
 | `tools` | Specific tools available for this prompt |
 | `argument-hint` | Hint text for user interaction |
@@ -54,8 +54,9 @@ The `agent` field in the frontmatter determines how Copilot executes the prompt:
 |------|--------------|----------|
 | `ask` | Read-only — responds conversationally, no file changes | Questions, explanations, brainstorming, code review |
 | `agent` | Takes autonomous action — creates/edits files, runs commands | Multi-file changes, scaffolding, bug fixes, any task that modifies code |
+| `plan` | Generates a structured implementation plan, asks clarifying questions | Breaking down tasks before implementation, scoping work |
 
-**Note:** An `edit` mode exists but is not recommended. Use `agent` for any task that requires modifying files.
+**Note:** An `edit` mode is officially deprecated as of VS Code 1.110 and will be fully removed in VS Code 1.125. Use `agent` for any task that requires modifying files.
 
 ### Essential Prompt Files Every Repo Needs
 
@@ -218,9 +219,9 @@ Create a GitHub issue based on the following:
    - For features: Include "Problem Statement", "Proposed Solution", and "Alternatives Considered"
 
 2. Apply appropriate labels based on issue type:
-   - bug ? `bug`, `needs-triage`
-   - feature ? `enhancement`, `needs-discussion`
-   - documentation ? `documentation`
+   - bug → `bug`, `needs-triage`
+   - feature → `enhancement`, `needs-discussion`
+   - documentation → `documentation`
 
 3. Use the GitHub MCP server to create the issue in this repository
 
@@ -381,7 +382,7 @@ This section covers the process of creating well-structured prompt files using V
 
 Rather than manually writing prompt files, use Copilot to generate them:
 
-> **?? Try this prompt:**
+> **💬 Try this prompt:**
 >
 > *Create a prompt file at .github/prompts/new-api-route.prompt.md that:*
 > *- Generates REST API routes with validation*
@@ -427,9 +428,10 @@ tools: ['editFiles', 'createFile']      # Optional: restrict tools
 |------|----------------|----------|
 | `ask` | Talk back, explain, suggest (read-only) | Design discussions, Q&A, brainstorming, code review |
 | `agent` | Create files, edit files, run commands | Any task that modifies code — scaffolding, bug fixes, refactoring |
+| `plan` | Generate structured implementation plans | Breaking down tasks, scoping work |
 | Custom agent | Use that agent's persona and tools | Specialized workflows with defined behavior |
 
-**Note:** An `edit` mode exists but is not recommended. Use `agent` instead for any file modifications.
+**Note:** `edit` mode is officially deprecated as of VS Code 1.110 and will be fully removed in VS Code 1.125. Use `agent` for any file modifications.
 
 ### Implement Variables
 
@@ -480,7 +482,7 @@ This approach keeps prompts synchronized with team standards automatically.
 
 Use the agent directly to generate new prompt files:
 
-> **?? Try this prompt:**
+> **💬 Try this prompt:**
 >
 > *Create a new prompt file at `.github/prompts/{{promptName}}.prompt.md`.*
 >
@@ -515,7 +517,7 @@ This meta-prompt creates new prompt files that follow best practices.
 
 To improve an existing prompt file, ask the agent directly:
 
-> **?? Try this prompt:**
+> **💬 Try this prompt:**
 >
 > *Analyze and improve the prompt file at .github/prompts/new-component.prompt.md:*
 >
@@ -561,4 +563,4 @@ Specificity produces consistent, high-quality outputs.
 
 ---
 
-[? File-Based Instructions](part-2-2-file-based-instructions.md) | [Next: Skills ?](part-2-4-skills.md)
+[← File-Based Instructions](part-2-2-file-based-instructions.md) | [Next: Skills →](part-2-4-skills.md)

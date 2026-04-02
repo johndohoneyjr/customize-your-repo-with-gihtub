@@ -8,13 +8,13 @@
 
 Imagine your first day at a new company. Someone hands you a laptop, points at a million lines of code, and says "add a feature to checkout." No architecture docs. No style guide. No idea where to go for help.
 
-You start reading. In one file, 2+2 equals 5. In another file, 2+2 equals 0. Someone invented their own math system three years ago and never documented it. The function called `save()` actually deletes things. The `UserService` doesn't handle users—that's in `AccountManager`, except when it's in `ProfileHandler`, except on front-end which follows it's own logic.
+You start reading. In one file, 2+2 equals 5. In another file, 2+2 equals 0. Someone invented their own math system three years ago and never documented it. The function called `save()` actually deletes things. The `UserService` doesn't handle users—that's in `AccountManager`, except when it's in `ProfileHandler`, except on the front-end which follows its own logic.
 
 None of this matches anything you learned. It's not wrong, exactly—it's *bespoke*. Someone built a custom framework on top of a custom ORM on top of a custom router, and the only person who understood it left for a startup in 2019.
 
 Now someone asks you to make a change. You do your best. You give them something reasonable based on everything you've read. They get mad. *"Why would you use Redux? We use React Query! It's obvious!"* 
 
-It wasn't obvious. It was in a file you hadn't opened yet because it .depricated folder.
+It wasn't obvious. It was in a file you hadn't opened yet, buried in a .deprecated folder.
 
 **That's Copilot's reality—*every single time you send a prompt.***
 
@@ -40,9 +40,9 @@ Think about what makes code easy for *any* new team member to work with:
 - Small, modular functions with clear responsibilities
 - Good naming conventions (not everything called `i`, `temp`, or `data`)
 - Comprehensive tests that document expected behavior
-- Clear architectural patterns that follow known architectural patterns
+- Clear architectural patterns that follow established conventions
 
-These same qualities make code easier for Copilot to understand and extend correctly. Code that's maintainable for humans is maintainable for AI. Code that confuses  developers will confuse Copilot too.  As you work with Copilot you may want to refactor your code so Copilot can be more effective.  We'll discuss that later.
+These same qualities make code easier for Copilot to understand and extend correctly. Code that's maintainable for humans is maintainable for AI. Code that confuses developers will confuse Copilot too. As you work with Copilot, you may want to refactor your code so Copilot can be more effective — a companion guide on that topic is coming soon.
 
 ### The Three Pillars of Copilot Success
 
@@ -54,7 +54,7 @@ Copilot's output quality depends on three factors:
 | **Codebase Quality** | How well Copilot can understand your code | Write clean, well-documented, modular code |
 | **Repository Configuration** | The context and rules Copilot operates with | **This guide** — the six customization primitives |
 
-Your **model selection** matters more than most people realize. A frontier model with extended thinking will dramatically outperform a model from two years ago—it's not even close. Claude Opus 4.6, GPT-5.2-Codex, Gemini Pro 3 with thinking enabled will reason through multi-file refactors, catch edge cases, and produce code that actually works on the first try. Older or faster models may produce syntax-correct code that misses the point entirely.
+Your **model selection** matters more than most people realize. A frontier model with extended thinking will dramatically outperform a model from two years ago—it's not even close. Claude Opus 4.6, GPT-5.2-Codex, Gemini 3 Pro with thinking enabled will reason through multi-file refactors, catch edge cases, and produce code that actually works on the first try. Older or faster models may produce syntax-correct code that misses the point entirely.
 
 Different models also *behave* differently, and that's okay. Some are more verbose. Some ask more clarifying questions. Some jump straight to implementation. Learn your model's personality and work with it, not against it. The best model for your workflow might not be the newest or the fastest—it's the one whose behavior matches how you like to work.
 
@@ -69,6 +69,8 @@ But even with the best model and cleanest codebase, **repository configuration**
 This guide focuses on the customization primitives that help Copilot understand your existing codebase — your conventions, patterns, and preferences. These tools work with your code as it exists today.
 
 **Coming Soon:** A companion guide covering how to refactor and restructure code so AI agents have an easier time understanding and modifying it.
+
+**Multiple Surfaces:** GitHub Copilot operates across multiple environments — VS Code, Visual Studio, GitHub.com, and [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) (a terminal-based AI agent). Most customization primitives covered in this guide work across all these surfaces, meaning the configuration you create for VS Code also benefits developers working from the command line or on GitHub.com. Surface-specific differences are noted in each primitive's documentation.
 
 **Open Source Reference:** VS Code and the GitHub Copilot extension are open source. When documentation is unclear or you want to understand exactly how a feature works, the source code at https://github.com/microsoft/vscode is the authoritative reference. Search the codebase for instruction parsing, prompt handling, or MCP integration to see implementation details firsthand.
 
@@ -120,7 +122,7 @@ Most teams get 80% of the value from 20% of the configuration:
 
 Skills, MCP, and advanced configurations provide additional value for specific use cases, but the foundation above transforms most workflows immediately.
 
-See the [Quick Start](../ReadMe.md#quick-start-the-adoption-path) for the step-by-step path.
+See the [Getting Started](../ReadMe.md#getting-started) section for the step-by-step path.
 
 ---
 
@@ -130,7 +132,7 @@ Customization is never "done." Codebases evolve, patterns change, and you learn 
 
 ### The Feedback Loop
 
-```
+```text
 Use Copilot → Notice friction → Update customization → Repeat
 ```
 
@@ -157,14 +159,14 @@ GitHub Copilot assists across the entire software development lifecycle — from
 
 ### The Measurement Hierarchy
 
-```
+```text
 +-----------------------------------+
 |     Ultimate Outcomes             |  ← Revenue, costs, features shipped, customer satisfaction
-+-----------------------------------|
++-----------------------------------+
 |     Product Metrics               |  ← Deployment frequency, change failure rate, MTTR
-+-----------------------------------|
++-----------------------------------+
 |     Flow Metrics (Leading)        |  ← Cycle time, lead time, throughput
-+-----------------------------------|
++-----------------------------------+
 |     Adoption Metrics              |  ← Usage, engagement, prompt invocations
 +-----------------------------------+
 ```
@@ -220,7 +222,7 @@ If you can't ship a feature in a day, examine:
 
 The bottleneck is rarely the coding. It's everything around the coding—reviews, approvals, deployments, coordination. AI accelerates the work; your processes determine whether that acceleration reaches users.
 
-**Target state:** Issue created in the morning ? designed, coded, tested, reviewed, deployed by end of day.
+**Target state:** Issue created in the morning → designed, coded, tested, reviewed, deployed by end of day.
 
 ### SDLC Coverage
 
@@ -233,8 +235,34 @@ Copilot customization can improve every phase. Measure what matters — flow and
 | **Coding** | Code generation, refactoring | Time in active development |
 | **Testing** | Test generation, test design | Defects escaped to production |
 | **Review** | PR reviews, security checks | Wait time for feedback |
-| **Deploy** | Release notes, deployment scripts | Lead time to production |
-| **Maintain** | Bug diagnosis, documentation | Mean time to recovery |
+| **Deploy** | Release notes, deployment scripts, deployment gates | Lead time to production |
+| **Maintain** | Bug diagnosis, incident response, documentation | Mean time to recovery |
+
+### Agentic DevOps: The Bigger Picture
+
+The SDLC table above shows what Copilot helps with in each phase. Microsoft and GitHub extend this further with **[Agentic DevOps](https://azure.microsoft.com/en-us/blog/agentic-devops-evolving-software-development-with-github-copilot-and-microsoft-azure/)** — the vision that agents don't just assist with coding, but participate across the entire lifecycle: implementing features, monitoring production, responding to incidents, and modernizing legacy code.
+
+Agentic DevOps rests on three pillars:
+
+| Pillar | What It Does | Copilot Primitives That Enable It |
+|--------|-------------|-----------------------------------|
+| **Copilot cloud agent** | Implements features, fixes bugs, writes tests, creates PRs | Always-on instructions, file-based instructions, skills, custom agents |
+| **SRE workflows** | Monitors production, responds to incidents, troubleshoots issues, logs remediation as GitHub issues (see [Azure SRE Agent](https://azure.microsoft.com/en-us/blog/agentic-devops-evolving-software-development-with-github-copilot-and-microsoft-azure/) for one implementation) | Custom agents, hooks, MCP servers |
+| **App Modernization** | Assesses legacy code, updates dependencies, generates migration plans | Skills, prompts, file-based instructions |
+
+The customization primitives covered in this guide are how teams implement these workflows. Each primitive contributes a different layer:
+
+- **Instructions** tell agents what conventions to follow
+- **Skills** encode deployment runbooks and incident response procedures
+- **Custom agents** create specialized personas for release management and SRE
+- **MCP servers** connect agents to infrastructure APIs
+- **Hooks** enforce deployment gates and audit trails
+
+For practical examples of each primitive applied to DevOps workflows, see:
+- [SRE Agent](part-2-5-custom-agents.md#additional-agent-examples) — A custom agent persona for incident response
+- [Incident Response Skill](part-2-4-skills.md#skills-vs-mcp-servers-when-to-use-which) — Encoding runbooks as portable skills
+- [Infrastructure MCP Servers](part-2-6-mcp.md#mcp-vs-skills-complementary-not-competing) — Connecting agents to cloud APIs
+- [Deployment Gate Hook](part-2-7-hooks.md#cookbook-common-patterns) — Enforcing release validation
 
 ### Practical Measurement Approach
 
@@ -272,5 +300,4 @@ Copilot customization can improve every phase. Measure what matters — flow and
 
 7. **Review quarterly** — Remove deprecated patterns, add new conventions, prune unused prompts.
 
-
-[Next: Part II - The Six Primitives ?](part-2-primitives.md)
+[Next: Part II - The Six Primitives →](part-2-primitives.md)
