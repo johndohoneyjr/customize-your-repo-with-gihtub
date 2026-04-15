@@ -12,6 +12,8 @@
 
 [GitHub Copilot](https://github.com/features/copilot) is an AI coding assistant built into the editor. As of VS Code 1.116 (April 2026), Copilot is **built-in** — no extension installation required. New users get chat, inline suggestions, and agent mode out of the box. (Those who prefer not to use AI features can disable them with `chat.disableAIFeatures`.)
 
+**Release cadence:** VS Code moved to **weekly stable releases** starting with v1.111 (March 2026), driven by the rapid pace of AI development. New Copilot features ship as soon as they're ready rather than waiting for a monthly window. Track releases at [code.visualstudio.com/updates](https://code.visualstudio.com/updates/).
+
 Copilot operates in three modes:
 
 | Mode | What It Does | How to Use It |
@@ -55,6 +57,8 @@ The CLI generates a URL and QR code. Only the authenticated GitHub account can a
 
 Available to all paid Copilot subscribers (Pro, Pro+, Business, Enterprise). The repository customization primitives covered in this guide — instructions, skills, agents, MCP — apply to CLI sessions the same way they apply in VS Code.
 
+**Release cadence:** Copilot CLI ships **weekly updates** with automatic updates via Homebrew, WinGet, and the shell installer. Track releases at [github.com/github/copilot-cli/releases](https://github.com/github/copilot-cli/releases).
+
 ### Copilot in JetBrains IDEs
 
 [GitHub Copilot for JetBrains](https://plugins.jetbrains.com/plugin/17718-github-copilot) is available across the JetBrains family — IntelliJ IDEA, PyCharm, WebStorm, GoLand, Rider, and others. The plugin provides code completion, Chat, agent mode, MCP, checkpoints, and workspace indexing.
@@ -75,6 +79,8 @@ Customization primitive support is catching up to VS Code but is not yet at full
 
 **What to watch:** JetBrains support ships in the Copilot plugin (currently v1.5.66+), not in the IDE itself. Keep the plugin updated for the latest primitive support.
 
+**Release cadence:** The JetBrains plugin updates **multiple times per week** — sometimes daily. Enable automatic plugin updates to avoid interruptions, as older versions may become incompatible when a new version ships.
+
 ### Copilot in Eclipse
 
 [GitHub Copilot for Eclipse](https://marketplace.eclipse.org/content/github-copilot) provides code completion, Chat, agent mode, and MCP support. The plugin is [open source under MIT](https://devblogs.microsoft.com/java/ghc-eclipse-is-going-open-source/) and actively developed by Microsoft and the community.
@@ -92,6 +98,8 @@ Customization primitive support is catching up to VS Code but is not yet at full
 Eclipse Theia (the cloud/web IDE) also supports Copilot natively from version 1.68, including authentication, model selection, and agent features.
 
 **Install:** Download from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/github-copilot) (requires plugin version 0.13.0+).
+
+**Release cadence:** Eclipse plugin updates ship **approximately monthly**, with changelog entries posted to the [GitHub Blog](https://github.blog/changelog/label/copilot/). The open-source development model means community contributions can accelerate specific features.
 
 ### Copilot Cloud Coding Agent
 
@@ -128,6 +136,8 @@ This file must be on the default branch. When the agent starts a task, it runs t
 - **Secure** — runs in an isolated container with scoped permissions
 - Available to Copilot Business and Enterprise plans (and Pro/Pro+ for public repos)
 
+**Release cadence:** The cloud coding agent is a **server-side service** — updates deploy continuously without requiring any action from users. New capabilities (model upgrades, security improvements, workflow enhancements) roll out as they're ready. Monitor [github.blog/changelog](https://github.blog/changelog/label/copilot/) for announcements.
+
 For how the customization primitives feed into autonomous work, see [Primitive 9: Agentic Workflows](primitive-9-agentic-workflows.md).
 
 ### Copilot SDK
@@ -135,6 +145,8 @@ For how the customization primitives feed into autonomous work, see [Primitive 9
 The [Copilot SDK](https://github.com/github/copilot-sdk) (public preview) packages the same agent runtime that powers Copilot CLI and the cloud coding agent as libraries for Node.js/TypeScript, Python, Go, .NET, and Java. Use it to embed Copilot's agentic capabilities — tool invocation, multi-turn sessions, streaming, and reasoning — in custom tools, internal platforms, and CI pipelines.
 
 The SDK is for teams building their own surfaces. If the use case fits inside VS Code, CLI, or GitHub Actions, use the existing primitives instead — they require zero custom code.
+
+**Release cadence:** The SDK is in **public preview** — expect breaking API changes between versions. Pin dependency versions and monitor the [SDK repository](https://github.com/github/copilot-sdk/releases) for changelog updates.
 
 For full documentation, see [Primitive 10: Copilot SDK](primitive-10-copilot-sdk.md).
 
