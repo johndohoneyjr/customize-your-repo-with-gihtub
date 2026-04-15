@@ -46,7 +46,7 @@ Copilot supports **multi-model hot-swapping** — switch between models during a
 | **GPT-5.3-Codex** | OpenAI | Code-specialized — optimized for generation and editing tasks |
 | **Gemini 3.1 Pro** | Google | Concise, pragmatic solutions with large context windows |
 
-This is not the full list. Copilot supports 20+ models across OpenAI, Anthropic, Google, and xAI — including fine-tuned variants like Raptor mini and Goldeneye. For the complete, up-to-date list with availability by plan and surface, see [Supported AI models in GitHub Copilot](https://docs.github.com/en/copilot/reference/ai-models/supported-models).
+This is not the full list. Copilot supports 20+ models across OpenAI, Anthropic, Google, and xAI — including code-specialized and fine-tuned variants. For the complete, up-to-date list with availability by plan and surface, see [Supported AI models in GitHub Copilot](https://docs.github.com/en/copilot/reference/ai-models/supported-models).
 
 Model selection matters more than most people realize. A frontier model with extended thinking will dramatically outperform an older or lighter model on complex tasks. **Thinking effort** is now configurable — control how deeply reasoning models think before responding, balancing response quality and latency.
 
@@ -99,13 +99,7 @@ Track releases at [code.visualstudio.com/updates](https://code.visualstudio.com/
 
 ### Copilot CLI
 
-[GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) reached general availability on February 25, 2026, bringing the full agentic experience to the terminal. The same agent capabilities available in VS Code — tool calling, file editing, test running — work directly from the command line.
-
-| Permission Level | Behavior |
-|-----------------|----------|
-| **Default** | Agent suggests actions; developer approves each one |
-| **Bypass Approvals** | Skip confirmations for low-risk actions |
-| **Autopilot** | Fully autonomous — agent retries on errors, works until task completion |
+[GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) reached general availability on February 25, 2026, bringing the full agentic experience to the terminal. The same agent capabilities available in VS Code — tool calling, file editing, test running — work directly from the command line, with the same three permission levels (Default, Bypass Approvals, Autopilot).
 
 Copilot CLI supports **multi-model** hot-swapping between Claude Opus 4.6, GPT-5.4, Gemini 3 Pro, and others during a session. Enterprises can use **BYOK (Bring Your Own Key)** to connect their own API keys for supported providers.
 
@@ -280,9 +274,7 @@ Copilot's output quality depends on three factors:
 | **Codebase Quality** | How well Copilot can understand your code | Write clean, well-documented, modular code |
 | **Repository Configuration** | The context and rules Copilot operates with | **This guide** — the ten customization primitives |
 
-Your **model selection** matters more than most people realize. A frontier model with extended thinking will dramatically outperform a model from two years ago—it's not even close. Claude Opus 4.6, GPT-5.4, Gemini 3 Pro with thinking enabled will reason through multi-file refactors, catch edge cases, and produce code that actually works on the first try. Older or faster models (like GPT-5.4 mini) trade depth for speed — useful for simple tasks but prone to missing the point on complex ones.
-
-Different models also *behave* differently, and that's okay. Some are more verbose. Some ask more clarifying questions. Some jump straight to implementation. Learn your model's personality and work with it, not against it. The best model for your workflow might not be the newest or the fastest—it's the one whose behavior matches how you like to work.
+Your **model selection** matters — see [Model Selection](#model-selection) above for the full breakdown. Different models also *behave* differently, and that's okay. Some are more verbose. Some ask more clarifying questions. Some jump straight to implementation. Learn your model's personality and work with it, not against it.
 
 **See it in action:** For a live demo, watch Sandeep Somavarapu in [Bring Your Own Model (BYOM)](https://www.youtube.com/watch?v=W_WnyS_cXCk) and Julia Kasper in [How We Ship Models in VS Code](https://www.youtube.com/watch?v=eVxIwpGbHEk).
 
@@ -320,11 +312,7 @@ This guide focuses on the customization primitives that help Copilot understand 
 
 **Coming Soon:** A companion guide covering how to refactor and restructure code so AI agents have an easier time understanding and modifying it.
 
-**Multiple Surfaces:** GitHub Copilot operates across multiple environments — VS Code, Visual Studio, GitHub.com, and [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) (a terminal-based AI agent). Most customization primitives covered in this guide work across all these surfaces, meaning the configuration you create for VS Code also benefits developers working from the command line or on GitHub.com. Surface-specific differences are noted in each primitive's documentation.
-
-**Copilot Memory:** Beyond explicit customization, [Copilot Memory](primitive-8-memory.md) (public preview) lets Copilot automatically learn and retain repository-level context across sessions. Memory complements the primitives covered here — see the [dedicated section](primitive-8-memory.md) for how the two approaches work together.
-
-**Open Source Reference:** VS Code and the GitHub Copilot extension are open source. When documentation is unclear or you want to understand exactly how a feature works, the source code at https://github.com/microsoft/vscode is the authoritative reference. Search the codebase for instruction parsing, prompt handling, or MCP integration to see implementation details firsthand.
+**Open Source Reference:** VS Code and the GitHub Copilot extension are open source. When documentation is unclear or you want to understand exactly how a feature works, the source code at https://github.com/microsoft/vscode is the authoritative reference.
 
 When properly configured, Copilot can:
 
