@@ -93,6 +93,51 @@ Eclipse Theia (the cloud/web IDE) also supports Copilot natively from version 1.
 
 **Install:** Download from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/github-copilot) (requires plugin version 0.13.0+).
 
+### Copilot Cloud Coding Agent
+
+The [Copilot cloud coding agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent) runs on GitHub's infrastructure — not in any IDE. Assign a GitHub issue to Copilot (or comment `@copilot` on an issue/PR), and it spins up a secure cloud environment, clones the repo, plans a solution, implements it, runs tests, and opens a pull request for human review.
+
+The cloud agent reads all the customization primitives in this guide — `copilot-instructions.md`, skills, hooks, and memory — every time it works on a task. The quality of the repo's configuration directly determines the quality of the agent's output.
+
+**Environment setup:** Define the agent's development environment in `.github/workflows/copilot-setup-steps.yml`:
+
+```yaml
+name: "Copilot Setup Steps"
+on: workflow_dispatch
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Verify tests pass
+        run: npm test
+```
+
+This file must be on the default branch. When the agent starts a task, it runs these steps first — ensuring the environment matches what a human developer would use. Customize it for your language, package manager, and test framework.
+
+**Key characteristics:**
+- **Autonomous but supervised** — the agent never merges or deploys; it opens PRs for human review
+- **Iterative** — comment on the agent's PR to request changes and it will continue refining
+- **Secure** — runs in an isolated container with scoped permissions
+- Available to Copilot Business and Enterprise plans (and Pro/Pro+ for public repos)
+
+For how the customization primitives feed into autonomous work, see [Primitive 9: Agentic Workflows](primitive-9-agentic-workflows.md).
+
+### Copilot SDK
+
+The [Copilot SDK](https://github.com/github/copilot-sdk) (public preview) packages the same agent runtime that powers Copilot CLI and the cloud coding agent as libraries for Node.js/TypeScript, Python, Go, .NET, and Java. Use it to embed Copilot's agentic capabilities — tool invocation, multi-turn sessions, streaming, and reasoning — in custom tools, internal platforms, and CI pipelines.
+
+The SDK is for teams building their own surfaces. If the use case fits inside VS Code, CLI, or GitHub Actions, use the existing primitives instead — they require zero custom code.
+
+For full documentation, see [Primitive 10: Copilot SDK](primitive-10-copilot-sdk.md).
+
 ### Cross-IDE Compatibility
 
 The customization primitives in this guide are **file-based and IDE-agnostic** — they live in the repository, not in any specific editor's configuration. A `.github/copilot-instructions.md` file works whether a developer opens the repo in VS Code, IntelliJ, Eclipse, or the Copilot CLI.
@@ -105,6 +150,8 @@ However, feature support varies by IDE and version. For the authoritative, up-to
 | **JetBrains** | Java/Kotlin/Python teams already on IntelliJ — growing customization support |
 | **Eclipse** | Java enterprise teams — open-source plugin with MCP and agent mode |
 | **Copilot CLI** | Terminal-first workflows, CI/CD integration, headless environments |
+| **Cloud Coding Agent** | Autonomous task execution — assign issues and get PRs back |
+| **Copilot SDK** | Embed the agent runtime in custom tools, internal platforms, CI pipelines |
 | **Visual Studio** | .NET teams — agent mode, MCP, custom instructions fully supported |
 
 This guide uses VS Code for examples and screenshots because it has the most complete primitive support. Where a feature is VS Code-specific, it is noted.
