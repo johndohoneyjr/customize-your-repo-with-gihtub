@@ -35,14 +35,18 @@ Agentic coding has three permission levels:
 
 ### Model Selection
 
-Copilot supports **multi-model hot-swapping** — switch between models during a session to match the task:
+Copilot supports **multi-model hot-swapping** — switch between models during a session to match the task. Popular models include:
 
-| Model | Strengths |
-|-------|-----------|
-| **Claude Opus 4.6** | Deep reasoning, multi-file refactors, nuanced code review |
-| **GPT-5.4** | Broad knowledge, strong type annotations, fast iteration |
-| **GPT-5.4 mini** | Speed over depth — ideal for simple completions and quick questions |
-| **Gemini 3 Pro** | Concise, pragmatic solutions with large context windows |
+| Model | Provider | Strengths |
+|-------|----------|-----------|
+| **Claude Opus 4.6** | Anthropic | Deep reasoning, multi-file refactors, nuanced code review |
+| **Claude Sonnet 4.6** | Anthropic | Strong reasoning at lower cost — good default for most tasks |
+| **GPT-5.4** | OpenAI | Broad knowledge, strong type annotations, fast iteration |
+| **GPT-5.4 mini** | OpenAI | Speed over depth — ideal for simple completions and quick questions |
+| **GPT-5.3-Codex** | OpenAI | Code-specialized — optimized for generation and editing tasks |
+| **Gemini 3.1 Pro** | Google | Concise, pragmatic solutions with large context windows |
+
+This is not the full list. Copilot supports 20+ models across OpenAI, Anthropic, Google, and xAI — including fine-tuned variants like Raptor mini and Goldeneye. For the complete, up-to-date list with availability by plan and surface, see [Supported AI models in GitHub Copilot](https://docs.github.com/en/copilot/reference/ai-models/supported-models).
 
 Model selection matters more than most people realize. A frontier model with extended thinking will dramatically outperform an older or lighter model on complex tasks. **Thinking effort** is now configurable — control how deeply reasoning models think before responding, balancing response quality and latency.
 
