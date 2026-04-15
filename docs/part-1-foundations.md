@@ -10,43 +10,69 @@
 
 ### What is GitHub Copilot?
 
-[GitHub Copilot](https://github.com/features/copilot) is an AI coding assistant built into the editor. As of VS Code 1.116 (April 2026), Copilot is **built-in** — no extension installation required. New users get chat, inline suggestions, and agent mode out of the box. (Those who prefer not to use AI features can disable them with `chat.disableAIFeatures`.)
-
-**Release cadence:** VS Code moved to **weekly stable releases** starting with v1.111 (March 2026), driven by the rapid pace of AI development. New Copilot features ship as soon as they're ready rather than waiting for a monthly window. Track releases at [code.visualstudio.com/updates](https://code.visualstudio.com/updates/).
+[GitHub Copilot](https://github.com/features/copilot) is an AI coding assistant that connects to frontier language models — Claude, GPT, Gemini — hosted by GitHub. The models do the reasoning; the integration layer handles context, pulling in open files, workspace structure, and the customization files this guide covers.
 
 Copilot operates in three modes:
 
-| Mode | What It Does | How to Use It |
-|------|-------------|---------------|
-| **Inline suggestions** | Predicts the next lines of code as you type (ghost text) | Just type — suggestions appear automatically |
-| **Chat** | A conversational interface for asking questions, generating code, and explaining concepts | Open the Chat panel or press `Ctrl+I` / `Cmd+I` |
-| **Agent** | An autonomous mode where Copilot plans multi-step tasks, calls tools, edits files, and runs terminal commands. **Autopilot** (preview) adds a fully autonomous permission level — the agent approves its own actions with no manual confirmations required. | Type in Chat with agent mode enabled |
+| Mode | What It Does |
+|------|-------------|
+| **Inline suggestions** | Predicts the next lines of code as you type (ghost text) |
+| **Chat** | A conversational interface for asking questions, generating code, and explaining concepts |
+| **Agent** | An autonomous mode where Copilot plans multi-step tasks, calls tools, edits files, and runs terminal commands |
 
-Copilot connects to frontier language models (Claude, GPT, Gemini) hosted by GitHub. The models do the reasoning; the editor integration handles context — pulling in open files, workspace structure, and the customization files this guide covers.
+Agent mode is where customization has the most impact. When Copilot operates as an agent — reasoning through multi-file changes, calling tools, iterating on results — the quality of instructions, skills, and guardrails in the repository directly determines the quality of the output. **Autopilot** (preview) takes this further: the agent approves its own actions and works until task completion with no manual confirmations required.
 
-**This guide assumes Copilot is already installed and working.** If not, start at [github.com/features/copilot](https://github.com/features/copilot) to set up a subscription. With VS Code 1.116+, Copilot is available immediately — no separate extension needed.
+**This guide assumes Copilot is already installed and working.** If not, start at [github.com/features/copilot](https://github.com/features/copilot) to set up a subscription.
 
-### GitHub Copilot CLI
+### Where Copilot Runs
+
+Copilot is available across seven surfaces. The customization primitives in this guide are **file-based and IDE-agnostic** — they live in the repository, not in any specific editor's configuration. A `.github/copilot-instructions.md` file works regardless of which surface a developer uses.
+
+| Surface | What It Is | Release Cadence |
+|---------|-----------|-----------------|
+| [**VS Code**](https://code.visualstudio.com/docs/copilot) | The primary IDE experience — full primitive support, agent plugins, built-in since v1.116 | Weekly stable releases |
+| [**Copilot CLI**](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) | The full agentic experience in the terminal — GA since February 2026 | Weekly updates (auto-update) |
+| [**JetBrains**](https://plugins.jetbrains.com/plugin/17718-github-copilot) | IntelliJ, PyCharm, WebStorm, GoLand, Rider — growing customization support | Multiple updates per week |
+| [**Eclipse**](https://marketplace.eclipse.org/content/github-copilot) | Java enterprise teams — open-source MIT plugin with MCP and agent mode | ~Monthly |
+| [**Cloud Coding Agent**](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent) | Autonomous agent on GitHub's infrastructure — assign issues, get PRs back | Continuous (server-side) |
+| [**Copilot SDK**](https://github.com/github/copilot-sdk) | Embed the agent runtime in your own tools and applications (public preview) | Preview — pin versions |
+| [**Visual Studio**](https://marketplace.visualstudio.com/items?itemName=GitHub.copilotvs) | .NET teams — agent mode, MCP, custom instructions fully supported | Monthly (tied to VS releases) |
+
+Feature support varies by surface. For the authoritative, up-to-date matrix, see the [Copilot Feature Matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix). This guide uses VS Code for examples because it has the most complete primitive support. Where a feature is surface-specific, it is noted.
+
+---
+
+## Copilot Surfaces in Detail
+
+### VS Code
+
+As of VS Code 1.116 (April 2026), Copilot is **built-in** — no extension installation required. New users get chat, inline suggestions, and agent mode out of the box. Those who prefer not to use AI features can disable them with `chat.disableAIFeatures`.
+
+VS Code has the most complete customization support: all ten primitives, agent plugins, agent-scoped hooks, nested sub-agents, and the Chat Customizations editor for managing everything from one interface. The **VS Code Agents** companion app (preview) provides a dedicated agent-first experience for developers who spend most of their time in agentic workflows.
+
+Track releases at [code.visualstudio.com/updates](https://code.visualstudio.com/updates/).
+
+### Copilot CLI
 
 [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) reached general availability on February 25, 2026, bringing the full agentic experience to the terminal. The same agent capabilities available in VS Code — tool calling, file editing, test running — work directly from the command line.
 
-| Mode | Behavior |
-|------|----------|
+| Permission Level | Behavior |
+|-----------------|----------|
 | **Default** | Agent suggests actions; developer approves each one |
 | **Bypass Approvals** | Skip confirmations for low-risk actions |
-| **Autopilot** | Fully autonomous — agent approves its own actions, retries on errors, works until task completion |
+| **Autopilot** | Fully autonomous — agent retries on errors, works until task completion |
 
 Copilot CLI supports **multi-model** hot-swapping between Claude Opus 4.6, GPT-5.4, Gemini 3 Pro, and others during a session. Enterprises can use **BYOK (Bring Your Own Key)** to connect their own API keys for supported providers.
 
-**Fleet mode** (`/fleet`) enables parallel sub-agent execution. Instead of one agent working sequentially, an orchestrator decomposes a task into independent subtasks, dispatches them to parallel sub-agents, tracks dependencies, and synthesizes the results. Use `/fleet` for large refactors, repo-wide maintenance, multi-file test generation, or any workload that can be divided and run concurrently:
+**Fleet mode** (`/fleet`) enables parallel sub-agent execution. An orchestrator decomposes a task into independent subtasks, dispatches them to parallel sub-agents, tracks dependencies, and synthesizes the results:
 
 ```text
 /fleet Refactor the auth module, update tests, and fix related docs
 ```
 
-The orchestrator builds a task graph with dependency tracking — if Task C depends on A and B, it waits. Independent tasks run simultaneously. Monitor progress with `/tasks`.
+The orchestrator builds a task graph — if Task C depends on A and B, it waits. Independent tasks run simultaneously. Monitor progress with `/tasks`.
 
-**Remote sessions** (`/remote`) let developers start a CLI session locally and control it from any device via the GitHub web interface or GitHub Mobile. The session streams in real time — send instructions, approve actions, switch modes, and answer questions from a browser or phone. Useful for long-running tasks, headless environments, or moving between devices without losing context:
+**Remote sessions** (`/remote`) let developers start a CLI session locally and control it from any device via the GitHub web interface or GitHub Mobile. The session streams in real time — send instructions, approve actions, switch modes, and answer questions from a browser or phone:
 
 ```text
 /remote          # enable remote access for the current session
@@ -55,15 +81,13 @@ copilot --remote # start a new session with remote access
 
 The CLI generates a URL and QR code. Only the authenticated GitHub account can access the session. Use `/keep-alive` to prevent the machine from sleeping during long tasks.
 
-Available to all paid Copilot subscribers (Pro, Pro+, Business, Enterprise). The repository customization primitives covered in this guide — instructions, skills, agents, MCP — apply to CLI sessions the same way they apply in VS Code.
+Available to all paid Copilot subscribers (Pro, Pro+, Business, Enterprise). Track releases at [github.com/github/copilot-cli/releases](https://github.com/github/copilot-cli/releases).
 
-**Release cadence:** Copilot CLI ships **weekly updates** with automatic updates via Homebrew, WinGet, and the shell installer. Track releases at [github.com/github/copilot-cli/releases](https://github.com/github/copilot-cli/releases).
+### JetBrains IDEs
 
-### Copilot in JetBrains IDEs
+[GitHub Copilot for JetBrains](https://plugins.jetbrains.com/plugin/17718-github-copilot) covers IntelliJ IDEA, PyCharm, WebStorm, GoLand, Rider, and others. The plugin provides code completion, Chat, agent mode, MCP, checkpoints, and workspace indexing.
 
-[GitHub Copilot for JetBrains](https://plugins.jetbrains.com/plugin/17718-github-copilot) is available across the JetBrains family — IntelliJ IDEA, PyCharm, WebStorm, GoLand, Rider, and others. The plugin provides code completion, Chat, agent mode, MCP, checkpoints, and workspace indexing.
-
-Customization primitive support is catching up to VS Code but is not yet at full parity:
+Customization primitive support is growing but not yet at full parity with VS Code:
 
 | Primitive | JetBrains Support |
 |-----------|-------------------|
@@ -75,13 +99,11 @@ Customization primitive support is catching up to VS Code but is not yet at full
 | Agent mode | ✅ Supported |
 | Hooks | Not yet supported |
 
-**What works today:** The same `.github/copilot-instructions.md`, `.github/agents/*.md`, and `.vscode/mcp.json` files used in VS Code are read by the JetBrains plugin (with preview-level support for instructions and agents). Teams that invest in repo-level customization get value across both IDEs without maintaining separate configurations.
+The same `.github/copilot-instructions.md`, `.github/agents/*.md`, and `.vscode/mcp.json` files used in VS Code are read by the JetBrains plugin. Teams that invest in repo-level customization get value across both IDEs without maintaining separate configurations.
 
-**What to watch:** JetBrains support ships in the Copilot plugin (currently v1.5.66+), not in the IDE itself. Keep the plugin updated for the latest primitive support.
+JetBrains support ships in the Copilot plugin (currently v1.5.66+), not in the IDE itself. The plugin updates **multiple times per week** — sometimes daily. Enable automatic plugin updates to avoid interruptions, as older versions may become incompatible.
 
-**Release cadence:** The JetBrains plugin updates **multiple times per week** — sometimes daily. Enable automatic plugin updates to avoid interruptions, as older versions may become incompatible when a new version ships.
-
-### Copilot in Eclipse
+### Eclipse
 
 [GitHub Copilot for Eclipse](https://marketplace.eclipse.org/content/github-copilot) provides code completion, Chat, agent mode, and MCP support. The plugin is [open source under MIT](https://devblogs.microsoft.com/java/ghc-eclipse-is-going-open-source/) and actively developed by Microsoft and the community.
 
@@ -97,11 +119,9 @@ Customization primitive support is catching up to VS Code but is not yet at full
 
 Eclipse Theia (the cloud/web IDE) also supports Copilot natively from version 1.68, including authentication, model selection, and agent features.
 
-**Install:** Download from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/github-copilot) (requires plugin version 0.13.0+).
+Requires plugin version 0.13.0+. Updates ship **approximately monthly**, with changelog entries posted to the [GitHub Blog](https://github.blog/changelog/label/copilot/).
 
-**Release cadence:** Eclipse plugin updates ship **approximately monthly**, with changelog entries posted to the [GitHub Blog](https://github.blog/changelog/label/copilot/). The open-source development model means community contributions can accelerate specific features.
-
-### Copilot Cloud Coding Agent
+### Cloud Coding Agent
 
 The [Copilot cloud coding agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent) runs on GitHub's infrastructure — not in any IDE. Assign a GitHub issue to Copilot (or comment `@copilot` on an issue/PR), and it spins up a secure cloud environment, clones the repo, plans a solution, implements it, runs tests, and opens a pull request for human review.
 
@@ -128,7 +148,7 @@ jobs:
         run: npm test
 ```
 
-This file must be on the default branch. When the agent starts a task, it runs these steps first — ensuring the environment matches what a human developer would use. Customize it for your language, package manager, and test framework.
+This file must be on the default branch. When the agent starts a task, it runs these steps first — ensuring the environment matches what a human developer would use.
 
 **Key characteristics:**
 - **Autonomous but supervised** — the agent never merges or deploys; it opens PRs for human review
@@ -136,9 +156,7 @@ This file must be on the default branch. When the agent starts a task, it runs t
 - **Secure** — runs in an isolated container with scoped permissions
 - Available to Copilot Business and Enterprise plans (and Pro/Pro+ for public repos)
 
-**Release cadence:** The cloud coding agent is a **server-side service** — updates deploy continuously without requiring any action from users. New capabilities (model upgrades, security improvements, workflow enhancements) roll out as they're ready. Monitor [github.blog/changelog](https://github.blog/changelog/label/copilot/) for announcements.
-
-For how the customization primitives feed into autonomous work, see [Primitive 9: Agentic Workflows](primitive-9-agentic-workflows.md).
+Updates deploy continuously as a server-side service. Monitor [github.blog/changelog](https://github.blog/changelog/label/copilot/) for announcements. For how the primitives feed into autonomous work, see [Primitive 9: Agentic Workflows](primitive-9-agentic-workflows.md).
 
 ### Copilot SDK
 
@@ -146,27 +164,7 @@ The [Copilot SDK](https://github.com/github/copilot-sdk) (public preview) packag
 
 The SDK is for teams building their own surfaces. If the use case fits inside VS Code, CLI, or GitHub Actions, use the existing primitives instead — they require zero custom code.
 
-**Release cadence:** The SDK is in **public preview** — expect breaking API changes between versions. Pin dependency versions and monitor the [SDK repository](https://github.com/github/copilot-sdk/releases) for changelog updates.
-
-For full documentation, see [Primitive 10: Copilot SDK](primitive-10-copilot-sdk.md).
-
-### Cross-IDE Compatibility
-
-The customization primitives in this guide are **file-based and IDE-agnostic** — they live in the repository, not in any specific editor's configuration. A `.github/copilot-instructions.md` file works whether a developer opens the repo in VS Code, IntelliJ, Eclipse, or the Copilot CLI.
-
-However, feature support varies by IDE and version. For the authoritative, up-to-date matrix of which features are supported in which IDE, see the [Copilot Feature Matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix).
-
-| Surface | Best For |
-|---------|----------|
-| [**VS Code**](https://code.visualstudio.com/docs/copilot) | Full primitive support, fastest feature rollout, agent plugins, built-in Copilot |
-| [**JetBrains**](https://plugins.jetbrains.com/plugin/17718-github-copilot) | Java/Kotlin/Python teams already on IntelliJ — growing customization support |
-| [**Eclipse**](https://marketplace.eclipse.org/content/github-copilot) | Java enterprise teams — open-source plugin with MCP and agent mode |
-| [**Copilot CLI**](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) | Terminal-first workflows, CI/CD integration, headless environments |
-| [**Cloud Coding Agent**](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent) | Autonomous task execution — assign issues and get PRs back |
-| [**Copilot SDK**](https://github.com/github/copilot-sdk) | Embed the agent runtime in custom tools, internal platforms, CI pipelines |
-| [**Visual Studio**](https://marketplace.visualstudio.com/items?itemName=GitHub.copilotvs) | .NET teams — agent mode, MCP, custom instructions fully supported |
-
-This guide uses VS Code for examples and screenshots because it has the most complete primitive support. Where a feature is VS Code-specific, it is noted.
+The SDK is in **public preview** — expect breaking API changes between versions. Pin dependency versions and monitor the [SDK repository](https://github.com/github/copilot-sdk/releases) for updates. For full documentation, see [Primitive 10: Copilot SDK](primitive-10-copilot-sdk.md).
 
 ### Key Terms
 
