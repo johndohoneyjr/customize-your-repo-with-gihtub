@@ -133,6 +133,81 @@ When designing a workflow, start from the task and ask each question. If the ans
 
 ---
 
+## Agent Plugins (Preview)
+
+Agent plugins bundle multiple primitives — skills, custom agents, hooks, and MCP servers — into a single installable package. Instead of configuring each primitive individually, teams can install a plugin that provides a complete workflow in one step.
+
+**Official docs:** [Agent plugins](https://code.visualstudio.com/docs/copilot/customization/agent-plugins)
+
+A plugin is a directory with a `plugin.json` manifest:
+
+```text
+my-testing-plugin/
+  plugin.json              # Plugin metadata and configuration
+  skills/
+    test-runner/
+      SKILL.md             # Testing skill instructions
+  agents/
+    test-reviewer.agent.md # Code review agent
+  hooks/
+    hooks.json             # Hook configuration
+  .mcp.json                # MCP server definitions
+```
+
+**`plugin.json` required field:**
+
+| Field | Description |
+|-------|-------------|
+| `name` | Kebab-case plugin name (lowercase, hyphens, max 64 chars) |
+
+**Optional fields:** `description`, `version`, `author`, `skills`, `agents`, `hooks`, `mcpServers`
+
+### Discovering and Installing Plugins
+
+Plugins are available through marketplaces accessible in VS Code and the Copilot CLI:
+
+```text
+# VS Code: search @agentPlugins in the Extensions view
+
+# CLI: browse and install from marketplaces
+copilot plugin marketplace browse awesome-copilot
+copilot plugin install PLUGIN-NAME@awesome-copilot
+
+# Or install from a Git repository
+copilot plugin install OWNER/REPO
+```
+
+Plugin-provided customizations appear alongside locally defined ones — skills show up in the Configure Skills menu, MCP servers in the server list, and agents in the agent picker.
+
+**Security note:** Plugins can include hooks and MCP servers that run code on the local machine. Review plugin contents and publisher before installing, especially from community marketplaces.
+
+### Plugins vs. Local Customization
+
+| | Local Customization | Agent Plugins |
+|-|-------------------|---------------|
+| **Source** | `.github/` in your repo | Installed from marketplace or Git |
+| **Scope** | One repository | Shared across projects |
+| **Maintenance** | Your team maintains | Plugin author maintains |
+| **Best for** | Project-specific conventions | Reusable cross-project tooling |
+
+Plugins and local customization work together. A team might install a database plugin for MCP access while maintaining their own project-specific agents and instructions locally.
+
+### CLI Extensions
+
+The Copilot CLI also supports **extensions** — custom Node.js modules in `.github/extensions/` (project-scoped) or `~/.copilot/extensions/` (user-scoped). Each extension is an `extension.mjs` file that communicates with the CLI via JSON-RPC, enabling custom tools, slash commands, and lifecycle hooks:
+
+```text
+.github/extensions/
+  my-tools/
+    extension.mjs    # Entry point (ES Module required)
+```
+
+Extensions are auto-detected at session start. Use `/extensions reload` to hot-reload during development. Project extensions override user extensions on name conflicts.
+
+For the full reference, see the [CLI plugin reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference).
+
+---
+
 ## Context Window Guidelines
 
 Every primitive consumes tokens. Keep them focused:

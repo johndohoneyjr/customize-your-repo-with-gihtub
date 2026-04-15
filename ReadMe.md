@@ -105,6 +105,7 @@ Starting April 24, 2026, GitHub uses Copilot interaction data from Free, Pro, an
 - [Copilot SDK](https://github.com/github/copilot-sdk) — Embed the Copilot agent runtime in your own applications (public preview)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
 - [Agent Skills Specification](https://agentskills.io) — Open standard for portable agent capabilities
+- [Agent Plugins](https://code.visualstudio.com/docs/copilot/customization/agent-plugins) — Bundle skills, agents, hooks, and MCP servers into installable packages (preview)
 - [Copilot Memory](https://docs.github.com/en/copilot/concepts/agents/copilot-memory) — Automatic repository-level learning that complements explicit customization
 - [GitHub Agentic Workflows](https://github.blog/ai-and-ml/automate-repository-tasks-with-github-agentic-workflows/) — Continuous AI via coding agents in GitHub Actions
 - [VS Code 1.116 Release Notes](https://code.visualstudio.com/updates/v1_116) — Latest VS Code release with Copilot built-in
