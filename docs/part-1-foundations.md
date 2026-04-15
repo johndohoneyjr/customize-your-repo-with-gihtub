@@ -12,15 +12,24 @@
 
 ### Core Capabilities
 
-Copilot works in three modes, each suited to different tasks:
+Copilot assists developers across four interaction patterns:
 
-| Mode | What It Does |
-|------|-------------|
-| **Inline suggestions** | Predicts the next lines of code as you type — ghost text that appears automatically. Best for boilerplate, repetitive patterns, and finishing thoughts you've already started. |
-| **Chat** | A conversational interface for asking questions, generating code, explaining concepts, and working through problems interactively. |
-| **Agent** | An autonomous mode where Copilot plans multi-step tasks, calls tools, edits files, runs terminal commands, and iterates on results. This is where customization has the most impact — the quality of instructions and guardrails in the repository directly determines the quality of the agent's output. |
+| Pattern | What It Does | Where It Runs |
+|---------|-------------|---------------|
+| **Code completion** | Predicts the next lines as you type — ghost text for boilerplate, repetitive patterns, and finishing thoughts already started | IDEs (VS Code, JetBrains, Eclipse, Visual Studio) |
+| **Chat** | A conversational interface for asking questions, generating code, explaining concepts, and working through problems interactively | IDEs, GitHub.com |
+| **Agentic coding** | Copilot plans multi-step tasks, calls tools, edits files, runs terminal commands, and iterates on results — autonomously | VS Code, Copilot CLI, cloud coding agent, GitHub Actions |
+| **Code review** | Automated review of pull requests — surfaces bugs, security issues, and convention violations | GitHub.com (PR reviews) |
 
-**Autopilot** (preview) extends agent mode with a fully autonomous permission level: the agent approves its own actions, retries on errors, and works until the task is complete — no manual confirmations required.
+**Agentic coding** is the most significant capability and where customization has the most impact. When Copilot operates as an agent — whether in VS Code, at the terminal, running on GitHub's cloud infrastructure, or as part of a scheduled GitHub Actions workflow — the quality of instructions, skills, and guardrails in the repository directly determines the quality of the output.
+
+Agentic coding has three permission levels:
+
+| Level | Behavior |
+|-------|----------|
+| **Default** | Agent suggests actions; developer approves each one |
+| **Bypass Approvals** | Skip confirmations for low-risk actions |
+| **Autopilot** (preview) | Fully autonomous — agent approves its own actions, retries on errors, works until task completion |
 
 ### Model Selection
 
