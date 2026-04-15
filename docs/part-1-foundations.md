@@ -55,6 +55,60 @@ The CLI generates a URL and QR code. Only the authenticated GitHub account can a
 
 Available to all paid Copilot subscribers (Pro, Pro+, Business, Enterprise). The repository customization primitives covered in this guide — instructions, skills, agents, MCP — apply to CLI sessions the same way they apply in VS Code.
 
+### Copilot in JetBrains IDEs
+
+GitHub Copilot is available across the JetBrains family — IntelliJ IDEA, PyCharm, WebStorm, GoLand, Rider, and others — via the [GitHub Copilot plugin](https://plugins.jetbrains.com/plugin/17718-github-copilot). The plugin provides code completion, Chat, agent mode, MCP, checkpoints, and workspace indexing.
+
+Customization primitive support is catching up to VS Code but is not yet at full parity:
+
+| Primitive | JetBrains Support |
+|-----------|-------------------|
+| Custom instructions | Preview |
+| Custom agents | Preview |
+| Agent skills | Preview |
+| Prompt files | Preview |
+| MCP servers | ✅ Supported |
+| Agent mode | ✅ Supported |
+| Hooks | Not yet supported |
+
+**What works today:** The same `.github/copilot-instructions.md`, `.github/agents/*.md`, and `.vscode/mcp.json` files used in VS Code are read by the JetBrains plugin (with preview-level support for instructions and agents). Teams that invest in repo-level customization get value across both IDEs without maintaining separate configurations.
+
+**What to watch:** JetBrains support ships in the Copilot plugin (currently v1.5.66+), not in the IDE itself. Keep the plugin updated for the latest primitive support.
+
+### Copilot in Eclipse
+
+GitHub Copilot for Eclipse provides code completion, Chat, agent mode, and MCP support. The plugin is [open source under MIT](https://devblogs.microsoft.com/java/ghc-eclipse-is-going-open-source/) and actively developed by Microsoft and the community.
+
+| Primitive | Eclipse Support |
+|-----------|----------------|
+| Custom instructions | Preview |
+| Custom agents | ✅ Supported |
+| MCP servers | ✅ Supported |
+| Agent mode | ✅ Supported |
+| Agent skills | Not yet supported |
+| Prompt files | Not yet supported |
+| Hooks | Not yet supported |
+
+Eclipse Theia (the cloud/web IDE) also supports Copilot natively from version 1.68, including authentication, model selection, and agent features.
+
+**Install:** Download from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/github-copilot) (requires plugin version 0.13.0+).
+
+### Cross-IDE Compatibility
+
+The customization primitives in this guide are **file-based and IDE-agnostic** — they live in the repository, not in any specific editor's configuration. A `.github/copilot-instructions.md` file works whether a developer opens the repo in VS Code, IntelliJ, Eclipse, or the Copilot CLI.
+
+However, feature support varies by IDE and version. For the authoritative, up-to-date matrix of which features are supported in which IDE, see the [Copilot Feature Matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix).
+
+| Surface | Best For |
+|---------|----------|
+| **VS Code** | Full primitive support, fastest feature rollout, agent plugins, built-in Copilot |
+| **JetBrains** | Java/Kotlin/Python teams already on IntelliJ — growing customization support |
+| **Eclipse** | Java enterprise teams — open-source plugin with MCP and agent mode |
+| **Copilot CLI** | Terminal-first workflows, CI/CD integration, headless environments |
+| **Visual Studio** | .NET teams — agent mode, MCP, custom instructions fully supported |
+
+This guide uses VS Code for examples and screenshots because it has the most complete primitive support. Where a feature is VS Code-specific, it is noted.
+
 ### Key Terms
 
 These terms appear throughout the guide:
