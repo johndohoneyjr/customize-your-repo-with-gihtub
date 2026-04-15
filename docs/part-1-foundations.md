@@ -12,7 +12,7 @@
 
 ### Core Capabilities
 
-Copilot assists developers across four interaction patterns:
+Copilot assists developers across five interaction patterns:
 
 | Pattern | What It Does | Where It Runs |
 |---------|-------------|---------------|
@@ -20,6 +20,7 @@ Copilot assists developers across four interaction patterns:
 | **Chat** | A conversational interface for asking questions, generating code, explaining concepts, and working through problems interactively | IDEs, GitHub.com |
 | **Agentic coding** | Copilot plans multi-step tasks, calls tools, edits files, runs terminal commands, and iterates on results — autonomously | VS Code, Copilot CLI, cloud coding agent, GitHub Actions |
 | **Code review** | Automated review of pull requests — surfaces bugs, security issues, and convention violations | GitHub.com (PR reviews) |
+| **Custom integration** | Embed the Copilot agent runtime in your own tools, platforms, and pipelines via the [Copilot SDK](primitive-10-copilot-sdk.md) | Your applications (Node.js, Python, Go, .NET, Java) |
 
 **Agentic coding** is the most significant capability and where customization has the most impact. When Copilot operates as an agent — whether in VS Code, at the terminal, running on GitHub's cloud infrastructure, or as part of a scheduled GitHub Actions workflow — the quality of instructions, skills, and guardrails in the repository directly determines the quality of the output.
 
