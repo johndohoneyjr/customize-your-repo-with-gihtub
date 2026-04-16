@@ -8,7 +8,7 @@
 
 GitHub Copilot provides eight customization primitives that shape what Copilot knows and how it thinks. The first six — always-on instructions, file-based instructions, prompts, skills, custom agents, and MCP — handle context and capabilities. The remaining two extend into enforcement and learning: [Hooks](primitive-7-hooks.md) provide runtime enforcement, and [Copilot Memory](primitive-8-memory.md) provides automatic repository-level learning.
 
-Beyond the primitives, two **platform extensions** take Copilot into new environments: [Agentic Workflows](agentic-workflows.md) run coding agents in GitHub Actions, and the [Copilot SDK](copilot-sdk.md) lets teams embed the agent runtime in their own tools. These aren't configuration primitives — they don't shape what Copilot knows about your codebase — but they consume the primitives you've defined.
+Beyond the primitives, two **platform extensions** take Copilot into new environments: [Agentic Workflows](agentic-workflows.md) run coding agents in GitHub Actions, and the [Copilot SDK](copilot-sdk.md) lets teams embed the agent runtime in their own tools. These aren't configuration primitives — they don't shape what Copilot knows about your codebase — but they consume the primitives you've defined. [Copilot code review](code-review.md) is a third cross-cutting feature: it reads your instruction files and surfaces convention violations as PR comments.
 
 These mechanisms work across multiple Copilot surfaces — VS Code, Visual Studio, GitHub.com, and [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) (a terminal-based AI agent). Because the primitives are plain files in your repository, any surface that reads `.github/` customization can consume them regardless of where they were authored. The tables below note each primitive's location, activation, scope, and CLI support.
 
@@ -355,6 +355,12 @@ GitHub Agentic Workflows run coding agents inside GitHub Actions — on a schedu
 The Copilot SDK packages the same agent runtime that powers Copilot CLI and the cloud agent as libraries for Node.js, Python, Go, .NET, and Java. Use it to embed Copilot's agentic capabilities — tool invocation, multi-turn sessions, streaming, and reasoning — in custom tools, internal platforms, and CI pipelines.
 
 **Official docs:** [Copilot SDK](https://github.com/github/copilot-sdk)
+
+### [Code Review](code-review.md)
+
+GitHub Copilot code review runs on GitHub.com pull requests and inside every major IDE. It is not a primitive — it is a cross-cutting feature that reads the same `copilot-instructions.md` and path-scoped `*.instructions.md` files your team already maintains, and surfaces violations as PR comments. The [code review guide](code-review.md) covers which primitives affect review behavior, the character budget, and patterns for diff-citable rules.
+
+**Official docs:** [Using GitHub Copilot code review](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review)
 
 ---
 

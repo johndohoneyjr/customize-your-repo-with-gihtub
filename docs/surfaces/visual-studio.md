@@ -338,6 +338,10 @@ See the examples section below for concrete prompt file templates.
 
 Visual Studio supports [**Copilot memories**](https://docs.github.com/en/copilot/concepts/agents/copilot-memory) — repository-scoped memory that observes preferences during chat and can automatically write them into `%USERPROFILE%\copilot-instructions.md` or the repo-level instructions file. Memories are surfaced as references on responses that use them, and users can review, accept, or reject proposed additions before they are persisted. Memory is governed by the same enablement checkboxes as custom instructions.
 
+## Code Review
+
+Copilot code review is fully supported across Visual Studio 2022 and 2026. Request a review on github.com or from inside Visual Studio; Copilot reads the same `.github/copilot-instructions.md` and path-scoped `*.instructions.md` files that steer chat and agent mode, and surfaces violations as PR comments. Because the review uses the base branch's instruction files, a contributor cannot weaken review rules in their own pull request. See the [Code Review guide](../code-review.md) for the character budget, review-oriented instruction patterns, and cross-surface behavior.
+
 ## Primitive Support Matrix
 
 This table is the **Visual Studio-specific subset** — it breaks support down by product line (VS 2022 vs. VS 2026). For the canonical cross-surface comparison across every Copilot surface, see [Part III: Cross-Surface Primitive Support Matrix](../part-3-reference.md#cross-surface-primitive-support-matrix). For the upstream source of truth, consult the [Copilot feature matrix for Visual Studio](https://docs.github.com/en/copilot/reference/copilot-feature-matrix?tool=visualstudio).

@@ -54,7 +54,7 @@ Agent mode automatically creates a restore point before it begins making changes
 
 ### Code Review
 
-Copilot-assisted review comments on pull requests, surfaced in the plugin when browsing PR state from the IDE.
+Copilot-assisted review comments on pull requests, surfaced in the plugin when browsing PR state from the IDE. Reviews are steered by the same `.github/copilot-instructions.md` and path-scoped `*.instructions.md` files that shape chat and agent mode — so any rule you codify once applies to both interactive use and PR review. See the [Code Review guide](../code-review.md) for the character budget, base-branch resolution, and review-oriented instruction patterns.
 
 ## Keymap and Shortcuts
 

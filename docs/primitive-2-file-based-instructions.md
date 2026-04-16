@@ -123,6 +123,10 @@ copilot
 
 Not every surface honors glob-scoped instructions today. On surfaces without native support (notably **Visual Studio**, **Xcode**, **Eclipse**, and **cloud coding agent** runs before matching files are in context), fold area-specific rules into the root `.github/copilot-instructions.md` file instead, or keep the `.instructions.md` files in place so that VS Code, JetBrains, and CLI contributors still benefit. See [Part III: Reference](part-3-reference.md) for the current primitive-by-surface support matrix.
 
+### Beyond Chat: Code Review
+
+File-based instructions also steer [GitHub Copilot code review](code-review.md). When Copilot reviews a pull request, the `applyTo` glob determines which rules fire on which changed files — so your authentication rules don't noise up a test-only PR, and your test-style rules don't fire on production code. See the [Code Review guide](code-review.md) for the character budget, base-branch resolution, and review-oriented patterns.
+
 ## Anti-Patterns to Avoid
 
 | Anti-Pattern | Why It's Problematic | Better Approach |

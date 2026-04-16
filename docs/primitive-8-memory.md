@@ -35,7 +35,7 @@ Think of the relationship this way:
 - **Primitives** shape what Copilot is *told* — explicit rules, procedures, and tools
 - **Memory** captures what Copilot *learns* — patterns discovered through use
 
-A well-configured repository uses both. Explicit customization prevents mistakes from day one. Memory fills in the nuances that accumulate over time.
+A well-configured repository uses both. Explicit customization prevents mistakes from day one. Memory fills in the nuances that accumulate over time. Memory also carries into [Copilot code review](code-review.md) — patterns the team has corrected across many PRs get surfaced automatically in future reviews, even when they aren't written into an instruction file.
 
 ---
 

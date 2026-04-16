@@ -89,6 +89,7 @@ Beyond the primitives, two platform extensions take Copilot beyond the IDE — i
 |-----------|----------|---------|
 | [**Agentic Workflows (Preview)**](docs/agentic-workflows.md) | `.github/workflows/*.md` | Continuous AI via coding agents in GitHub Actions |
 | [**Copilot SDK (Preview)**](docs/copilot-sdk.md) | External dependency (npm, pip, etc.) | Embed the Copilot agent runtime in your own tools and applications |
+| [**Code Review**](docs/code-review.md) | `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md` | Automated PR review steered by your instruction files |
 
 These are not configuration primitives — they don't shape what Copilot knows about your codebase. Instead, they extend Copilot's reach into new environments. Both can be customized using the same primitives covered in this guide: your instructions, skills, and agents are consumed by Agentic Workflows when the coding agent runs in GitHub Actions, and by the Copilot SDK when you embed the runtime in your own tools. Everything you learn in Part II applies to these extensions too.
 
@@ -120,6 +121,7 @@ The heart of the guide. Each primitive gets comprehensive coverage — syntax, c
 
 - [Agentic Workflows](docs/agentic-workflows.md) — Continuous AI via coding agents in GitHub Actions
 - [Copilot SDK](docs/copilot-sdk.md) — Embed the agent runtime in your own tools
+- [Code Review](docs/code-review.md) — Automated PR review steered by your instruction files
 
 ### [Part III: Reference](docs/part-3-reference.md)
 
@@ -159,6 +161,7 @@ Common problems and where in the guide to read about them.
 | I don't want to write customization from scratch | [Starter Templates](docs/part-3-reference.md#starter-templates) |
 | I want AI to run on my repo continuously — triage issues, review PRs, maintain docs | [Agentic Workflows](docs/agentic-workflows.md) |
 | I want to embed the Copilot agent runtime inside my own product or tool | [Copilot SDK](docs/copilot-sdk.md) |
+| I want Copilot to review pull requests against my team's rules and conventions | [Code Review](docs/code-review.md) |
 | I'm ready to roll this out to my team but don't know where to start | [Rolling Out to Your Team](docs/part-1b-why-customize.md#rolling-out-to-your-team) |
 | I need to scale customization across many teams without forcing uniformity | [Scaling Beyond One Team](docs/part-1b-why-customize.md#scaling-beyond-one-team) |
 | My leadership wants to know whether Copilot is actually paying off | [Measuring Success](docs/part-1b-why-customize.md#measuring-success) |
