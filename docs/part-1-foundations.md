@@ -8,7 +8,7 @@
 
 ## What is GitHub Copilot?
 
-[GitHub Copilot](https://github.com/features/copilot) is an AI coding assistant powered by frontier language models — Claude, GPT, Gemini — hosted by GitHub. Developers describe what they need in natural language or code, and Copilot generates suggestions, answers questions, writes implementations, and executes multi-step tasks. The models handle reasoning; the integration layer handles context — pulling in open files, workspace structure, and the customization files this guide covers.
+[GitHub Copilot](https://github.com/features/copilot) is GitHub's platform for agentic software development. Powered by frontier language models — Claude, GPT, Gemini — Copilot operates across the entire software development lifecycle: writing code, reviewing pull requests, executing multi-step tasks autonomously, running continuous AI workflows in GitHub Actions, and integrating with external tools and data sources. It is not a single tool in a single editor — it is a platform that spans IDEs, the terminal, GitHub.com, CI/CD pipelines, and custom applications.
 
 ### Core Capabilities
 
@@ -63,7 +63,7 @@ Enterprises can use **BYOK (Bring Your Own Key)** to connect their own API keys 
 
 ### What This Guide Teaches
 
-Out of the box, Copilot is a generic coding assistant. It knows how to write code but knows nothing about *your* codebase — your conventions, your architecture, your team's decisions. This guide covers the **ten customization primitives** that transform Copilot from a generic assistant into a team member who knows your repository. Each primitive is a configuration file or integration that shapes what Copilot knows, how it behaves, and what it can do.
+Out of the box, Copilot is a powerful but generic platform. It knows how to write code, review PRs, and execute tasks — but it knows nothing about *your* codebase, your conventions, your architecture, or your team's decisions. This guide covers the **ten customization primitives** that transform Copilot from a generic platform into one that understands your repository. Each primitive is a configuration file or integration that shapes what Copilot knows, how it behaves, and what it can do.
 
 **This guide assumes Copilot is already installed and working.** If not, start at [github.com/features/copilot](https://github.com/features/copilot) to set up a subscription.
 
@@ -156,7 +156,7 @@ Your **model selection** matters — see [Model Selection](#model-selection) abo
 
 Your **codebase quality** matters — a well-structured codebase with clear naming, small functions, and comprehensive tests gives Copilot better context to work with. Messy, tangled code confuses AI just as much as it confuses human developers.
 
-But even with the best model and cleanest codebase, **repository configuration** is what transforms Copilot from a generic assistant into a team-aware partner. This guide is the complete reference for setting up your repository for the best possible outcomes with GitHub Copilot.
+But even with the best model and cleanest codebase, **repository configuration** is what transforms Copilot from a generic platform into a team-aware development partner. This guide is the complete reference for setting up your repository for the best possible outcomes with GitHub Copilot.
 
 ### The Over-Instruction Trap
 
@@ -197,7 +197,7 @@ When properly configured, Copilot can:
 - Avoid deprecated libraries and anti-patterns
 - Generate code that passes PR review on the first try
 
-This guide provides a comprehensive walkthrough of every customization primitive available in GitHub Copilot. By the end, development teams will have the knowledge to transform Copilot from a generic assistant into a context-aware team member that understands the nuances of their specific codebase.
+This guide provides a comprehensive walkthrough of every customization primitive available in GitHub Copilot. By the end, development teams will have the knowledge to configure Copilot as a context-aware development partner that understands the nuances of their specific codebase.
 
 **Official docs:** [Copilot customization overview](https://code.visualstudio.com/docs/copilot/copilot-customization)
 

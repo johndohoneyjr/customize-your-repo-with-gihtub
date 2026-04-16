@@ -2,9 +2,9 @@
 
 *Published: February 10, 2026. Updated: April 15, 2026. File paths, configuration options, and feature availability may change as Copilot evolves—always verify against the [official documentation](https://code.visualstudio.com/docs/copilot).*
 
-GitHub Copilot is more than autocomplete. When properly configured, it becomes a context-aware development partner that understands your architecture, follows your conventions, and produces code that passes review on the first try.
+GitHub Copilot is GitHub's platform for agentic software development. When properly configured, it becomes a context-aware development partner that understands your architecture, follows your conventions, and produces code that passes review on the first try.
 
-This guide is the complete reference for GitHub Copilot's customization primitives—the configuration files and patterns that transform Copilot from a generic AI assistant into a team member who knows your codebase.
+This guide is the complete reference for GitHub Copilot's customization primitives—the configuration files and patterns that transform Copilot from a generic platform into one that knows your codebase.
 
 ---
 
