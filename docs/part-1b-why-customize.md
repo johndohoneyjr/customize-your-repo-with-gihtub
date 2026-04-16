@@ -321,12 +321,79 @@ Adopting Copilot customization works best in phases. Each phase adds capability 
 
 | Phase | What to Deploy | What to Measure | Move to Next When |
 |-------|---------------|-----------------|-------------------|
-| **1. Pilot** (1-2 teams) | `copilot-instructions.md` + 2-3 prompt files | PR rework rate, developer feedback | Rework rate decreases; team reports less repetitive prompting |
-| **2. Expand** | File-based instructions, skills, MCP servers | Cycle time, tool invocation frequency | Skills actively discovered; MCP tools integrated into daily workflow |
-| **3. Standardize** | Custom agents, hooks for enforcement, Memory enabled | Convention compliance, audit coverage | Hooks catch real violations; agents used for specialized tasks |
-| **4. Scale** | Agentic Workflows, SDK integration, agent plugins | Autonomous task completion rate, CI-driven agent output quality | Workflows run reliably; trust in autonomous operation established |
+| **Day 1** | `copilot-instructions.md` + 2-3 prompt files | PR rework rate, developer feedback | Rework rate decreases; team reports less repetitive prompting |
+| **Day 2-4** | File-based instructions, skills, MCP servers | Cycle time, tool invocation frequency | Skills actively discovered; MCP tools integrated into daily workflow |
+| **Day 5-8** | Custom agents, hooks for enforcement, Memory enabled | Convention compliance, audit coverage | Hooks catch real violations; agents used for specialized tasks |
+| **Day 9-13** | Agentic Workflows, SDK integration, agent plugins | Autonomous task completion rate, CI-driven agent output quality | Workflows run reliably; trust in autonomous operation established |
 
-Start with the highest-value, lowest-risk primitive (`copilot-instructions.md`), prove value, then expand. Each phase builds on the trust and patterns established in the previous one.
+Start with the highest-value, lowest-risk primitive (`copilot-instructions.md`), prove value, then expand. Each phase builds on the trust and patterns established in the previous one — the full rollout fits inside two weeks.
+
+---
+
+## Scaling Beyond One Team
+
+The four-phase rollout above works for a single team on a single repo. When the first team proves value and leadership asks "how do we roll this out across the org?", the operational questions change. Distribution, drift, ownership, and measurement become the bottlenecks — not authoring.
+
+### Distribution Patterns
+
+Three mechanisms ship customizations to many repos. Most organizations combine all three.
+
+| Pattern | Best for | Tradeoffs |
+|---------|----------|-----------|
+| **Org-level `.github` repo** | Baseline rules every repo inherits (security policies, commit conventions, PR templates). GitHub auto-applies files from the special `.github` repo to every repo in the org that doesn't override them. | Only covers community health files natively; Copilot instructions must be copied in via template, sync action, or agent plugin. |
+| **[Agent Plugins (Preview)](part-2-primitives.md#agent-plugins-preview)** | Bundling related primitives (skills + agents + hooks + instructions) as a versioned, installable package teams opt into. | Preview feature; plugin format still stabilizing. Best when you want opt-in adoption per repo. |
+| **Template repositories** | New repos that should start with a full customization set (instructions, skills, MCP config, workflow files). | One-time imprint — drift starts on day one. Good for greenfield projects; weak for keeping existing repos in sync. |
+
+A common blended model: baseline `copilot-instructions.md` distributed via a sync action from a central repo, domain-specific skills and agents delivered as agent plugins teams install per repo, and template repos for new services.
+
+### Ownership and CODEOWNERS
+
+Customization files are source code — review them like source code. Add `.github/copilot-instructions.md`, `.github/instructions/`, `.github/prompts/`, `.github/skills/`, `.github/agents/`, `.github/hooks/`, and `.vscode/mcp.json` to [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositories-settings-and-security/customizing-your-repository/about-code-owners) so the right team reviews each change:
+
+```text
+# .github/CODEOWNERS
+.github/copilot-instructions.md    @acme/platform-dx
+.github/instructions/security-*    @acme/appsec
+.github/hooks/                     @acme/appsec @acme/platform-dx
+.github/skills/                    @acme/platform-dx
+.vscode/mcp.json                   @acme/platform-dx
+```
+
+Hooks and MCP configs deserve stricter ownership because they can execute code or expose external systems — security review is non-optional.
+
+### Drift Detection
+
+Once customizations are distributed, they drift. Teams edit local copies, forget to pull upstream updates, and quietly diverge from the baseline. Detect drift with:
+
+- **Scheduled sync actions** — a GitHub Action that, on a schedule, opens a PR in each downstream repo when the baseline repo's `copilot-instructions.md` or skill bundle has changed. Uses the [`peter-evans/create-pull-request`](https://github.com/peter-evans/create-pull-request) pattern or a custom script.
+- **Drift reports** — a central workflow that clones every repo in the org, diffs its Copilot configuration against the canonical baseline, and posts a summary to Slack or an issue in the platform-DX repo.
+- **Agentic Workflows for enforcement** — a scheduled agent workflow that inspects customization files across repos and files issues for unexplained deviations. See [Agentic Workflows](agentic-workflows.md).
+
+### Measuring Adoption at Scale
+
+Per-team metrics (cycle time, rework rate) scale directly. Organization-level visibility comes from GitHub's APIs:
+
+- **[Copilot Metrics API](https://docs.github.com/en/rest/copilot/copilot-metrics)** — aggregate usage (active users, chat turns, acceptance rates, agent mode sessions) at the org and enterprise level. Enables dashboards that correlate customization rollout with engagement.
+- **[Copilot Usage API](https://docs.github.com/en/rest/copilot/copilot-usage)** — seat-level data for billing and license-management workflows.
+- **[Audit log](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/audit-log-events-for-your-enterprise#copilot-events)** — Copilot events in the enterprise audit log (policy changes, MCP server approvals, seat assignments) for compliance and incident response.
+- **Hook-driven logging** — pipe [hooks](primitive-7-hooks.md) audit output to your SIEM for a per-session view of what Copilot did in high-risk repos.
+
+### Phased Rollout Across the Organization
+
+Resist the temptation to ship customizations org-wide on day one. Concentric waves build signal before scale:
+
+| Wave | Scope | Exit criteria |
+|------|-------|---------------|
+| **Pilot** | 1-2 volunteer teams on active repos | Pilot teams report friction down, PR rework down; baseline `copilot-instructions.md` and 2-3 skills stable |
+| **Wave 1** | 5-10 teams, mixed tech stacks | Customizations survive contact with different stacks; central team knows which rules generalize vs. which need per-team overrides |
+| **Wave 2** | Department or business unit | Distribution mechanism (sync action, agent plugin, template) is working; CODEOWNERS are in place; drift detection live |
+| **Wave 3** | Entire organization | Copilot Metrics API dashboards running; audit logging integrated; support rotation staffed for customization questions |
+
+At each wave, collect qualitative feedback (what rules fire unnecessarily? which skills did nobody discover?) and trim. The biggest org-wide rollout failure mode is accumulating every team's rules into a shared file that satisfies no one. Keep the baseline lean; let teams extend it locally.
+
+### Further Reading
+
+For richer patterns — shared skills libraries, MCP server registries, governance guardrails, and GitHub's own rollout playbook — see [Rolling Out to Your Team](#rolling-out-to-your-team) above, [Agent Plugins (Preview)](part-2-primitives.md#agent-plugins-preview), and [Agentic Workflows](agentic-workflows.md).
 
 ---
 

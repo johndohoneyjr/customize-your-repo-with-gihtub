@@ -71,7 +71,7 @@ Per-language completion toggles live at **Settings → Languages & Frameworks �
 
 ## Customization Primitive Support
 
-JetBrains parity is the active investment area for the Copilot team, and the feature matrix changes frequently. The table below reflects current JetBrains-latest status per the [official feature matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix?tool=jetbrains) (snapshot: April 2026 — verify the live matrix before making pinning decisions). "Preview" means the feature ships and works, but its behavior may change without notice and glob-matching, trigger heuristics, or frontmatter fields are not guaranteed stable.
+JetBrains parity is the active investment area for the Copilot team, and the feature matrix changes frequently. The table below is the **JetBrains-specific subset** — it includes features that don't appear in the cross-surface view (checkpoints, next-edit suggestions, vision, workspace indexing). For the canonical cross-surface comparison, see [Part III: Cross-Surface Primitive Support Matrix](../part-3-reference.md#cross-surface-primitive-support-matrix). For the upstream source of truth, consult the [official JetBrains feature matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix?tool=jetbrains). The snapshot below reflects April 2026 — verify before making pinning decisions. "Preview" means the feature ships and works, but its behavior may change without notice and glob-matching, trigger heuristics, or frontmatter fields are not guaranteed stable.
 
 | Primitive | JetBrains status | Notes |
 |-----------|------------------|-------|

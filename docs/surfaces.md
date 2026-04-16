@@ -12,17 +12,7 @@ This page is the reference for surface-specific details — primitive support, a
 
 ## Primitive Support by Surface
 
-| Primitive | VS Code | Visual Studio (2026) | JetBrains | Xcode | Eclipse | [Copilot CLI](surfaces/copilot-cli.md) | [Cloud Agent](surfaces/cloud-coding-agent.md) |
-|-----------|:-------:|:--------------------:|:---------:|:-----:|:-------:|:--------------------------------------:|:---------------------------------------------:|
-| Always-on instructions | ✅ | ✅ | Preview | Preview | Preview | ✅ | ✅ |
-| File-based instructions | ✅ | ✅ | Preview | ❌ | Preview | ✅ | ✅ |
-| Prompts | ✅ | ✅ (18.4+) | Preview | Preview | ❌ | ✅ | ❌ |
-| Skills | ✅ | ✅ (18.4.1+) | Preview | ❌ | ❌ | ✅ | ✅ |
-| Custom agents | ✅ | Preview (18.4+) | Preview | Preview | ✅ | ✅ | ✅ |
-| MCP | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Hooks | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| Memory | ✅ (review/cloud) | ✅ | Preview | ❌ | ❌ | ✅ | ✅ |
-| Agent plugins | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
+The **canonical, continuously-maintained matrix lives in [Part III: Cross-Surface Primitive Support Matrix](part-3-reference.md#cross-surface-primitive-support-matrix)**. This page is the narrative reference for surface-specific details — authoring UX, setup gotchas, and the limitations that matter when picking an IDE. For the at-a-glance table, follow the link above; for the authoritative upstream source, always consult the [GitHub Copilot Feature Matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix).
 
 Verify the live state before locking in tooling decisions — primitive parity on non-VS-Code surfaces is the active investment area and moves monthly.
 
@@ -65,12 +55,14 @@ Verify the live state before locking in tooling decisions — primitive parity o
 
 ### Xcode
 
-**Official docs:** [Install for Xcode](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-extension?tool=xcode) · [CopilotForXcode repo](https://github.com/github/CopilotForXcode)
+**Official docs:** [Install for Xcode](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-extension?tool=xcode) · [CopilotForXcode repo](https://github.com/github/CopilotForXcode) · [Full reference: surfaces/xcode.md](surfaces/xcode.md)
 
-- **Standalone macOS application** distributed as a `.dmg`, not an Xcode extension proper. Integrates via the Source Editor Extension API and requires Accessibility and Source Editor Extension permissions.
+- **Standalone macOS application** distributed as a `.dmg` (or via the `github-copilot-for-xcode` Homebrew cask), not an Xcode extension proper. Integrates via the Source Editor Extension API and requires Accessibility and Source Editor Extension permissions.
 - **Requires macOS 12.0+ and Xcode 8.0+.**
 - **Agent mode and MCP are supported.** File-based instructions, skills, hooks, and memory are not — use `.github/copilot-instructions.md` for all conventions.
 - **No workspace indexing.** Semantic search over the project is not available.
+
+See [surfaces/xcode.md](surfaces/xcode.md) for the full reference — install paths, permission setup, primitive support table, and known limitations.
 
 ### Eclipse
 

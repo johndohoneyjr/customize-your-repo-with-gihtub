@@ -230,6 +230,74 @@ applyTo: 'db/migrations/**/*.sql'
 ---
 ```
 
+**Python data science (`**/*.ipynb` notebooks and `**/*.py` pipelines):**
+
+```yaml
+---
+name: 'Python Data Science Conventions'
+description: 'pandas, notebook hygiene, and reproducibility rules for analytics code'
+applyTo: '**/*.ipynb,src/analysis/**/*.py'
+---
+
+- Use `pandas` with explicit dtypes; never infer dtypes from CSV without specifying `dtype=`.
+- Notebooks must be stripped of outputs before commit — enforce with `nbstripout` as a pre-commit hook.
+- Seed every random process: `np.random.seed(42)`, `torch.manual_seed(42)`. No un-seeded randomness in analysis cells.
+- Prefer vectorized pandas ops over `.apply(lambda ...)`; flag any `.iterrows()` as a review blocker.
+- Import order: stdlib → third-party → local, one import per line; no `from module import *`.
+- Plot with `matplotlib` or `seaborn`; every chart must have a title, axis labels, and a caption cell explaining what it shows.
+```
+
+**.NET / C# (`**/*.cs` — Visual Studio + VS Code):**
+
+```yaml
+---
+name: 'C# Conventions'
+description: 'Modern C# 12+ patterns for .NET 8 services'
+applyTo: '**/*.cs'
+---
+
+- Target .NET 8; enable nullable reference types (`<Nullable>enable</Nullable>`) in every project.
+- Prefer `record` for DTOs and value objects; `class` only when identity or mutation is required.
+- Use primary constructors and collection expressions (`[..]`) on C# 12+; avoid legacy constructor boilerplate.
+- Async methods end in `Async`, return `Task`/`Task<T>`, and always accept a `CancellationToken` — no fire-and-forget `async void` outside event handlers.
+- Dependency injection through constructor parameters only; no service locator or `new` inside business logic.
+- Use `ILogger<T>` with structured logging templates (`"User {UserId} signed in"`) — never string interpolation into log messages.
+```
+
+**Go (`**/*.go`):**
+
+```yaml
+---
+name: 'Go Conventions'
+description: 'Idiomatic Go for services and CLIs'
+applyTo: '**/*.go'
+---
+
+- Follow `gofmt` and `go vet`; no linter disables without a `//nolint:<rule> // reason` comment.
+- Errors are values — return them, don't panic in library code. Wrap with `fmt.Errorf("context: %w", err)` to preserve the chain.
+- Accept `context.Context` as the first parameter on every exported function that does I/O; propagate it through every call.
+- Prefer small interfaces defined at the call site; avoid `interface{}` — use generics (Go 1.21+) for containers.
+- Package names are lowercase, short, and singular (`user`, not `users` or `UserPackage`).
+- No `init()` functions for business logic; reserve `init()` for flag registration and package-local setup that cannot be done lazily.
+```
+
+**SQL / dbt (`**/*.sql` — warehouse and transformation layer):**
+
+```yaml
+---
+name: 'SQL and dbt Conventions'
+description: 'Warehouse SQL style, dbt model structure, and review-friendly query patterns'
+applyTo: 'models/**/*.sql,analysis/**/*.sql'
+---
+
+- Keywords UPPERCASE, identifiers lowercase with `snake_case`; CTEs named descriptively (`active_users`, not `cte1`).
+- Every dbt model has a `schema.yml` entry with a description and at least one test (`not_null` on primary keys, `unique` where applicable).
+- Prefer CTEs over nested subqueries; one CTE per logical step, read top-to-bottom.
+- Always qualify column references with the table or CTE alias in any join — no bare column names in multi-table queries.
+- No `SELECT *` in final SELECT blocks; enumerate columns so schema drift surfaces at compile time.
+- Window functions over correlated subqueries where semantically equivalent; comment the partition/order rationale.
+```
+
 The same pattern extends to any file type: write one `.instructions.md` per distinct convention, target it narrowly with `applyTo`, and keep shared rules in the always-on instructions file.
 
 ### Monorepos

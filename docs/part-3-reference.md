@@ -40,22 +40,23 @@
 
 ## Cross-Surface Primitive Support Matrix
 
-Not every surface supports every primitive. This consolidated matrix shows current support across all Copilot surfaces:
+This is the **canonical primitive-by-surface matrix for this guide**. The [IDE Surfaces overview](surfaces.md) and each per-surface page link back here rather than duplicating it. Consult the authoritative [Copilot Feature Matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix) for the live, continuously-updated source of truth — the snapshot below was validated April 2026.
 
-| Primitive | VS Code | JetBrains | Visual Studio | Eclipse | Xcode | Copilot CLI | Cloud Coding Agent |
-|-----------|---------|-----------|---------------|---------|-------|-------------|-------------------|
+| Primitive | VS Code | JetBrains | Visual Studio 2026 | Eclipse | Xcode | Copilot CLI | Cloud Coding Agent |
+|-----------|---------|-----------|--------------------|---------|-------|-------------|-------------------|
 | Always-on Instructions | ✅ | Preview | ✅ | Preview | Preview | ✅ | ✅ |
-| File-based Instructions | ✅ | Preview | — | — | — | ✅ | — |
-| Prompts | ✅ | Preview | ✅ | — | Preview | — | — |
-| Skills | ✅ | Preview | — | — | — | ✅ | — |
-| Custom Agents | ✅ | Preview | Preview | ✅ | Preview | ✅ | — |
-| MCP | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
+| File-based Instructions | ✅ | Preview | ✅ | — | — | ✅ | ✅ |
+| Prompts | ✅ | Preview | ✅ (18.4+) | — | Preview | — | — |
+| Skills | ✅ | Preview | ✅ (18.4.1+) | — | — | ✅ | ✅ |
+| Custom Agents | ✅ | Preview | Preview (18.4+) | ✅ | Preview | ✅ | ✅ |
+| MCP | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Hooks | ✅ | — | — | — | — | ✅ | ✅ |
-| Memory | ✅\* | ✅\* | ✅\* | — | — | ✅ | ✅ |
+| Memory | ✅\* | Preview\* | ✅\* | — | — | ✅ | ✅ |
+| Agent plugins | ✅ | — | — | — | — | ✅ | — |
 
-**Key:** ✅ = Generally available · Preview = Available but subject to change · — = Not yet supported · \* = Available via the Copilot cloud agent and code review, not in IDE Chat/Completions/Inline Chat
+**Key:** ✅ = Generally available · Preview = Available but behavior may change · — = Not supported · \* = Learned knowledge is retrieved server-side; IDE-side review and toggles depend on plan and surface build.
 
-Features marked "Preview" may require enabling experimental settings. Consult the [Copilot Feature Matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix) for the latest status.
+Features marked "Preview" may require enabling experimental settings. Visual Studio minimum versions (18.4+, 18.4.1+) refer to Visual Studio 2026.
 
 ---
 

@@ -8,7 +8,7 @@
 
 ## What is GitHub Copilot?
 
-[GitHub Copilot](https://github.com/features/copilot) is GitHub's platform for agentic software development. Powered by frontier language models — Claude, GPT, Gemini — Copilot operates across the entire software development lifecycle: writing code, reviewing pull requests, executing multi-step tasks autonomously, running continuous AI workflows in GitHub Actions, and integrating with external tools and data sources. It is not a single tool in a single editor — it is a platform that spans IDEs, the terminal, GitHub.com, CI/CD pipelines, and custom applications.
+[GitHub Copilot](https://github.com/features/copilot) is GitHub's platform for agentic software development (*agentic* = the AI plans multi-step work, runs tools, and iterates on results rather than answering a single question and stopping — see [Key Terms](#key-terms) below). Powered by frontier language models — Claude, GPT, Gemini — Copilot operates across the entire software development lifecycle: writing code, reviewing pull requests, executing multi-step tasks autonomously, running continuous AI workflows in GitHub Actions, and integrating with external tools and data sources. It is not a single tool in a single editor — it is a platform that spans IDEs, the terminal, GitHub.com, CI/CD pipelines, and custom applications.
 
 **See it in action:** [Agent Sessions Day Keynote](https://www.youtube.com/watch?v=tAezuMSJuFs&t=1152s) — Harald Kirschner frames Copilot as an agentic platform that spans IDEs, the terminal, GitHub.com, and CI/CD.
 
@@ -25,9 +25,8 @@ These terms appear throughout the guide:
 | Term | Meaning |
 |------|---------|
 | **Agentic** | A mode of AI operation where the model works autonomously — it plans steps, calls tools, runs commands, checks its own work, and iterates. Contrast with a single-turn assistant that answers one question and waits. "Agentic coding" is Copilot doing multi-step engineering work on your behalf. |
+| **Agent** (three meanings — watch context) | (1) **Agentic mode** — Copilot operating autonomously, planning steps, calling tools, and iterating. (2) **Custom agent** — a user-authored `.agent.md` persona that configures Copilot's behavior, tools, and system prompt for a specific role. (3) **Copilot itself**, used as shorthand for the product (e.g., "the agent opened a PR") — most common when discussing the cloud coding agent or CLI. When ambiguity matters this guide uses the fuller form; elsewhere, context disambiguates. |
 | **Primitive** | A configuration file type that customizes Copilot. Think of a primitive as a Lego brick: each one has a specific shape (file path + format) and a specific purpose (always-on rules, task templates, personas, etc.). This guide covers all eight primitives. |
-| **Agent** (agentic mode) | Copilot operating autonomously — planning steps, calling tools, iterating on results |
-| **Custom agent** | A `.agent.md` file that defines a specialized persona with constrained tools and behavior |
 | **Context window** | The total amount of text the model can consider at once — instructions, code, and conversation all compete for this space |
 | **Inline suggestions** | Ghost text (autocomplete) that appears as you type — a separate pipeline from Copilot Chat |
 | **MCP** | Model Context Protocol — a standard for connecting AI agents to external tools and data sources |
@@ -128,7 +127,7 @@ Copilot runs across many surfaces. The customization primitives in this guide ar
 | [**VS Code**](surfaces/vscode.md) | The primary IDE experience — full primitive support, agent plugins, built-in since v1.116 | Weekly stable releases |
 | [**Visual Studio**](surfaces/visual-studio.md) | .NET teams — agent mode, MCP, custom instructions; prompts/agents/skills on 2026 | Monthly (tied to VS releases) |
 | [**JetBrains**](surfaces/jetbrains.md) | IntelliJ, PyCharm, WebStorm, GoLand, Rider, Android Studio, and friends | Multiple updates per week |
-| [**Xcode**](surfaces.md#xcode) | iOS/macOS developers — code completion, Chat, agent mode, and MCP via standalone app | Via GitHub releases |
+| [**Xcode**](surfaces/xcode.md) | iOS/macOS developers — code completion, Chat, agent mode, and MCP via standalone app | Via GitHub releases |
 | [**Eclipse**](surfaces/eclipse.md) | Java enterprise teams — open-source MIT plugin with MCP and agent mode | ~Monthly |
 | [**GitHub Copilot CLI**](surfaces/copilot-cli.md) | The full agentic experience in the terminal — GA since February 2026 | Weekly updates (auto-update) |
 | [**Cloud Coding Agent**](surfaces/cloud-coding-agent.md) | Autonomous agent on GitHub's infrastructure — assign issues, get PRs back | Continuous (server-side) |

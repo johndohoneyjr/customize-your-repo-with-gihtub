@@ -141,7 +141,7 @@ As of the February 2026 release, the chat view supports font-size shortcuts (`Ct
 
 ## Customization Primitive Support
 
-The [Copilot feature matrix for Eclipse](https://docs.github.com/en/copilot/reference/copilot-feature-matrix?tool=eclipse) is the authoritative source. The snapshot below reflects April 2026 on the latest Eclipse release.
+The [Copilot feature matrix for Eclipse](https://docs.github.com/en/copilot/reference/copilot-feature-matrix?tool=eclipse) is the authoritative upstream source. The table below is the **Eclipse-specific subset** — it includes Eclipse-only items (BYOK status on current builds, next-edit suggestions, vision, workspace indexing). For the canonical cross-surface comparison, see [Part III: Cross-Surface Primitive Support Matrix](../part-3-reference.md#cross-surface-primitive-support-matrix). The snapshot below reflects April 2026 on the latest Eclipse release.
 
 | Primitive | Eclipse status | Notes |
 |-----------|----------------|-------|

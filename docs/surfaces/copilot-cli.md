@@ -109,7 +109,7 @@ Use `copilot plugin install` for full plugin bundles (skills + agents + hooks + 
 
 ## Primitive Support
 
-The repository customization primitives in this guide apply to CLI sessions the same way they apply in VS Code:
+The repository customization primitives in this guide apply to CLI sessions the same way they apply in VS Code. This CLI-specific table is a subset of the canonical [Cross-Surface Primitive Support Matrix](../part-3-reference.md#cross-surface-primitive-support-matrix) in Part III.
 
 | Primitive | Support |
 |-----------|---------|

@@ -6,6 +6,8 @@ GitHub Copilot is GitHub's platform for agentic software development. When prope
 
 This guide is the complete reference for GitHub Copilot's customization primitives—the configuration files and patterns that transform Copilot from a generic platform into one that knows your codebase.
 
+**In a hurry?** [Skip to the 5-Minute Quick Start](#5-minute-quick-start) — one file, immediate value.
+
 ---
 
 ## Table of Contents
@@ -26,7 +28,7 @@ This guide is the complete reference for GitHub Copilot's customization primitiv
 
 This guide is written for developers and engineering leads who want to maximize the value of GitHub Copilot across their projects and teams. Whether you're a solo developer looking to reduce repetitive prompting, or a team lead standardizing AI-assisted workflows across an organization, you'll find actionable guidance here.
 
-Examples focus on [**VS Code**](docs/surfaces/vscode.md), [**GitHub Copilot CLI**](docs/surfaces/copilot-cli.md), and the [**Copilot cloud coding agent**](docs/surfaces/cloud-coding-agent.md) — the three surfaces with the deepest customization support today. GitHub Copilot also runs in [**Visual Studio**](docs/surfaces/visual-studio.md), [**JetBrains IDEs**](docs/surfaces/jetbrains.md), [**Eclipse**](docs/surfaces/eclipse.md), and [**Xcode**](docs/surfaces.md#xcode), and the core theory in this guide — instructions, prompts, skills, agents, MCP, hooks, memory — applies in a similar fashion wherever Copilot runs. Surface-specific feature gaps are called out in the [per-surface reference](docs/surfaces.md).
+Examples focus on [**VS Code**](docs/surfaces/vscode.md), [**GitHub Copilot CLI**](docs/surfaces/copilot-cli.md), and the [**Copilot cloud coding agent**](docs/surfaces/cloud-coding-agent.md) — the three surfaces with the deepest customization support today. GitHub Copilot also runs in [**Visual Studio**](docs/surfaces/visual-studio.md), [**JetBrains IDEs**](docs/surfaces/jetbrains.md), [**Eclipse**](docs/surfaces/eclipse.md), and [**Xcode**](docs/surfaces/xcode.md), and the core theory in this guide — instructions, prompts, skills, agents, MCP, hooks, memory — applies in a similar fashion wherever Copilot runs. Surface-specific feature gaps are called out in the [per-surface reference](docs/surfaces.md).
 
 This is a guide for humans. It is written to be read start-to-finish or dipped into by section. Copilot itself is a useful companion when working through it, but nothing here assumes you'll hand the reading off to an agent.
 
@@ -62,16 +64,18 @@ GitHub Copilot provides eight customization primitives — configuration files a
 
 **See it in action:** [VS Code Live: Agent Sessions Day — Customize Your Agents](https://www.youtube.com/watch?v=tAezuMSJuFs&t=10598s) — Courtney Webster demos instructions, prompts, skills, and custom agents end-to-end.
 
-| Primitive | Location | Purpose | Jump to |
-|-----------|----------|---------|---------|
-| [**Always-on Instructions**](docs/primitive-1-always-on-instructions.md) | `.github/copilot-instructions.md`, `AGENTS.md`, or `CLAUDE.md` | Global rules applied to every Copilot request | [When to use](docs/primitive-1-always-on-instructions.md#when-to-use-always-on-instructions) · [Anatomy](docs/primitive-1-always-on-instructions.md#anatomy-of-effective-instructions) · [Full example](docs/primitive-1-always-on-instructions.md#complete-example-production-nextjs-project) |
-| [**File-based Instructions**](docs/primitive-2-file-based-instructions.md) | `.github/instructions/*.instructions.md` | Rules that activate when working with specific file patterns | [Glob patterns](docs/part-3-reference.md#glob-pattern-reference) · [Frontmatter](docs/part-3-reference.md#frontmatter-reference) |
-| [**Prompts**](docs/primitive-3-prompts.md) | `.github/prompts/*.prompt.md` | Reusable task templates invoked as slash commands | [Execution modes](docs/part-3-reference.md#execution-modes) · [Available tools](docs/part-3-reference.md#available-tools) |
-| [**Skills**](docs/primitive-4-skills.md) | `.github/skills/*/SKILL.md` | Procedural knowledge Copilot can discover and apply | [Overview](docs/primitive-4-skills.md#overview) |
-| [**Custom Agents**](docs/primitive-5-custom-agents.md) | `.github/agents/*.md` | Specialized AI personas with defined behaviors | [Overview](docs/primitive-5-custom-agents.md#overview) · [Frontmatter](docs/part-3-reference.md#frontmatter-reference) |
-| [**MCP (Model Context Protocol)**](docs/primitive-6-mcp.md) | `.vscode/mcp.json` | Connections to external tools, APIs, and data sources | [Configuration](docs/part-3-reference.md#mcp-configuration) · [Credentials](docs/primitive-6-mcp.md#credential-management) · [Tutorial](docs/primitive-6-mcp.md#end-to-end-tutorial-adding-a-github-mcp-server) |
-| [**Hooks (Preview)**](docs/primitive-7-hooks.md) | `.github/hooks/*.json` | Runtime enforcement and audit logging for agent sessions | [Configuration](docs/part-3-reference.md#hooks-configuration-preview) |
-| [**Memory (Preview)**](docs/primitive-8-memory.md) | GitHub cloud (repository-scoped) | Learned codebase knowledge that persists across sessions | [Overview](docs/primitive-8-memory.md) |
+| Primitive | Location | Purpose | Plan availability | Jump to |
+|-----------|----------|---------|-------------------|---------|
+| [**Always-on Instructions**](docs/primitive-1-always-on-instructions.md) | `.github/copilot-instructions.md`, `AGENTS.md`, or `CLAUDE.md` | Global rules applied to every Copilot request | All plans (incl. Free) | [When to use](docs/primitive-1-always-on-instructions.md#when-to-use-always-on-instructions) · [Anatomy](docs/primitive-1-always-on-instructions.md#anatomy-of-effective-instructions) · [Full example](docs/primitive-1-always-on-instructions.md#complete-example-production-nextjs-project) |
+| [**File-based Instructions**](docs/primitive-2-file-based-instructions.md) | `.github/instructions/*.instructions.md` | Rules that activate when working with specific file patterns | All plans | [Glob patterns](docs/part-3-reference.md#glob-pattern-reference) · [Frontmatter](docs/part-3-reference.md#frontmatter-reference) |
+| [**Prompts**](docs/primitive-3-prompts.md) | `.github/prompts/*.prompt.md` | Reusable task templates invoked as slash commands | All plans | [Execution modes](docs/part-3-reference.md#execution-modes) · [Available tools](docs/part-3-reference.md#available-tools) |
+| [**Skills**](docs/primitive-4-skills.md) | `.github/skills/*/SKILL.md` | Procedural knowledge Copilot can discover and apply | All plans | [Overview](docs/primitive-4-skills.md#overview) |
+| [**Custom Agents**](docs/primitive-5-custom-agents.md) | `.github/agents/*.md` | Specialized AI personas with defined behaviors | All plans | [Overview](docs/primitive-5-custom-agents.md#overview) · [Frontmatter](docs/part-3-reference.md#frontmatter-reference) |
+| [**MCP (Model Context Protocol)**](docs/primitive-6-mcp.md) | `.vscode/mcp.json` | Connections to external tools, APIs, and data sources | All plans | [Configuration](docs/part-3-reference.md#mcp-configuration) · [Credentials](docs/primitive-6-mcp.md#credential-management) · [Tutorial](docs/primitive-6-mcp.md#end-to-end-tutorial-adding-a-github-mcp-server) |
+| [**Hooks (Preview)**](docs/primitive-7-hooks.md) | `.github/hooks/*.json` | Runtime enforcement and audit logging for agent sessions | Pro, Pro+, Business, Enterprise | [Configuration](docs/part-3-reference.md#hooks-configuration-preview) |
+| [**Memory (Preview)**](docs/primitive-8-memory.md) | GitHub cloud (repository-scoped) | Learned codebase knowledge that persists across sessions | Pro/Pro+ (on by default); Business/Enterprise (admin toggle) | [Overview](docs/primitive-8-memory.md) |
+
+**Plan notes:** The six core primitives (instructions, file-based instructions, prompts, skills, custom agents, MCP) work on every plan including Copilot Free. Hooks and Memory require a paid plan — see [Plans](docs/part-1-foundations.md#plans) for the full breakdown, and the [Copilot Feature Matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix) for the live availability grid.
 
 Understanding when and how to use each primitive is the core of this guide. For how they combine in practice, see [How Primitives Layer Together](docs/part-2-primitives.md#how-primitives-layer-together) and [Composition Patterns](docs/part-2-primitives.md#composition-patterns).
 
@@ -99,7 +103,7 @@ These are not configuration primitives — they don't shape what Copilot knows a
 Start here. Part I is split into two halves:
 
 - [**What Copilot Is**](docs/part-1-foundations.md) — the platform, [the surfaces it runs on](docs/part-1-foundations.md#where-github-copilot-runs), [the models](docs/part-1-foundations.md#model-selection), [the plans](docs/part-1-foundations.md#plans), and the [enterprise policy hierarchy](docs/part-1-foundations.md#enterprise-policy-hierarchy).
-- [**Why Customize**](docs/part-1b-why-customize.md) — [Copilot without customization](docs/part-1b-why-customize.md#github-copilot-without-customization), [why customize](docs/part-1b-why-customize.md#why-customize), [iteration and fine-tuning](docs/part-1b-why-customize.md#iteration-and-fine-tuning), [measuring success](docs/part-1b-why-customize.md#measuring-success), [rolling out to your team](docs/part-1b-why-customize.md#rolling-out-to-your-team), and [best practices](docs/part-1b-why-customize.md#best-practices).
+- [**Why Customize**](docs/part-1b-why-customize.md) — [Copilot without customization](docs/part-1b-why-customize.md#github-copilot-without-customization), [why customize](docs/part-1b-why-customize.md#why-customize), [iteration and fine-tuning](docs/part-1b-why-customize.md#iteration-and-fine-tuning), [measuring success](docs/part-1b-why-customize.md#measuring-success), [rolling out to your team](docs/part-1b-why-customize.md#rolling-out-to-your-team), [scaling beyond one team](docs/part-1b-why-customize.md#scaling-beyond-one-team), and [best practices](docs/part-1b-why-customize.md#best-practices).
 
 ### [Part II: The Primitives](docs/part-2-primitives.md)
 
@@ -155,6 +159,7 @@ Task-based entry points for common scenarios:
 | Run AI continuously in CI/CD | [Agentic Workflows](docs/agentic-workflows.md) |
 | Embed the agent runtime in my own app | [Copilot SDK](docs/copilot-sdk.md) |
 | Roll out customization to my team | [Rolling Out to Your Team](docs/part-1b-why-customize.md#rolling-out-to-your-team) |
+| Scale customization across an org | [Scaling Beyond One Team](docs/part-1b-why-customize.md#scaling-beyond-one-team) |
 | Measure whether customization is working | [Measuring Success](docs/part-1b-why-customize.md#measuring-success) |
 
 ---

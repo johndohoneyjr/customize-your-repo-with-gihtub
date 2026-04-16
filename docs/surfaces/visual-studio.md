@@ -340,6 +340,8 @@ Visual Studio supports **Copilot memories** — repository-scoped memory that ob
 
 ## Primitive Support Matrix
 
+This table is the **Visual Studio-specific subset** — it breaks support down by product line (VS 2022 vs. VS 2026). For the canonical cross-surface comparison across every Copilot surface, see [Part III: Cross-Surface Primitive Support Matrix](../part-3-reference.md#cross-surface-primitive-support-matrix). For the upstream source of truth, consult the [Copilot feature matrix for Visual Studio](https://docs.github.com/en/copilot/reference/copilot-feature-matrix?tool=visualstudio).
+
 | Primitive | Visual Studio 2022 17.14+ | Visual Studio 2026 (current) |
 |---|---|---|
 | Always-on instructions (`copilot-instructions.md`) | ✓ Supported | ✓ Supported |
