@@ -11,11 +11,11 @@
 **Where it runs:** GitHub.com pull request reviews, VS Code (review selection), Visual Studio, JetBrains, Xcode, GitHub CLI, GitHub Mobile
 **Best for:** Automated first-pass review of PRs against team conventions, security rules, and architectural standards
 
-**Official docs:** [Using GitHub Copilot code review](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review) · [Code review custom instructions](https://docs.github.com/en/copilot/how-tos/use-code-review/code-review-instructions) · [Code review concepts](https://docs.github.com/en/copilot/concepts/code-review/code-review)
+**Official docs:** [Using GitHub Copilot code review](https://docs.github.com/en/copilot/how-tos/agents/copilot-code-review/using-copilot-code-review) · [Repository custom instructions](https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions) · [About GitHub Copilot code review](https://docs.github.com/en/copilot/concepts/agents/code-review)
 
-[GitHub Copilot code review](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review) is a cross-cutting feature, not a primitive. It consumes the same instruction files and memory that shape Copilot's behavior in chat and agent mode — and it surfaces that customization as pull request comments. Done well, it catches the boring review comments (convention drift, missing error handling, security smells) before a human reviewer sees the diff, and leaves humans to focus on design and intent.
+[GitHub Copilot code review](https://docs.github.com/en/copilot/concepts/agents/code-review) is a cross-cutting feature, not a primitive. It consumes the same instruction files and memory that shape Copilot's behavior in chat and agent mode — and it surfaces that customization as pull request comments. Done well, it catches the boring review comments (convention drift, missing error handling, security smells) before a human reviewer sees the diff, and leaves humans to focus on design and intent.
 
-This guide is **customization-focused**: how the [eight primitives](part-2-primitives.md) steer what Copilot flags in reviews. For enablement, billing, and organization-level policy, defer to the [official docs](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review).
+This guide is **customization-focused**: how the [eight primitives](part-2-primitives.md) steer what Copilot flags in reviews. For enablement, billing, and organization-level policy, defer to the [official docs](https://docs.github.com/en/copilot/concepts/agents/code-review).
 
 ---
 
@@ -24,12 +24,13 @@ This guide is **customization-focused**: how the [eight primitives](part-2-primi
 Copilot code review reads customization files the same way chat and agent mode do — with a few specifics worth knowing:
 
 - **Base branch wins.** Copilot reviews a pull request using the instruction files on the **base branch**, not the feature branch. A contributor cannot change the review rules in their own PR.
-- **Character budget.** `.github/copilot-instructions.md` contributes up to **4,000 characters** to code review context. Content beyond that is ignored. Long instructions should be split into path-scoped files under `.github/instructions/`.
-- **Repository beats organization.** If an org defines default review instructions and a repository defines its own, the repository's rules take priority.
-- **Toggle at the repository.** Custom instructions for code review can be disabled per-repository from the repo's Copilot settings without removing the files.
-- **Review type is "Comment" only.** Copilot leaves suggestions as review comments. It does not approve, request changes, or block merges — and its reviews do not count toward required-approval thresholds.
+- **Character budget.** Copilot code review reads up to the first **4,000 characters** of each custom instruction file. Content beyond that is ignored. Splitting long content into path-scoped `.instructions.md` files keeps each scope focused — every file still has its own 4,000-character window.
+- **All scopes are provided, with priority ordering.** [Personal instructions take highest priority, then repository, then organization](https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions) — but all relevant sets are passed to Copilot. Don't think of precedence as override; think of it as conflict resolution when rules disagree.
+- **Opt out per file with `excludeAgent`.** Path-scoped instruction files can set `excludeAgent: "code-review"` in frontmatter to skip code review entirely (still available to the cloud agent), or `excludeAgent: "cloud-agent"` for the reverse. Use it to keep chat-only rules out of review comments.
+- **Toggle at the repository.** Custom instructions for code review can be disabled per-repository from **Settings → Copilot → Code review → “Use custom instructions when reviewing pull requests”** without removing the files.
+- **Review type is “Comment” only.** Copilot leaves suggestions as review comments. It does not approve, request changes, or block merges — and its reviews do not count toward required-approval thresholds.
 
-See the [custom instructions reference](https://docs.github.com/en/copilot/how-tos/use-code-review/code-review-instructions) for the authoritative list of which files are read and the character budget per file.
+See the [repository custom instructions guide](https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions) for the authoritative reference on file locations, `applyTo` globs, `excludeAgent`, and base-branch behavior.
 
 ---
 
@@ -50,7 +51,7 @@ Not every primitive affects code review today. The table below is the quick summ
 
 ### Always-on instructions
 
-Use [`copilot-instructions.md`](primitive-1-always-on-instructions.md) (or `AGENTS.md`) for universal conventions every review should enforce — logging requirements, error handling patterns, forbidden APIs, naming rules. Keep it tight: you have 4,000 characters before content is truncated for review.
+Use [`copilot-instructions.md`](primitive-1-always-on-instructions.md) (or `AGENTS.md`) for universal conventions every review should enforce — logging requirements, error handling patterns, forbidden APIs, naming rules. Keep each file tight: Copilot code review reads only the first 4,000 characters of any given custom instruction file.
 
 ✅ **Good — specific and testable**
 ```markdown
@@ -103,21 +104,25 @@ Copilot code review runs in multiple places, but the feature set differs by surf
 
 | Surface | PR review (github.com) | In-IDE review of local changes |
 |---------|------------------------|--------------------------------|
-| [GitHub.com](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review) | ✅ Primary | — |
-| [VS Code](surfaces/vscode.md) | ✅ (from PR UI) | ✅ "Review selection" — `github.copilot.chat.reviewSelection.enabled` |
-| [Visual Studio](surfaces/visual-studio.md) | ✅ | ✅ |
-| [JetBrains](surfaces/jetbrains.md) | ✅ | Preview |
-| [Xcode](surfaces/xcode.md) | ✅ | Not available |
-| [Eclipse](surfaces/eclipse.md) | ✅ (github.com) | ❌ Not on roadmap |
+| [GitHub.com](https://docs.github.com/en/copilot/concepts/agents/code-review) | ✅ Primary | — |
+| [GitHub Mobile](https://docs.github.com/en/copilot/concepts/agents/code-review) | ✅ | — |
 | [GitHub CLI](surfaces/copilot-cli.md) | ✅ (via `gh` PR commands) | — |
+| [VS Code](surfaces/vscode.md) | ✅ (from PR UI) | ✅ "Review selection" — see [VS Code Copilot settings](https://code.visualstudio.com/docs/copilot/reference/copilot-settings) |
+| [Visual Studio](surfaces/visual-studio.md) | ✅ | ✅ |
+| [JetBrains](surfaces/jetbrains.md) | ✅ | See the [JetBrains surface notes](surfaces/jetbrains.md) |
+| [Xcode](surfaces/xcode.md) | ✅ | — |
 
-**VS Code editor review** uses a dedicated setting, [`github.copilot.chat.reviewSelection.enabled`](https://code.visualstudio.com/docs/copilot/reference/copilot-settings), and can be pointed at a custom instructions file via `github.copilot.chat.reviewSelection.instructions`. This is separate from PR review on github.com — but both read your repository's instruction files.
+Copilot code review is not listed as an available surface for Eclipse; Eclipse users can still request reviews from github.com in a browser. Verify current availability against the [official availability list](https://docs.github.com/en/copilot/concepts/agents/code-review#availability).
+
+**VS Code editor review** is configured via settings under `github.copilot.chat.reviewSelection.*` — see [VS Code Copilot settings reference](https://code.visualstudio.com/docs/copilot/reference/copilot-settings). This is separate from PR review on github.com, but both read your repository's instruction files.
 
 ---
 
 ## 💬 Try This Prompt
 
-> "Read the top files under `src/` and the existing `.github/copilot-instructions.md`. Draft a companion file at `.github/instructions/review-rules.instructions.md` with `applyTo: \"src/**/*.{ts,tsx}\"` that captures the non-obvious conventions a human reviewer would catch in this codebase — error handling, logging, auth, and data access patterns. Keep each rule specific enough that a code review tool could cite a line of diff against it. Do not duplicate rules already in `copilot-instructions.md`."
+> 💬 **Try this prompt:**
+>
+> Read the top files under `src/` and the existing `.github/copilot-instructions.md`. Draft a companion file at `.github/instructions/review-rules.instructions.md` with `applyTo: "src/**/*.{ts,tsx}"` that captures the non-obvious conventions a human reviewer would catch in this codebase — error handling, logging, auth, and data access patterns. Keep each rule specific enough that a code review tool could cite a line of diff against it. Do not duplicate rules already in `copilot-instructions.md`.
 
 Run this once per directory tree with distinct conventions (backend, frontend, infra, tests). The output becomes the starting point for path-scoped review rules you can refine over the next few PRs.
 
@@ -135,19 +140,20 @@ Run this once per directory tree with distinct conventions (backend, frontend, i
 
 ## Limitations
 
-- **4,000 character cap** on `copilot-instructions.md` for code review. Longer content is silently truncated. Split into path-scoped files under `.github/instructions/` when you hit the limit.
+- **4,000 character cap per instruction file.** Copilot code review reads only the first 4,000 characters of each custom instruction file it consumes. Split large content into focused path-scoped files under `.github/instructions/`.
 - **No merge blocking.** Copilot reviews are Comment-only. Enforcement of any rule still requires a human reviewer, branch protection, or a CI check.
-- **Model is not switchable.** Unlike chat and agent mode, code review does not expose a model selector.
-- **Re-review may repeat comments.** When you re-request review after changes, Copilot may repeat comments you previously resolved. This is a known behavior; see the [official docs](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review) for current status.
+- **Model is not switchable.** Unlike chat and agent mode, code review uses a [tuned mix of models](https://docs.github.com/en/copilot/concepts/agents/code-review#model-usage) and does not expose a model selector.
+- **Re-review may repeat comments.** When you re-request review after changes, Copilot may repeat comments you previously resolved. See the [official docs](https://docs.github.com/en/copilot/concepts/agents/code-review) for current behavior.
 - **Skills, MCP, and hooks do not participate in code review today.** Plan customization for review around instructions and memory.
+- **Some file types are excluded.** Dependency manifests, log files, and SVGs are skipped — see [Files excluded from code review](https://docs.github.com/en/copilot/reference/review-excluded-files).
 
 ---
 
 ## Further Reading
 
-- [Using GitHub Copilot code review](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review) — how to request, configure, and interpret reviews
-- [Code review custom instructions](https://docs.github.com/en/copilot/how-tos/use-code-review/code-review-instructions) — which files are read, the character budget, and precedence rules
-- [Code review concepts](https://docs.github.com/en/copilot/concepts/code-review/code-review) — architecture and behavior reference
+- [About GitHub Copilot code review](https://docs.github.com/en/copilot/concepts/agents/code-review) — overview, availability, automatic reviews, quotas, and model behavior
+- [Using GitHub Copilot code review](https://docs.github.com/en/copilot/how-tos/agents/copilot-code-review/using-copilot-code-review) — how to request, configure, and interpret reviews
+- [Repository custom instructions](https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions) — `applyTo`, `excludeAgent`, base-branch resolution, and the code-review toggle
 - [Copilot Feature Matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix) — per-surface support grid
 - [VS Code Copilot settings reference](https://code.visualstudio.com/docs/copilot/reference/copilot-settings) — `reviewSelection` and related editor settings
 

@@ -340,7 +340,7 @@ Visual Studio supports [**Copilot memories**](https://docs.github.com/en/copilot
 
 ## Code Review
 
-Copilot code review is fully supported across Visual Studio 2022 and 2026. Request a review on github.com or from inside Visual Studio; Copilot reads the same `.github/copilot-instructions.md` and path-scoped `*.instructions.md` files that steer chat and agent mode, and surfaces violations as PR comments. Because the review uses the base branch's instruction files, a contributor cannot weaken review rules in their own pull request. See the [Code Review guide](../code-review.md) for the character budget, review-oriented instruction patterns, and cross-surface behavior.
+Copilot code review is supported in Visual Studio — request a review on github.com or from inside the IDE, and Copilot reads the same `.github/copilot-instructions.md` and path-scoped `*.instructions.md` files that steer chat and agent mode. Because reviews use the base branch's instruction files, a contributor cannot weaken review rules in their own pull request. For per-version detail, check the [Copilot feature matrix for Visual Studio](https://docs.github.com/en/copilot/reference/copilot-feature-matrix?tool=visualstudio). See the [Code Review guide](../code-review.md) for the character budget, `excludeAgent` frontmatter, and review-oriented instruction patterns.
 
 ## Primitive Support Matrix
 

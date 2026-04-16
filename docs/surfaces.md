@@ -16,7 +16,7 @@ The canonical, continuously-maintained matrix lives in [Part III: Cross-Surface 
 
 Verify the live state before locking in tooling decisions — primitive parity on non-VS-Code surfaces is the active investment area and moves monthly.
 
-For [GitHub Copilot code review](code-review.md), which runs across every surface that ships a Copilot plugin, see the dedicated [Code Review guide](code-review.md) — it covers which primitives steer review behavior and where each surface's in-IDE review lives.
+For [GitHub Copilot code review](code-review.md), which runs on GitHub.com, GitHub Mobile, and most IDE plugins, see the dedicated [Code Review guide](code-review.md) for which primitives steer review behavior and where each surface's in-IDE review lives.
 
 ## Surface Notes
 

@@ -125,7 +125,7 @@ Not every surface honors glob-scoped instructions today. On surfaces without nat
 
 ### Beyond Chat: Code Review
 
-File-based instructions also steer [GitHub Copilot code review](code-review.md). When Copilot reviews a pull request, the `applyTo` glob determines which rules fire on which changed files — so your authentication rules don't noise up a test-only PR, and your test-style rules don't fire on production code. See the [Code Review guide](code-review.md) for the character budget, base-branch resolution, and review-oriented patterns.
+File-based instructions also steer [GitHub Copilot code review](code-review.md). When Copilot reviews a pull request, the `applyTo` glob determines which rules fire on which changed files — so your authentication rules don't noise up a test-only PR, and your test-style rules don't fire on production code. Add `excludeAgent: "code-review"` to a file's frontmatter to keep it chat-only (or `excludeAgent: "cloud-agent"` for the reverse). See the [Code Review guide](code-review.md) for the character budget and base-branch resolution.
 
 ## Anti-Patterns to Avoid
 
