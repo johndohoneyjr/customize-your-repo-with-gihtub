@@ -24,6 +24,8 @@ The eight customization primitives shape Copilot where it already runs: in the e
 
 The [Copilot SDK](https://github.com/github/copilot-sdk) is the runtime that powers [GitHub Copilot CLI](https://github.com/github/copilot-cli) and the Copilot cloud agent, packaged as libraries for five languages. Teams can embed the runtime directly instead of building agent orchestration from scratch (tool routing, context management, permission handling, streaming).
 
+**See it in action:** [Let it Cook - This changes EVERYTHING](https://www.youtube.com/watch?v=uquSQY10AGM&t=1946s) — Pierce Boggan demos `agentrc eval`, a tool built on the Copilot SDK that generates and runs evals to compare customization changes against measurable outcomes.
+
 **Status:** Public preview (April 2, 2026)
 **Best For:** Embedding Copilot agent capabilities in custom tools, internal platforms, CI pipelines, and developer workflows
 **Location:** External dependency, installed via package managers rather than configured in-repo

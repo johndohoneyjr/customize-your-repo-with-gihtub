@@ -6,7 +6,7 @@
 
 ---
 
-**Surface availability:** VS Code ✅ · JetBrains (Preview) · Visual Studio (Preview) · Eclipse ✅ · GitHub Copilot CLI ✅ · Cloud Agent —
+**Surface availability:** VS Code ✅ · JetBrains (Preview) · Visual Studio (Preview) · Eclipse ✅ · GitHub Copilot CLI ✅ · Cloud Agent ✅
 
 **Ownership:** Role-specific agents (security reviewer, deploy agent) are typically owned by the team whose role they model. **Security** owns the security reviewer, and **Platform / SRE** owns the deploy agent. Developer-productivity agents (mentor, debugger) are owned by **engineering productivity / DX teams** or individual contributors.
 
@@ -19,13 +19,15 @@ Custom Agents provide specialized AI personas with constrained tool access and d
 
 **Official docs:** [Custom agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
 
-**See it in action:** For a live demo, watch Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q).
+**See it in action:** [Customize your agents](https://www.youtube.com/watch?v=flpKLkZla2Q&t=585s) — Courtney Webster starts the custom-agent section by opening a built-in plan agent and explaining how specialized agents constrain behavior and context.
 
 **Location:** `.github/agents/*.md` (any `.md` file except `README.md`) or `**/*.agent.md` anywhere in the workspace. Configure additional search paths with the `chat.agentFilesLocations` setting to share agents across projects or keep them in a central location.
 
 ### Creating This Primitive
 
 Sound off before you steer — let Copilot draft the agent. Custom agent files have a broad frontmatter surface (`tools`, `model`, `handoffs`, `user-invocable`, `disable-model-invocation`, `target`, `mcp-servers`) and small mistakes, like an unknown tool name or the wrong `target`, cause the agent to fail to register. Use the built-in authoring paths and read the draft before committing. See [Don't Hand-Type Primitives — Let the Helmsman Repeat the Order](part-2-primitives.md#dont-hand-type-primitives--let-the-helmsman-repeat-the-order) for the rationale.
+
+### Authoring Paths in VS Code
 
 VS Code 1.116 ships two complementary authoring paths for custom agents, both available from the **Chat Customizations** welcome page (gear icon in the Chat view):
 
@@ -752,7 +754,7 @@ End with "If you can address these, you've got a solid plan."
 
 **SRE Agent**: Incident response and production reliability:
 
-This agent is a specialized persona that handles production operations, not just code. It pairs well with an [incident response skill](primitive-4-skills.md#skills-vs-mcp-servers-when-to-use-which) for runbook knowledge and monitoring MCP servers for infrastructure access.
+This agent is a specialized persona that handles production operations, not just code. It pairs well with the incident-response example in [Skills vs. MCP Servers](primitive-4-skills.md#skills-vs-mcp-servers-when-to-use-which) for runbook knowledge and monitoring MCP servers for infrastructure access.
 
 ```markdown
 ---
@@ -848,7 +850,7 @@ Two CLI features extend the agent model beyond single-terminal usage:
 
 **Remote sessions** (`/remote`) stream the CLI session to the GitHub web interface and GitHub Mobile. Developers can start a session on one device, then monitor, steer, and approve actions from another. Combined with custom agents, this enables workflows like starting an `@deploy` agent session at the office and approving the final deployment step from a phone.
 
-For more on CLI modes (Default, Bypass Approvals, Autopilot), multi-model support, and BYOK, see [Part I: Foundations](part-1-foundations.md#github-copilot-cli).
+For more on CLI modes (Default, Bypass Approvals, Autopilot), multi-model support, and BYOK, see [GitHub Copilot CLI](surfaces/copilot-cli.md).
 
 ---
 

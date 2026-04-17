@@ -20,14 +20,14 @@ Hooks fill that gap. They execute custom shell commands at key points during Cop
 
 **Ownership:** Hooks are typically owned by **Security / Platform teams** because they enforce organization-wide policy. Application teams may contribute package-scoped hooks in a monorepo (e.g., per-service lint), but deny-list hooks that govern dangerous commands should live under a single owning team to keep the rules coherent and auditable.
 
-**Loading:** During coding agent sessions (GitHub and GitHub Copilot CLI)*
+**Loading:** During agent sessions on supported surfaces (VS Code, GitHub Copilot CLI, and the cloud coding agent)*
 **Best For:** Security enforcement, audit logging, compliance, and runtime guardrails
 
 **Location:** `.github/hooks/*.json`
 
 **Official docs:** [Copilot hooks](https://code.visualstudio.com/docs/copilot/customization/hooks)
 
-**See it in action:** For a live demo, watch Pierce Boggan and James Montemagno in [Let it Cook: Agent Steering, Queueing, Hooks, CLI Integration, & more!](https://www.youtube.com/watch?v=FjvtWeG6EEo).
+**See it in action:** [Let it Cook: Agent Steering, Queueing, Hooks, CLI Integration, & more!](https://www.youtube.com/watch?v=FjvtWeG6EEo&t=1758s). Pierce Boggan introduces hooks as an enforcement layer that sits outside the model and explains where they attach to the agent loop.
 
 Primitives and hooks operate at different layers:
 
@@ -72,6 +72,10 @@ Hooks fit scenarios the other primitives can't address:
 | **External notifications** | MCP gives Copilot tools to *call* external systems; it doesn't monitor Copilot's own actions | Hooks can send Slack alerts, emails, or webhook calls on any event |
 | **Cost tracking** | No primitive tracks tool usage | `preToolUse`/`postToolUse` can log every tool invocation for cost allocation |
 | **Session monitoring** | No primitive knows when sessions start or end | `sessionStart`/`sessionEnd` provide lifecycle visibility |
+
+> **💬 Try this prompt:**
+>
+> *Create a `.github/hooks/protect-secrets.json` hook that uses `preToolUse` to deny shell commands that print common secret environment variables such as `GITHUB_TOKEN` or `AWS_SECRET_ACCESS_KEY`, or try to read `.env` files. Log denied attempts to `logs/secret-policy.jsonl` and provide both `bash` and `powershell` variants.*
 
 ### Creating This Primitive
 
@@ -161,7 +165,7 @@ Commit the file to your repository and merge it into the **default branch**. For
 
 Hooks fire at six points during an agent session. The following diagram shows when each hook type executes relative to the agent's workflow:
 
-**See it in action:** [Let it Cook: Agent Steering, Queueing, Hooks, CLI Integration, & more!](https://www.youtube.com/watch?v=FjvtWeG6EEo&t=1868s). Pierce Boggan walks through the run-start, tool-call, and stop points in the agent loop and shows where hooks fire at each life-cycle event.
+**See it in action:** [Let it Cook: Agent Steering, Queueing, Hooks, CLI Integration, & more!](https://www.youtube.com/watch?v=FjvtWeG6EEo&t=1969s) — Pierce Boggan opens the `.github/hooks/` directory, walks through the active hook events, and shows how those hooks execute around real tool calls.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -391,6 +395,10 @@ A production-ready configuration with security, auditing, and alerting:
 ## Hook Input and Output
 
 Every hook receives JSON on stdin describing the event. The structure varies by hook type, but all include `timestamp` and `cwd`.
+
+> **💬 Try this prompt:**
+>
+> *Scaffold a temporary `.github/hooks/debug-pretool.json` hook that captures the raw `preToolUse` JSON payload from stdin and appends it to `logs/pretool-debug.jsonl`. Then explain which fields in that payload are most useful when enforcing file-access or command policies.*
 
 ### sessionStart Input
 
@@ -1363,7 +1371,7 @@ git push
 
 Hooks are supported in [VS Code Chat agent sessions](https://code.visualstudio.com/docs/copilot/customization/hooks) (VS Code 1.109.3+), extending coverage beyond the coding agent and Copilot CLI.
 
-**See it in action:** [Let it Cook: Agent Steering, Queueing, Hooks, CLI Integration, & more!](https://www.youtube.com/watch?v=FjvtWeG6EEo&t=1969s). Pierce Boggan opens a `.github/hooks/` configuration in VS Code showing `sessionStart`, `userPromptSubmit`, and `toolUse` events wired to shell commands, then triggers them live from chat.
+**See it in action:** [Let it Cook: Agent Steering, Queueing, Hooks, CLI Integration, & more!](https://www.youtube.com/watch?v=FjvtWeG6EEo&t=1969s). Pierce Boggan opens a `.github/hooks/` configuration in VS Code showing `SessionStart`, `UserPromptSubmit`, `PreToolUse`, and `PostToolUse` events wired to shell commands, then triggers them live from chat.
 
 VS Code hooks use **file-based configuration** in `.github/hooks/*.json` (and other config file locations). They support eight PascalCase event types, a different set from the coding agent's six events:
 

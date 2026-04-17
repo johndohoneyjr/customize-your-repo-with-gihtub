@@ -8,7 +8,7 @@
 
 **Official docs:** [About Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) · [Copilot CLI repository](https://github.com/github/copilot-cli)
 
-**See it in action:** [Copilot CLI in VS Code](https://www.youtube.com/watch?v=_l3UO1oUoec&t=0s). Alex Weininger demos the CLI and shows how the `/ide` command connects it to an active VS Code window.
+**See it in action:** [How to use agents, skills, and instructions in Copilot CLI](https://www.youtube.com/watch?v=-yKALFS5ewY&t=4s). The GitHub Copilot CLI for Beginners series walks through `copilot-instructions.md`, `.instructions.md` files, skills, and custom agents running end-to-end in the terminal.
 
 ## Permission Levels
 
@@ -122,7 +122,7 @@ The repository customization primitives in this guide apply to CLI sessions the 
 | Memory | ✅ Supported |
 | Prompts | VS Code only |
 
-**See it in action:** The GitHub Copilot CLI for Beginners series walks through `copilot-instructions.md`, `.instructions.md` files, agent skills, and custom agents running end-to-end in a terminal session. Watch [How to use agents, skills, and instructions in Copilot CLI](https://www.youtube.com/watch?v=-yKALFS5ewY&t=52s).
+**See it in action:** The GitHub Copilot CLI for Beginners series walks through `copilot-instructions.md`, `.instructions.md` files, agent skills, and custom agents running end-to-end in a terminal session. Watch [How to use agents, skills, and instructions in Copilot CLI](https://www.youtube.com/watch?v=-yKALFS5ewY&t=4s).
 
 ## Release Cadence
 

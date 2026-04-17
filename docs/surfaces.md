@@ -1,4 +1,4 @@
-# Where GitHub Copilot Runs: IDE Surfaces
+# Where GitHub Copilot Runs
 
 [← Back to Foundations](part-1-foundations.md)
 
@@ -6,9 +6,9 @@
 
 The customization primitives in this guide are **file-based and IDE-agnostic**. A `.github/copilot-instructions.md` file applies whether the developer is in VS Code, JetBrains, the CLI, or the cloud agent.
 
-This page is the narrative reference for surface-specific details: authoring UX, setup gotchas, and the limitations that matter when picking an IDE.
+This page is the narrative reference for surface-specific details: authoring UX, setup gotchas, and the limitations that matter when picking a host environment.
 
-**See it in action:** In [A Unified Agent Experience](https://www.youtube.com/watch?v=tAezuMSJuFs&t=4350s), Josh Spicer demos how agent sessions work consistently across VS Code, the cloud agent, and the Copilot CLI from a single unified view.
+**See it in action:** In [A Unified Agent Experience](https://www.youtube.com/watch?v=YmpjvZ3xkx8&t=0s), Josh Spicer demos how agent sessions work consistently across VS Code, the cloud agent, and the Copilot CLI from a single unified view.
 
 ## Primitive Support by Surface
 
@@ -24,7 +24,7 @@ For [GitHub Copilot code review](code-review.md), which runs on GitHub.com, GitH
 
 **Official docs:** [Copilot in VS Code](https://code.visualstudio.com/docs/copilot) · [Customization overview](https://code.visualstudio.com/docs/copilot/customization/overview)
 
-**See it in action:** Courtney Webster's [Customize Your Agents](https://www.youtube.com/watch?v=tAezuMSJuFs&t=10598s) walkthrough demos VS Code's Chat Customizations editor and the `/create-agent`, `/create-skill`, and `/create-instruction` authoring flows.
+**See it in action:** Courtney Webster's [Customize your agents](https://www.youtube.com/watch?v=flpKLkZla2Q&t=578s) walkthrough moves from the customization overview into the VS Code authoring flow for custom agents and related repo-level customizations.
 
 - **Built-in since VS Code 1.116.** No extension to install. Disable AI features with `chat.disableAIFeatures`.
 - **Most complete primitive support.** This guide uses VS Code for examples because every primitive is available here first.
@@ -38,7 +38,7 @@ For [GitHub Copilot code review](code-review.md), which runs on GitHub.com, GitH
 
 - **Two product lines:** Visual Studio 2022 (17.x) and Visual Studio 2026 (18.x). Feature cadence is slower than VS Code because Copilot ships with Visual Studio servicing updates, not a separate extension.
 - **Agent mode requires VS 2022 17.14 or any VS 2026 release.** MCP is GA on both.
-- **Prompt files, custom agents, skills, and BYOK are Visual Studio 2026 only.** Hooks and agent plugins are not supported on any Visual Studio version.
+- **Prompt files, custom agents, and BYOK are Visual Studio 2026 only.** Agent skills are not supported on current Visual Studio releases. Hooks and agent plugins are not supported on any Visual Studio version.
 - **Built-in agents:** `@debugger`, `@profiler`, `@test`, `@modernize` (.NET/C++), and `@vs` integrate with features unique to Visual Studio (debugger state, profiler traces, Test Explorer).
 - **MCP config discovery** reads `%USERPROFILE%\.mcp.json`, `<SOLUTIONDIR>\.vs\mcp.json`, `<SOLUTIONDIR>\.mcp.json`, `.vscode/mcp.json`, and `.cursor/mcp.json` in that order. A repo's VS Code MCP config therefore works in Visual Studio with no duplication.
 - **Enablement:** custom instructions require toggling **Tools → Options → GitHub → Copilot → Copilot Chat → Enable custom instructions**. Off by default.

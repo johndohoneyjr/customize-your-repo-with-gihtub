@@ -30,7 +30,7 @@ Custom instructions are **not** applied to inline suggestions (ghost text) as yo
 
 If Copilot's inline suggestions ignore your conventions, that's expected behavior. Use Chat-based interactions (ask mode, agent mode, prompts) for convention-aware code generation.
 
-**See it in action:** For a live demo, watch Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q).
+**See it in action:** [Customize your agents](https://www.youtube.com/watch?v=flpKLkZla2Q&t=42s) — Courtney Webster starts with always-on and file-based instructions, framing them as the baseline customization layer for a repo.
 
 ## When to Use Always-On Instructions
 
@@ -377,7 +377,7 @@ The `/init` command follows a structured workflow:
 
 In VS Code 1.109 and later, the `/init` command is implemented as a contributed prompt file, meaning you can customize its behavior by modifying the underlying prompt in your workspace.
 
-**See it in action:** For a live demo, watch Courtney Webster in [Customize Your Agents with Reusable Prompts, Instructions, and Tools](https://www.youtube.com/watch?v=LNftRSF37WI).
+**See it in action:** [How to use agents, skills, and instructions in Copilot CLI | Tutorial for beginners](https://www.youtube.com/watch?v=-yKALFS5ewY&t=128s). The GitHub Copilot CLI for Beginners series shows `/init` generating a starting `copilot-instructions.md`, then demonstrates how the file changes later output.
 
 **Using the Configure menu:**
 

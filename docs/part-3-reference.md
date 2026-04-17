@@ -47,14 +47,16 @@ This is the **canonical primitive-by-surface matrix for this guide**. The [IDE S
 | Always-on Instructions | ✅ | Preview | ✅ | Preview | Preview | ✅ | ✅ |
 | File-based Instructions | ✅ | Preview | ✅ | — | — | ✅ | ✅ |
 | Prompts | ✅ | Preview | ✅ (18.4+) | — | Preview | — | — |
-| Skills | ✅ | Preview | ✅ (18.4.1+) | — | — | ✅ | ✅ |
+| Skills | ✅ | Preview | — | — | — | ✅ | ✅ |
 | Custom Agents | ✅ | Preview | Preview (18.4+) | ✅ | Preview | ✅ | ✅ |
 | MCP | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Hooks | ✅ | — | — | — | — | ✅ | ✅ |
-| Memory | ✅\* | Preview\* | ✅\* | — | — | ✅ | ✅ |
+| Memory | — | — | — | — | — | ✅ | ✅ |
 | Agent plugins | ✅ | — | — | — | — | ✅ | — |
 
-**Key:** ✅ = Generally available · Preview = Available but behavior may change · — = Not supported · \* = Learned knowledge is retrieved server-side; IDE-side review and toggles depend on plan and surface build.
+**Key:** ✅ = Generally available · Preview = Available but behavior may change · — = Not supported
+
+**Memory note:** Copilot Memory currently applies in GitHub Copilot CLI, the Copilot cloud agent, and GitHub Copilot code review on GitHub. It is not currently used by VS Code Chat, Inline Chat, or the IDE-specific chat surfaces covered in this matrix.
 
 Features marked "Preview" may require enabling experimental settings. Visual Studio minimum versions (18.4+, 18.4.1+) refer to Visual Studio 2026.
 
@@ -189,6 +191,7 @@ handoffs:
     send: false
     model: 'GPT-5.4 (copilot)'
 ---
+```
 
 ---
 
@@ -293,16 +296,9 @@ handoffs:
 
 Use `http` for the newer streamable HTTP transport. Use `sse` for servers that expose Server-Sent Events.
 
-### Disabling a Server
+### Enable or Disable a Server
 
-```json
-{
-  "servers": {
-    "github": { ... },
-    "azure": { "disabled": true }
-  }
-}
-```
+VS Code stores a server's enabled or disabled state separately from `mcp.json`. Disable a server from the **Extensions** view, **MCP: List Servers**, or the **Chat Customizations editor**. The shared `mcp.json` file keeps only the server definition.
 
 ### MCP Configuration Fields
 
@@ -316,7 +312,8 @@ Use `http` for the newer streamable HTTP transport. Use `sse` for servers that e
 | `envFile` | string | Path to .env file |
 | `url` | string | Server URL (for http) |
 | `headers` | object | HTTP headers (for http) |
-| `disabled` | boolean | Disable this server |
+| `sandboxEnabled` | boolean | Run a local stdio server in the VS Code sandbox (macOS and Linux only) |
+| `sandbox` | object | File system and network rules for a sandboxed stdio server |
 | `dev` | object | Development mode config with `watch` and `build` commands |
 
 **Variable types in `env` values:**
@@ -715,7 +712,7 @@ You are [persona description].
 | **Visible to LLM** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | **CLI support** | ✅ | ✅ | ❌² | ✅ | ✅ | ✅ | ✅¹ |
 
-¹ Hooks are only active during coding agent and Copilot CLI sessions, not in Chat/Completions/Inline.
+¹ Hooks are active during coding agent, Copilot CLI, and VS Code Chat agent sessions, not in inline completions.
 ² Prompt files (`.prompt.md`) are a VS Code feature. Copilot CLI uses natural language prompts and custom agents instead.
 
 ---

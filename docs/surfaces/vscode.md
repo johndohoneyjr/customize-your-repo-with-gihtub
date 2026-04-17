@@ -18,7 +18,7 @@ All eight primitives work in VS Code, along with both platform extensions (Agent
 
 This guide uses VS Code for examples and screenshots. Where a feature is VS Code-specific, it is noted.
 
-**See it in action:** [Customize Your Agents](https://www.youtube.com/watch?v=tAezuMSJuFs&t=10598s). Courtney Webster walks through authoring custom agents, skills, instructions, and prompts from the VS Code Chat Customizations editor.
+**See it in action:** [Customize your agents](https://www.youtube.com/watch?v=flpKLkZla2Q&t=578s). Courtney Webster walks through the VS Code authoring flow for custom agents and related repo-level customizations.
 
 ## Primitive Support
 
@@ -31,7 +31,7 @@ This guide uses VS Code for examples and screenshots. Where a feature is VS Code
 | Custom Agents | ✅ Supported |
 | MCP | ✅ Supported |
 | Hooks | ✅ Supported |
-| Memory | ✅ Supported (via cloud agent) |
+| Memory | Not in VS Code Chat or Inline Chat. See [Copilot Memory](../primitive-8-memory.md) for the surfaces where Memory is currently used. |
 
 ## 1.116 Highlights (April 2026)
 

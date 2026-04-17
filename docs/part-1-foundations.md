@@ -8,9 +8,11 @@
 
 ## What is GitHub Copilot?
 
+**Official docs:** [GitHub Copilot](https://docs.github.com/en/copilot) · [Supported AI models](https://docs.github.com/en/copilot/reference/ai-models/supported-models) · [Copilot feature matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix)
+
 [GitHub Copilot](https://github.com/features/copilot) is GitHub's platform for agentic software development (*agentic* means the AI plans multi-step work, runs tools, and iterates on results rather than answering a single question and stopping; see [Key Terms](#key-terms) below). It runs on frontier language models (Claude, GPT, Gemini) and operates across the entire software development lifecycle: writing code, reviewing pull requests, executing multi-step tasks autonomously, running continuous AI workflows in GitHub Actions, and integrating with external tools and data sources. Copilot is not a single tool in a single editor. It is a platform that spans IDEs, the terminal, GitHub.com, CI/CD pipelines, and custom applications.
 
-**See it in action:** [Agent Sessions Day Keynote](https://www.youtube.com/watch?v=tAezuMSJuFs&t=1152s) — Harald Kirschner frames Copilot as an agentic platform that spans IDEs, the terminal, GitHub.com, and CI/CD.
+**See it in action:** [Agent Sessions Day Keynote](https://www.youtube.com/watch?v=2-Q_sdJ5H2c&t=0s) — Harald Kirschner frames Copilot as an agentic platform that spans IDEs, the terminal, GitHub.com, and CI/CD.
 
 ### What This Guide Teaches
 
@@ -40,7 +42,7 @@ These terms appear throughout the guide:
 
 Copilot assists developers across six interaction patterns:
 
-**See it in action:** [How VS Code Builds with AI](https://www.youtube.com/watch?v=tAezuMSJuFs&t=2148s). Pierce Boggan and Peng Lyu demo the VS Code team's real workflows across chat, agentic coding, and code review.
+**See it in action:** [How VS Code Builds with AI](https://www.youtube.com/watch?v=ee-obY-4rqk&t=0s). Pierce Boggan and Peng Lyu demo the VS Code team's real workflows across chat, agentic coding, and code review.
 
 | Pattern | What It Does | Where It Runs |
 |---------|-------------|---------------|
@@ -82,7 +84,7 @@ Different models interpret the same instructions differently. Claude models tend
 
 Enterprises can use **BYOK (Bring Your Own Key)** to connect their own API keys for supported model providers (OpenAI, Anthropic, Azure), giving teams control over cost, privacy, and provider selection.
 
-**See it in action:** For a live demo of model configuration, watch Sandeep Somavarapu in [Bring Your Own Model in VS Code](https://www.youtube.com/watch?v=VBSVSxs16_I).
+**See it in action:** For a live demo of model configuration, watch Sandeep Somavarapu in [Bring Your Own Model in VS Code](https://www.youtube.com/watch?v=VBSVSxs16_I&t=0s).
 
 ### Plans
 
@@ -125,7 +127,7 @@ Copilot runs across many surfaces. The customization primitives in this guide ar
 | Surface | What It Is | Release Cadence |
 |---------|-----------|-----------------|
 | [**VS Code**](surfaces/vscode.md) | The primary IDE experience. Full primitive support, agent plugins, built-in since v1.116. | Weekly stable releases |
-| [**Visual Studio**](surfaces/visual-studio.md) | Built for .NET teams. Agent mode, MCP, and custom instructions; prompts, agents, and skills on 2026. | Monthly (tied to VS releases) |
+| [**Visual Studio**](surfaces/visual-studio.md) | Built for .NET teams. Agent mode, MCP, and custom instructions; prompt files and custom agents on current 2026 releases. | Monthly (tied to VS releases) |
 | [**JetBrains**](surfaces/jetbrains.md) | IntelliJ, PyCharm, WebStorm, GoLand, Rider, Android Studio, and friends. | Multiple updates per week |
 | [**Xcode**](surfaces/xcode.md) | For iOS and macOS developers. Code completion, Chat, agent mode, and MCP via a standalone app. | Via GitHub releases |
 | [**Eclipse**](surfaces/eclipse.md) | Java enterprise teams. Open-source MIT plugin with MCP and agent mode. | ~Monthly |

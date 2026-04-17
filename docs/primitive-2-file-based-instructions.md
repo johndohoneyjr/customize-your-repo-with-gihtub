@@ -4,7 +4,7 @@
 
 ---
 
-**Surface availability:** VS Code ✅ · JetBrains ✅ (Preview) · GitHub Copilot CLI ✅ · Visual Studio ❌ · Eclipse ❌ · Cloud Agent ❌
+**Surface availability:** VS Code ✅ · JetBrains ✅ (Preview) · GitHub Copilot CLI ✅ · Visual Studio ✅ · Eclipse ❌ · Cloud Agent ✅
 
 **Ownership:** **Application teams** own file-based instructions for their own code areas. In a monorepo, each package team owns the instructions under its folder; shared rules live in the root.
 
@@ -16,7 +16,7 @@ File-based instructions activate through glob pattern matching via the `applyTo`
 
 **Official docs:** [Custom instructions](https://code.visualstudio.com/docs/copilot/customization/custom-instructions)
 
-**See it in action:** Watch Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q).
+**See it in action:** [How to use agents, skills, and instructions in Copilot CLI | Tutorial for beginners](https://www.youtube.com/watch?v=-yKALFS5ewY&t=139s). The GitHub Copilot CLI for Beginners series shows `.instructions.md` files targeting specific paths with `applyTo`, then contrasts them with the repo-wide instructions file.
 
 **Use Cases:**
 - Different conventions for frontend vs. backend code
@@ -130,7 +130,7 @@ copilot
 
 ### Surfaces That Don't Support File-Based Instructions
 
-Not every surface honors glob-scoped instructions today. On surfaces without native support (notably **Visual Studio**, **Xcode**, **Eclipse**, and **cloud coding agent** runs before matching files are in context), fold area-specific rules into the root `.github/copilot-instructions.md` file instead, or keep the `.instructions.md` files in place so that VS Code, JetBrains, and CLI contributors still benefit. See [Part III: Reference](part-3-reference.md) for the current primitive-by-surface support matrix.
+Not every surface honors glob-scoped instructions today. On surfaces without native support (notably **Xcode**, **Eclipse**, and any workflow where the matching files never enter context), fold area-specific rules into the root `.github/copilot-instructions.md` file instead, or keep the `.instructions.md` files in place so that supported surfaces still benefit. See [Part III: Reference](part-3-reference.md) for the current primitive-by-surface support matrix.
 
 ### Code Review
 

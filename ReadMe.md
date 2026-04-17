@@ -50,7 +50,7 @@ By the end of this guide, you will understand:
 
 **Terminology:** Throughout this guide, *agent* refers to Copilot operating in agentic mode — autonomously planning, executing tool calls, and iterating on results. A *custom agent* is a user-defined persona file that configures Copilot's behavior for a specific role. *Primitives* are the configuration file types that customize Copilot.
 
-**See it in action:** [VS Code Live: Agent Sessions Day](https://www.youtube.com/watch?v=tAezuMSJuFs&t=1152s). Harald Kirschner opens the keynote with a tour of the Copilot agent platform, followed by deep-dives on every primitive covered in this guide.
+**See it in action:** [VS Code Live: Agent Sessions Day - Keynote](https://www.youtube.com/watch?v=2-Q_sdJ5H2c&t=0s) — Harald Kirschner opens the keynote with a tour of the Copilot agent platform, followed by deep-dives on every primitive covered in this guide.
 
 You can start anywhere using the table of contents below, but if you're new to Copilot customization, start with [Part I: Foundations](docs/part-1-foundations.md).
 
@@ -60,7 +60,9 @@ You can start anywhere using the table of contents below, but if you're new to C
 
 GitHub Copilot provides eight customization primitives: configuration files and integrations that shape how Copilot understands your codebase. Each serves a distinct purpose and loads at different points in your workflow:
 
-**See it in action:** [VS Code Live: Agent Sessions Day — Customize Your Agents](https://www.youtube.com/watch?v=tAezuMSJuFs&t=10598s). Courtney Webster demos instructions, prompts, skills, and custom agents end-to-end.
+For the current customization model and per-surface availability, see [Customize AI in Visual Studio Code](https://code.visualstudio.com/docs/copilot/customization/overview) and the [Copilot Feature Matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix).
+
+**See it in action:** [VS Code Live: Customize your agents](https://www.youtube.com/watch?v=flpKLkZla2Q&t=29s) — Courtney Webster demos instructions, prompts, skills, and custom agents end-to-end.
 
 | Primitive | Location | Purpose | Plan availability | Jump to |
 |-----------|----------|---------|-------------------|---------|
@@ -85,6 +87,8 @@ Understanding when and how to use each primitive is the core of this guide. For 
 
 Beyond the primitives, two platform extensions take Copilot beyond the IDE, into CI/CD pipelines and custom applications:
 
+Official docs for these extensions live in [GitHub Agentic Workflows](https://github.github.com/gh-aw/), the [GitHub Copilot SDK](https://github.com/github/copilot-sdk), and [GitHub Copilot code review](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review).
+
 | Extension | Location | Purpose |
 |-----------|----------|---------|
 | [**Agentic Workflows (Preview)**](docs/agentic-workflows.md) | `.github/workflows/*.md` | Continuous AI via coding agents in GitHub Actions |
@@ -102,7 +106,7 @@ These are not configuration primitives. They don't shape what Copilot knows abou
 Start here. Part I has two core chapters plus a dedicated measurement guide:
 
 - [**What Copilot Is**](docs/part-1-foundations.md): the platform, [the surfaces it runs on](docs/part-1-foundations.md#where-github-copilot-runs), [the models](docs/part-1-foundations.md#model-selection), [the plans](docs/part-1-foundations.md#plans), and the [enterprise policy hierarchy](docs/part-1-foundations.md#enterprise-policy-hierarchy).
-- [**Why Customize**](docs/part-1b-why-customize.md): [Copilot without customization](docs/part-1b-why-customize.md#github-copilot-without-customization), [why customize](docs/part-1b-why-customize.md#why-customize), [iteration and fine-tuning](docs/part-1b-why-customize.md#iteration-and-fine-tuning), [rolling out to your team](docs/part-1b-why-customize.md#rolling-out-to-your-team), [scaling beyond one team](docs/part-1b-why-customize.md#scaling-beyond-one-team), and [best practices](docs/part-1b-why-customize.md#best-practices).
+- [**Why Customize**](docs/part-1b-why-customize.md): [Copilot without customization](docs/part-1b-why-customize.md#github-copilot-without-customization), [why customize](docs/part-1b-why-customize.md#why-customize), [operating the customization loop](docs/part-1b-why-customize.md#operating-the-customization-loop), [rolling out to your team](docs/measuring-success.md#rolling-out-to-your-team), [scaling beyond one team](docs/measuring-success.md#scaling-beyond-one-team), and [best practices](docs/part-1b-why-customize.md#best-practices).
 - [**Measuring Success**](docs/measuring-success.md): Goal-Question-Metric, value stream mapping, outward-facing versus inward-facing metrics, toil reduction, and the operating model for proving business impact.
 
 ### [Part II: The Primitives](docs/part-2-primitives.md)
@@ -163,8 +167,8 @@ Common problems and where in the guide to read about them.
 | I want AI to run on my repo continuously: triage issues, review PRs, maintain docs | [Agentic Workflows](docs/agentic-workflows.md) |
 | I want to embed the Copilot agent runtime inside my own product or tool | [Copilot SDK](docs/copilot-sdk.md) |
 | I want Copilot to review pull requests against my team's rules and conventions | [Code Review](docs/code-review.md) |
-| I'm ready to roll this out to my team but don't know where to start | [Rolling Out to Your Team](docs/part-1b-why-customize.md#rolling-out-to-your-team) |
-| I need to scale customization across many teams without forcing uniformity | [Scaling Beyond One Team](docs/part-1b-why-customize.md#scaling-beyond-one-team) |
+| I'm ready to roll this out to my team but don't know where to start | [Rolling Out to Your Team](docs/measuring-success.md#rolling-out-to-your-team) |
+| I need to scale customization across many teams without forcing uniformity | [Scaling Beyond One Team](docs/measuring-success.md#scaling-beyond-one-team) |
 | My leadership wants to know whether Copilot is actually paying off | [Measuring Success](docs/measuring-success.md) |
 
 ---

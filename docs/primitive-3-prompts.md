@@ -12,13 +12,13 @@
 
 Prompt files are reusable task templates a user invokes on demand. When a team finds itself retyping the same paragraph to scaffold a new API route or generate a test file, it saves that paragraph as a `.prompt.md` file and runs it as a slash command.
 
-**Prompt files are a VS Code and Visual Studio feature.** The Copilot CLI and the cloud coding agent do not read `.prompt.md` files. For workflows that must run across surfaces, use a skill instead (see [Prompts vs. Skills](#prompts-vs-skills) below).
+**Prompt files are available in VS Code, in Preview on JetBrains, and in current Visual Studio releases.** The Copilot CLI and the cloud coding agent do not read `.prompt.md` files. For workflows that must run across surfaces, use a skill instead (see [Prompts vs. Skills](#prompts-vs-skills) below).
 
 **Location:** `.github/prompts/*.prompt.md`
 
 **Official docs:** [Prompt files](https://code.visualstudio.com/docs/copilot/customization/prompt-files)
 
-**See it in action:** Courtney Webster walks through prompt files in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q).
+**See it in action:** [Customize your agents](https://www.youtube.com/watch?v=flpKLkZla2Q&t=524s). Courtney Webster walks through prompt files as one-shot slash commands for repeatable workflows like test generation and PR cleanup.
 
 Users invoke prompts by typing `/` in [Copilot Chat](https://code.visualstudio.com/docs/copilot/chat/copilot-chat) and selecting from available options.
 

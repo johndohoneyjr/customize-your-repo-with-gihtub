@@ -8,6 +8,8 @@
 
 GitHub Copilot provides eight customization primitives that shape what Copilot knows and how it thinks. The first six (always-on instructions, file-based instructions, prompts, skills, custom agents, and MCP) handle context and capabilities. The remaining two extend into enforcement and learning: [Hooks](primitive-7-hooks.md) provide runtime enforcement, and [Copilot Memory](primitive-8-memory.md) provides automatic repository-level learning.
 
+**Official docs:** [Customize AI in Visual Studio Code](https://code.visualstudio.com/docs/copilot/customization/overview) · [Add repository custom instructions](https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions) · [Copilot Feature Matrix](https://docs.github.com/en/copilot/reference/copilot-feature-matrix)
+
 Beyond the primitives, two **platform extensions** take Copilot into new environments: [Agentic Workflows](agentic-workflows.md) run coding agents in GitHub Actions, and the [Copilot SDK](copilot-sdk.md) lets teams embed the agent runtime in their own tools. These aren't configuration primitives. They don't shape what Copilot knows about your codebase, but they consume the primitives you've defined. [Copilot code review](code-review.md) is a third cross-cutting feature: it reads your instruction files and surfaces convention violations as PR comments.
 
 These mechanisms work across multiple Copilot surfaces: VS Code, Visual Studio, GitHub.com, and [GitHub Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli) (a terminal-based AI agent). Because the primitives are plain files in your repository, any surface that reads `.github/` customization can consume them regardless of where they were authored. The tables below note each primitive's location, activation, scope, and CLI support.
@@ -16,11 +18,11 @@ These mechanisms work across multiple Copilot surfaces: VS Code, Visual Studio, 
 |-----------|----------|-------------|-------|-------------|
 | [**Always-on Instructions**](primitive-1-always-on-instructions.md) | `.github/copilot-instructions.md` | Every request | Entire session | ✅ |
 | [**File-based Instructions**](primitive-2-file-based-instructions.md) | `.github/instructions/*.instructions.md` | File pattern match | While file in context | ✅ |
-| [**Prompts**](primitive-3-prompts.md) | `.github/prompts/*.prompt.md` | User invokes `/name` | Single task | Multi-surface |
+| [**Prompts**](primitive-3-prompts.md) | `.github/prompts/*.prompt.md` | User invokes `/name` | Single task | — |
 | [**Skills**](primitive-4-skills.md) | `.github/skills/*/SKILL.md` | Description matches intent | Single task | ✅ |
 | [**Custom Agents**](primitive-5-custom-agents.md) | `.github/agents/*.md` | User invokes `@name` | Until switched | ✅ |
 | [**MCP**](primitive-6-mcp.md) | `.vscode/mcp.json` | Session start | Entire session | ✅ |
-| [**Hooks**](primitive-7-hooks.md) | `.github/hooks/*.json` | Agent session events | Coding agent only | ✅ |
+| [**Hooks**](primitive-7-hooks.md) | `.github/hooks/*.json` | Agent session events | Agent sessions on supported surfaces | ✅ |
 | [**Copilot Memory**](primitive-8-memory.md) | Managed by GitHub | Automatic | Repository-wide | ✅ |
 
 **Platform Extensions:**
@@ -155,7 +157,7 @@ When a team is deciding where a new rule belongs, the fastest test is to ask Cop
 
 Individual primitives are table stakes. They matter more in combination. Most production setups use three or more primitives working together, each handling a different layer of the problem.
 
-**See it in action:** For a live demo, watch Burke Holland, Pierce Boggan, and Olivia Guzzardo in [Live Coding with GitHub Copilot Agent Mode](https://www.youtube.com/watch?v=j3jBOV0aaRQ).
+**See it in action:** [Customize your agents](https://www.youtube.com/watch?v=flpKLkZla2Q&t=29s) — Courtney Webster opens with a fast tour of instructions, prompts, skills, custom agents, hooks, and MCP as pieces of the same customization stack.
 
 ### Pattern 1: The Review Pipeline
 
@@ -202,7 +204,7 @@ MCP (PagerDuty + AWS)     → Checks incident status, manages infrastructure
 Hooks (preToolUse)        → Blocks destructive commands, requires approval for production changes
 ```
 
-**See it in action:** For a live demo, watch Pierce Boggan and James Montemagno in [Let it Cook: Agent Steering, Custom Instructions, and MCP](https://www.youtube.com/watch?v=LqEk35xR_GA).
+**See it in action:** [Let it Cook: Agent Steering, Queueing, Hooks, CLI Integration, & more!](https://www.youtube.com/watch?v=FjvtWeG6EEo&t=1969s). Pierce Boggan opens a `.github/hooks/` configuration in VS Code, shows `SessionStart`, `UserPromptSubmit`, `PreToolUse`, and `PostToolUse`, and demonstrates how hooks enforce guardrails outside the model.
 
 The agent provides intent and tool access. The skill packages tribal knowledge. MCP connects to infrastructure. Hooks enforce guardrails *outside* the model's control. Even if the model decides to do something dangerous, the hook blocks it before execution.
 
@@ -341,7 +343,7 @@ Extensions are auto-detected at session start. Use `/extensions reload` to hot-r
 
 For the full reference, see the [CLI plugin reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference).
 
-**See it in action:** For a live demo, watch Alex Weininger in [Copilot CLI in VS Code](https://www.youtube.com/watch?v=_l3UO1oUoec).
+**See it in action:** [How to use agents, skills, and instructions in Copilot CLI](https://www.youtube.com/watch?v=-yKALFS5ewY&t=4s) — the GitHub Copilot CLI for Beginners series walks through CLI-native instructions, skills, and custom agents in a terminal-first workflow.
 
 ---
 

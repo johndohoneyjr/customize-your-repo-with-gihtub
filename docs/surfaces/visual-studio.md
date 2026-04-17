@@ -6,6 +6,8 @@
 
 [GitHub Copilot for Visual Studio](https://marketplace.visualstudio.com/items?itemName=GitHub.copilotvs) is the AI assistant GitHub ships for the Windows-based Visual Studio IDE. It ships as a recommended component in the Visual Studio Installer and is installed by default with every workload. This page covers Copilot inside **Visual Studio 2022 (17.x)** and **Visual Studio 2026 (18.x)** on .NET, C++, and game development projects.
 
+**Official docs:** [Install in Visual Studio](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-extension?tool=visualstudio) · [Customize chat responses and set context](https://learn.microsoft.com/en-us/visualstudio/ide/copilot-chat-context) · [Agent mode](https://learn.microsoft.com/en-us/visualstudio/ide/copilot-agent-mode) · [MCP servers](https://learn.microsoft.com/en-us/visualstudio/ide/mcp-servers)
+
 ## Positioning
 
 Copilot in Visual Studio is a different product from Copilot in VS Code or JetBrains Rider. It is built by the Visual Studio team in partnership with GitHub, and it integrates with tooling that only Visual Studio exposes: the .NET debugger, the profiler, the Windows Forms designer, the C++ toolchain, MSBuild, the Test Explorer, and the Git tooling. Core capabilities (chat, agent mode, MCP, custom instructions, prompt files) are the same customization primitives you find in VS Code, but the surface area, feature cadence, and keyboard map are distinct.
@@ -35,14 +37,13 @@ GitHub publishes the canonical [Copilot feature matrix for Visual Studio](https:
 | File-based instructions (`*.instructions.md`) | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Prompt files | ✗ | ✗ | ✗ | ✗ | ✓ |
 | Custom agents (`.agent.md`) | ✗ | ✗ | ✗ | ✗ | ✓ (Preview) |
-| Agent skills | ✗ | ✗ | ✗ | ✗ | ✓ (18.4.1+) |
+| Agent skills | ✗ | ✗ | ✗ | ✗ | ✗ |
 | Checkpoints | ✓ | ✓ | ✓ | ✓ | ✓ |
 | BYOK | ✗ | ✗ | ✗ | ✗ | ✓ |
 | Workspace indexing | ✗ | ✗ | ✗ | ✗ | ✓ |
 | Next edit suggestions | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Vision (image attachments) | Preview | ✓ | ✓ | ✓ | ✓ |
 | Copilot code review | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Copilot memories | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Cloud coding agent integration | ✗ | ✗ | ✗ | Preview (18.1) | ✓ |
 
 **Edition notes.** Copilot is available across Visual Studio Community, Professional, and Enterprise editions on equal terms; there is no edition gating for Copilot features themselves. Copilot is **not** included in a Visual Studio subscription. It ships as a separate GitHub subscription (Free, Pro, Business, or Enterprise). Enterprise policy features (content exclusions, MCP allowlists, telemetry controls, preview feature toggles) are governed at the GitHub organization level, not the Visual Studio edition level.
@@ -336,7 +337,7 @@ See the examples section below for concrete prompt file templates.
 
 ## Memory
 
-Visual Studio supports [**Copilot memories**](https://docs.github.com/en/copilot/concepts/agents/copilot-memory), repository-scoped memory that observes preferences during chat and can automatically write them into `%USERPROFILE%\copilot-instructions.md` or the repo-level instructions file. Memories are surfaced as references on responses that use them, and users can review, accept, or reject proposed additions before they are persisted. Memory is governed by the same enablement checkboxes as custom instructions.
+Copilot Memory is **not currently used by Visual Studio chat or agent mode**. Per the GitHub Copilot Memory docs, Memory currently applies in the Copilot cloud agent, GitHub Copilot code review on GitHub, and GitHub Copilot CLI. For Visual Studio users, that means Memory can still affect the same repository when work flows through those surfaces, but it is not a Visual Studio-local customization primitive today.
 
 ## Code Review
 
@@ -351,11 +352,11 @@ This table is the **Visual Studio-specific subset**. It breaks support down by p
 | Always-on instructions (`copilot-instructions.md`) | ✓ Supported | ✓ Supported |
 | File-based instructions (`*.instructions.md`) | ✓ Supported | ✓ Supported |
 | Prompt files (`*.prompt.md`) | ✗ Not supported | ✓ Supported |
-| Skills | ✗ Not supported | ✓ Supported (18.4.1+) |
+| Skills | ✗ Not supported | ✗ Not supported |
 | Custom agents (`*.agent.md`) | ✗ Not supported | ✓ Supported (18.4+, Preview) |
 | MCP servers | ✓ Supported | ✓ Supported |
 | Hooks | ✗ Not supported | ✗ Not supported |
-| Memory (Copilot memories) | ✓ Supported | ✓ Supported |
+| Memory | ✗ Not used by Visual Studio chat or agent mode | ✗ Not used by Visual Studio chat or agent mode |
 | Agent plugins (bundled packages) | ✗ Not supported | ✗ Not supported |
 | Agentic workflows (`.github/workflows/*.md`) | Runs on GitHub Actions, independent of the IDE | Runs on GitHub Actions, independent of the IDE |
 
@@ -600,9 +601,9 @@ Copilot features ship as part of Visual Studio servicing updates, not through a 
 | 18.2 | Jan 2026 | NuGet MCP server |
 | 18.3 | Feb 2026 | Enterprise MCP governance |
 | 18.4 | Mar 2026 | Custom agents, `find_symbol` tool |
-| 18.5 | Apr 2026 | Agent skills, cloud agent integration, customizable shortcuts |
+| 18.5 | Apr 2026 | Cloud agent integration, customizable shortcuts |
 
-**Visual Studio 2022** continues to receive monthly servicing updates on the 17.14 branch. Newer Copilot primitives (prompt files, custom agents, agent skills, BYOK, workspace indexing) are not being back-ported to 17.x.
+**Visual Studio 2022** continues to receive monthly servicing updates on the 17.14 branch. Newer Copilot primitives (prompt files, custom agents, BYOK, workspace indexing) are not being back-ported to 17.x.
 
 Track changes at the [Visual Studio 2026 release notes](https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-notes) and the [GitHub Copilot changelog](https://github.blog/changelog/label/copilot/).
 

@@ -4,7 +4,7 @@
 
 ---
 
-**Surface availability:** VS Code ✅ · JetBrains (Preview) · [GitHub Copilot CLI](https://github.com/github/copilot-cli) ✅ · Visual Studio — · Eclipse — · Cloud Agent —
+**Surface availability:** VS Code ✅ · JetBrains (Preview) · [GitHub Copilot CLI](https://github.com/github/copilot-cli) ✅ · Visual Studio — · Eclipse — · Cloud Agent ✅
 
 **Ownership:** Skills that package domain procedures (deploy runbooks, migration steps) are owned by the **team that owns the procedure**. General-purpose skills (code review, test writing) are typically owned by **engineering productivity / DX teams** and distributed via agent plugins.
 
@@ -20,7 +20,7 @@ Unlike prompts (which users invoke explicitly via `/`), skills activate automati
 
 **Official docs:** [Agent skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills)
 
-**See it in action:** For a live demo, watch Courtney Webster in [Customize Your Agents](https://www.youtube.com/watch?v=flpKLkZla2Q).
+**See it in action:** [Customize your agents](https://www.youtube.com/watch?v=flpKLkZla2Q&t=383s) — Courtney Webster opens a `SKILL.md`, explains how skills differ from always-on instructions, and shows how the agent discovers them from their description.
 
 ### Agent Skills
 

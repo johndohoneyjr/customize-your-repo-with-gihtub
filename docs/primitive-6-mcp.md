@@ -16,7 +16,7 @@ MCP (Model Context Protocol) connects Copilot to external tools and live data so
 
 **Official docs:** [MCP servers](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
 
-**See it in action:** For a live demo, watch Connor Peet in [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI). For a real-world MCP integration, watch Reynald Adolphe and Viktor Gamov in [AI-Powered Kafka Development with Confluent + MCP](https://www.youtube.com/watch?v=KRBqLjRjX70).
+**See it in action:** For a live demo, watch Connor Peet in [Extend Agents with MCP](https://www.youtube.com/watch?v=_g29UQjIAeI&t=0s). For a real-world MCP integration, watch Reynald Adolphe and Viktor Gamov in [AI-Powered Kafka Development with Confluent + MCP](https://www.youtube.com/watch?v=KRBqLjRjX70&t=0s).
 
 **Scope:** This section covers how GitHub Copilot *consumes* MCP servers — configuration, tool discovery, and invocation. It does not cover MCP server security, authentication implementation, or building custom MCP servers. For those topics, see the [MCP specification](https://modelcontextprotocol.io).
 
@@ -186,17 +186,8 @@ Copilot performs best with fewer tools available. Each tool's name, description,
 **Only run the MCP servers you actually need:**
 
 - Working on frontend? Disable database MCP servers.
-- Not deploying to Azure this sprint? Turn off Azure MCP.
+- Not deploying to Azure this sprint? Disable the server from VS Code's MCP management UI.
 - Done with a Jira integration? Remove it from config.
-
-```jsonc
-{
-  "servers": {
-    "github": { ... },
-    "azure": { "disabled": true }  // Not deploying to Azure this sprint
-  }
-}
-```
 
 Fewer tools means faster, more accurate tool selection.
 
